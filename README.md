@@ -22,6 +22,16 @@ Multibase is an innovative project that transforms blockchain activity into musi
 - Dynamic song generation based on transaction volumes
 - Audio visualization of blockchain data
 
+## How to run
+
+1. cd multibase && cd indexer
+2. npx squid-graphql-server
+3. CTRL SHFT ` && cd frontend
+4. pnpm install && pnpm dev
+5. open localhost:4350
+6. open localhost:3000
+7. enjoy the music
+
 ## Getting Started
 
 *Coming soon: Installation instructions and usage examples*
