@@ -1,38 +1,49 @@
 # 🎵 Music Generation Tool
 
-A colorful command-line tool that generates music tracks (with or without lyrics) using the APIBox.ai API based on text descriptions.
+A colorful command-line tool that generates music tracks (with or without lyrics) using the APIBox.ai API. This module serves as the final step in the MusicGen pipeline, transforming lyrics into complete musical compositions.
 
 ## ✨ Features
 
 - Generate music with lyrics or instrumental tracks
 - Specify music style and title
-- Include custom lyrics or use the default SpaceX launch lyrics
+- Include custom lyrics from the lyrics generator or use default SpaceX lyrics
 - Live status display with progress animation
 - Download multiple variations of your generated music
 - Resume checking on previously created tasks
+- Works both independently and as part of the MusicGen pipeline
 
 ## 🔧 Prerequisites
 
 - [Deno](https://deno.com/) runtime installed
-- APIBox API key (set as environment variable)
+- APIBox.ai API key
 
-## 🚀 Getting Started
+## 🔑 Environment Setup
 
 Set your API key as an environment variable:
 
 ```bash
-export APIBOX_API_KEY="your_api_key_here"
+export APIBOX_API_KEY="your_apibox_key_here"
 ```
 
 ## 📋 Usage
 
+### Standalone Usage
+
 Basic usage:
 
 ```bash
-deno run -A musicgen/03_createMusic/index.js
+deno run -A index.js
 ```
 
-This will generate a calm piano track by default.
+This will generate a rock song about SpaceX with default lyrics.
+
+### As Part of MusicGen Pipeline
+
+This module is automatically called by the main pipeline script:
+
+```bash
+deno run -A ../../main.js
+```
 
 ### Command Line Options
 
@@ -51,27 +62,27 @@ This will generate a calm piano track by default.
 
 Generate music with the default SpaceX launch lyrics:
 ```bash
-deno run -A musicgen/03_createMusic/index.js
+deno run -A index.js
 ```
 
 Generate instrumental epic battle music:
 ```bash
-deno run -A musicgen/03_createMusic/index.js -p "Epic orchestral battle music with drums and brass" -s "Cinematic" -t "Battle of the Ages" -n
+deno run -A index.js -p "Epic orchestral battle music with drums and brass" -s "Cinematic" -t "Battle of the Ages" -n
 ```
 
 Generate music with custom lyrics:
 ```bash
-deno run -A musicgen/03_createMusic/index.js -p "A country song about space travel" -s "Country" -t "Stars and Rockets" -l "My custom lyrics go here\nSecond line of lyrics"
+deno run -A index.js -p "A country song about space travel" -s "Country" -t "Stars and Rockets" -l "My custom lyrics go here\nSecond line of lyrics"
 ```
 
 Check status of a previous task:
 ```bash
-deno run -A musicgen/03_createMusic/index.js -i a4bc93b000b68ac221efea9e087042b9
+deno run -A index.js -i a4bc93b000b68ac221efea9e087042b9
 ```
 
 ## ⚙️ How It Works
 
-1. The script sends a request to the APIBox.ai API with your prompt, style, and title
+1. The script sends a request to the APIBox.ai API with your prompt, style, and lyrics
 2. It receives a task ID and begins polling for completion status
 3. The generation process goes through several stages:
    - **Initializing**: Setting up the generation task
@@ -81,20 +92,28 @@ deno run -A musicgen/03_createMusic/index.js -i a4bc93b000b68ac221efea9e087042b9
 4. When complete, the script downloads the generated MP3 files (usually 2 variations)
 5. Files are saved with the title name in the current directory
 
+## 🔄 Integration
+
+This module is designed as the final step in a three-part pipeline:
+
+1. **News Fetcher** - Retrieves factual content about SpaceX or other topics
+2. **Lyrics Generator** - Transforms content into lyrics
+3. **Music Creator** (this module) - Generates music with the lyrics
+
 ## 📝 Example Output
 
 ```
 Creating music generation task:
-• Prompt: A rock song about SpaceX's historic launch
+• Prompt: Music about SpaceX based on this news: SpaceX has been busy with several recent and upcoming launches...
 • Style: Rock
-• Title: SpaceX Launch Day
+• Title: SpaceX Launch
 • Model: V3_5
 • Instrumental: No
 • Lyrics: Custom lyrics included
   First few lines:
-  [Verse 1]
-  Countdown to history, December sky
-  SpaceX rockets ready to fly
+  (Verse 1)  
+  Rocket's flame lights up the night,  
+  Breaking through the veil of sky,
   ...
 ✅ Task created successfully! Task ID: a4bc93b000b68ac221efea9e087042b9
 
@@ -108,8 +127,8 @@ This typically takes 1-3 minutes.
 ...
 ✅ Music generation complete!
 Found 2 tracks
-✅ Music saved to ./spacex_launch_day_1.mp3
-✅ Music saved to ./spacex_launch_day_2.mp3
+✅ Music saved to ./spacex_launch_1.mp3
+✅ Music saved to ./spacex_launch_2.mp3
 
 ✨ Music generation complete!
 ```
