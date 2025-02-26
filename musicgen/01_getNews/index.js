@@ -52,6 +52,7 @@ try {
   const responseData = await response.json();
   console.log(colors.green("\nResult:"));
   console.log(responseData.choices[0].message.content);
+  return responseData.choices[0].message.content;
 } catch (err) {
   console.error(colors.red("Error:"), err);
 }

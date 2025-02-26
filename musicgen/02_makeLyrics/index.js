@@ -58,6 +58,7 @@ try {
 
   // Display only the lyrics
   console.log(lyrics);
+  return lyrics;
 
 } catch (err) {
   console.error("ERROR OCCURRED:");
