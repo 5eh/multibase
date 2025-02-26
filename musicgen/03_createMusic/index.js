@@ -3,6 +3,10 @@
  * Creates a music task, checks completion status, and downloads the MP3 file
  */
 
+import * as colors from "jsr:@std/fmt/colors";
+import { parseArgs } from "jsr:@std/cli/parse-args";
+import { join } from "jsr:@std/path";
+
 // Configuration
 const config = {
   apiUrl: 'https://apibox.erweima.ai/api/v1/generate',
@@ -16,51 +20,65 @@ const config = {
 
 // Ensure API key is available
 if (!config.apiKey) {
-  console.error("Error: APIBOX_API_KEY environment variable is not set");
+  console.error(colors.red("Error: APIBOX_API_KEY environment variable is not set"));
   Deno.exit(1);
 }
 
 // Parse command line arguments
-const args = Deno.args;
-const prompt = args.find(arg => arg.startsWith('--prompt='))?.split('=')[1] || 
-               "A calm and relaxing piano track with soft melodies";
-const style = args.find(arg => arg.startsWith('--style='))?.split('=')[1] || "Classical";
-const title = args.find(arg => arg.startsWith('--title='))?.split('=')[1] || "Peaceful Piano Meditation";
-const model = args.find(arg => arg.startsWith('--model='))?.split('=')[1] || "V3_5";
-const taskId = args.find(arg => arg.startsWith('--task-id='))?.split('=')[1];
+const args = parseArgs(Deno.args, {
+  string: ["prompt", "style", "title", "model", "task-id"],
+  boolean: ["help"],
+  alias: {
+    h: "help",
+    p: "prompt",
+    s: "style",
+    t: "title",
+    m: "model",
+    i: "task-id"
+  },
+  default: {
+    prompt: "A calm and relaxing piano track with soft melodies",
+    style: "Classical",
+    title: "Peaceful Piano Meditation",
+    model: "V3_5"
+  }
+});
 
 // Show help if requested
-if (args.includes('--help') || args.includes('-h')) {
-  console.log(`
+if (args.help) {
+  console.log(colors.cyan(`
 Music Generation Tool
 
 Usage:
   deno run -A index.js [options]
 
 Options:
-  --prompt=TEXT     Music description (default: calm piano)
-  --style=TEXT      Music style (default: Classical)
-  --title=TEXT      Music title (default: Peaceful Piano Meditation)
-  --model=TEXT      Model version: V3_5 or V4 (default: V3_5)
-  --task-id=ID      Use existing task ID instead of creating new
-  -h, --help        Show this help message
+  -p, --prompt=TEXT     Music description (default: calm piano)
+  -s, --style=TEXT      Music style (default: Classical)
+  -t, --title=TEXT      Music title (default: Peaceful Piano Meditation)
+  -m, --model=TEXT      Model version: V3_5 or V4 (default: V3_5)
+  -i, --task-id=ID      Use existing task ID instead of creating new
+  -h, --help            Show this help message
 
 Example:
   deno run -A index.js --prompt="Epic space battle music" --style="Cinematic"
-`);
+`));
   Deno.exit(0);
 }
+
+const { prompt, style, title, model } = args;
+const taskId = args["task-id"];
 
 /**
  * Creates a new music generation task
  * @returns {Promise<string>} Task ID
  */
 async function createMusicTask() {
-  console.log("Creating music generation task with:");
-  console.log(`- Prompt: ${prompt}`);
-  console.log(`- Style: ${style}`);
-  console.log(`- Title: ${title}`);
-  console.log(`- Model: ${model}`);
+  console.log(colors.blue("Creating music generation task:"));
+  console.log(colors.dim(`• Prompt: ${colors.white(prompt)}`));
+  console.log(colors.dim(`• Style: ${colors.white(style)}`));
+  console.log(colors.dim(`• Title: ${colors.white(title)}`));
+  console.log(colors.dim(`• Model: ${colors.white(model)}`));
 
   const requestBody = {
     prompt: prompt,
@@ -87,13 +105,13 @@ async function createMusicTask() {
     const result = await response.json();
 
     if (result.code === 200 && result.data?.taskId) {
-      console.log(`✅ Task created successfully! Task ID: ${result.data.taskId}`);
+      console.log(colors.green(`✅ Task created successfully! Task ID: ${colors.white(result.data.taskId)}`));
       return result.data.taskId;
     } else {
       throw new Error(`Error creating task: ${result.msg || JSON.stringify(result)}`);
     }
   } catch (error) {
-    console.error(`❌ Failed to create music task: ${error.message}`);
+    console.error(colors.red(`❌ Failed to create music task: ${error.message}`));
     Deno.exit(1);
   }
 }
@@ -105,7 +123,7 @@ async function createMusicTask() {
  * @param {string} outputPath Local path to save file
  */
 async function downloadFile(url, outputPath) {
-  console.log(`Downloading music from ${url}...`);
+  console.log(colors.dim(`Downloading music...`));
   
   try {
     const response = await fetch(url);
@@ -117,10 +135,10 @@ async function downloadFile(url, outputPath) {
     const fileBytes = new Uint8Array(await response.arrayBuffer());
     await Deno.writeFile(outputPath, fileBytes);
     
-    console.log(`✅ Music saved to ${outputPath}`);
+    console.log(colors.green(`✅ Music saved to ${colors.white(outputPath)}`));
     return true;
   } catch (error) {
-    console.error(`❌ Download failed: ${error.message}`);
+    console.error(colors.red(`❌ Download failed: ${error.message}`));
     return false;
   }
 }
@@ -131,8 +149,8 @@ async function downloadFile(url, outputPath) {
  * @returns {Promise<boolean>} True if music was downloaded, false otherwise
  */
 async function waitForTaskCompletion(taskId) {
-  console.log(`\nWaiting for music generation to complete...`);
-  console.log(`This typically takes 1-3 minutes.`);
+  console.log(colors.blue(`\nWaiting for music generation to complete...`));
+  console.log(colors.dim(`This typically takes 1-3 minutes.`));
   
   const options = {
     method: 'GET',
@@ -145,31 +163,38 @@ async function waitForTaskCompletion(taskId) {
   // Construct the status URL with the task ID as a query parameter
   const statusUrl = `${config.statusUrl}?taskId=${taskId}`;
   
+  // For progress bar
+  let lastStatus = "";
+  let progressChar = "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏".split("");
+  let progressIndex = 0;
+  
   for (let attempt = 1; attempt <= config.maxAttempts; attempt++) {
-    // Show progress indicator
-    Deno.stdout.writeSync(new TextEncoder().encode("."));
+    // Update spinner
+    if (lastStatus) {
+      Deno.stdout.writeSync(new TextEncoder().encode(`\r${colors.cyan(progressChar[progressIndex])} ${lastStatus} ${colors.dim(`(${attempt}/${config.maxAttempts})`)}`));
+      progressIndex = (progressIndex + 1) % progressChar.length;
+    } else {
+      Deno.stdout.writeSync(new TextEncoder().encode(`\r${colors.cyan(progressChar[progressIndex])} ${colors.dim(`Checking status (${attempt}/${config.maxAttempts})`)}`));
+      progressIndex = (progressIndex + 1) % progressChar.length;
+    }
     
     try {
       const response = await fetch(statusUrl, options);
       const result = await response.json();
       
-      // Debug the response if needed
-      // console.log(JSON.stringify(result, null, 2));
-      
       // Check for successful completion
       if (result.code === 200) {
         // Check if the task is complete
         if (result.data && (result.data.status === "complete" || result.data.status === "SUCCESS")) {
-          console.log(`\n\n✅ Music generation complete after ${attempt} attempts!`);
-          
-          // Add debug output to see the full response structure
-          console.log("Response structure:", JSON.stringify(result.data, null, 2));
+          console.log(`\r${colors.green(`✅ Music generation complete!`)}`);
           
           // Use our helper function to find all audio URLs in the response
           const foundUrls = [];
           findAudioUrls(result.data, foundUrls);
           
-          console.log(`Found ${foundUrls.length} audio URLs in the response`);
+          if (foundUrls.length > 0) {
+            console.log(colors.dim(`Found ${foundUrls.length} track${foundUrls.length > 1 ? 's' : ''}`));
+          }
           
           // Extract audio URLs from the response
           let downloadSuccess = false;
@@ -183,7 +208,6 @@ async function waitForTaskCompletion(taskId) {
               const success = await downloadFile(url, fileName);
               if (success) {
                 downloadSuccess = true;
-                console.log(`✅ Track "${title}" saved as ${fileName}`);
               }
             }
           } else {
@@ -197,7 +221,6 @@ async function waitForTaskCompletion(taskId) {
                   const success = await downloadFile(track.audio_url, fileName);
                   if (success) {
                     downloadSuccess = true;
-                    console.log(`✅ Track ${i+1} saved as ${fileName}`);
                   }
                 }
               }
@@ -210,7 +233,6 @@ async function waitForTaskCompletion(taskId) {
                   const success = await downloadFile(track.audio_url, fileName);
                   if (success) {
                     downloadSuccess = true;
-                    console.log(`✅ Track ${i+1} saved as ${fileName}`);
                   }
                 }
               }
@@ -220,7 +242,6 @@ async function waitForTaskCompletion(taskId) {
               const success = await downloadFile(result.data.audio_url, fileName);
               if (success) {
                 downloadSuccess = true;
-                console.log(`✅ Track saved as ${fileName}`);
               }
             }
           }
@@ -228,27 +249,27 @@ async function waitForTaskCompletion(taskId) {
           if (downloadSuccess) {
             return true;
           } else {
-            console.log("❌ No audio URLs found in the response");
+            console.log(colors.red("❌ No audio URLs found in the response"));
             return false;
           }
         } else if (result.data && result.data.status) {
           // Status is available but not complete
-          console.log(`\nStatus: ${result.data.status} (attempt ${attempt})`);
+          lastStatus = `Status: ${result.data.status}`;
         }
       } else if (result.code !== 200) {
-        console.log(`\nAPI returned error code ${result.code}: ${result.msg || "Unknown error"}`);
+        console.log(`\r${colors.red(`❌ API error ${result.code}: ${result.msg || "Unknown error"}`)}`);
       }
     } catch (error) {
-      console.log(`\nError checking status: ${error.message}`);
+      console.log(`\r${colors.red(`❌ Error checking status: ${error.message}`)}`);
     }
     
     // Wait before next polling attempt
     await new Promise(resolve => setTimeout(resolve, config.pollingInterval));
   }
   
-  console.log(`\n\n❌ Timed out waiting for music to be ready.`);
-  console.log(`The task may still be processing. Try running this command later:`);
-  console.log(`deno run -A musicgen/03_createMusic/index.js --task-id=${taskId}`);
+  console.log(`\n${colors.red(`❌ Timed out waiting for music to be ready.`)}`);
+  console.log(colors.yellow(`The task may still be processing. Try running this command later:`));
+  console.log(colors.cyan(`deno run -A musicgen/03_createMusic/index.js --task-id=${taskId}`));
   
   return false;
 }
@@ -310,19 +331,19 @@ async function main() {
     
     // Save to a file for reference
     await Deno.writeTextFile("last_task_id.txt", id);
-    console.log(`Task ID saved to last_task_id.txt`);
+    console.log(colors.dim(`Task ID saved to last_task_id.txt`));
     
     // Wait for task to complete and download music
     const success = await waitForTaskCompletion(id);
     
     if (success) {
-      console.log(`\n✨ Music generation complete! Check the generated_music_*.mp3 files.`);
+      console.log(colors.green(`\n✨ Music generation complete!`));
     } else {
-      console.log(`\nYou can check the status later with:`);
-      console.log(`deno run -A musicgen/03_createMusic/index.js --task-id=${id}`);
+      console.log(colors.yellow(`\nYou can check the status later with:`));
+      console.log(colors.cyan(`deno run -A musicgen/03_createMusic/index.js --task-id=${id}`));
     }
   } catch (error) {
-    console.error(`Error: ${error.message}`);
+    console.error(colors.red(`Error: ${error.message}`));
   }
 }
 
