@@ -254,7 +254,15 @@ async function waitForTaskCompletion(taskId) {
           }
         } else if (result.data && result.data.status) {
           // Status is available but not complete
-          lastStatus = `Status: ${result.data.status}`;
+          const statusMap = {
+            "PENDING": "Initializing...",
+            "TEXT_SUCCESS": "Creating music...",
+            "FIRST_SUCCESS": "Finalizing...",
+            "SUCCESS": "Complete"
+          };
+          
+          const friendlyStatus = statusMap[result.data.status] || result.data.status;
+          lastStatus = `Status: ${friendlyStatus}`;
         }
       } else if (result.code !== 200) {
         console.log(`\r${colors.red(`❌ API error ${result.code}: ${result.msg || "Unknown error"}`)}`);

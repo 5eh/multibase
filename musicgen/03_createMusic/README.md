@@ -67,7 +67,11 @@ deno run -A index.js --task-id=a4bc93b000b68ac221efea9e087042b9
 
 1. The script sends a request to the APIBox.ai API with your prompt, style, and title
 2. It receives a task ID and begins polling for completion
-3. The generation process goes through several stages: PENDING → TEXT_SUCCESS → FIRST_SUCCESS → SUCCESS
+3. The generation process goes through several stages:
+   - Initializing (PENDING): Setting up the generation task
+   - Creating music (TEXT_SUCCESS): Composing the musical structure
+   - Finalizing (FIRST_SUCCESS): Refining and preparing the tracks
+   - Complete (SUCCESS): Music is ready for download
 4. When complete, the script downloads the generated MP3 files
 5. Multiple variations of your request are typically generated
 
