@@ -32,6 +32,14 @@ Multibase is an innovative project that transforms blockchain activity into musi
 6. open localhost:3000
 7. enjoy the music
 
+^^ Revised:
+1. docker compose up -d
+2. npm run build
+3. npx squid-typeorm-migration apply
+4. node -r dotenv/config lib/main.js
+5. npx squid-graphql-server
+
+
 ## Getting Started
 
 *Coming soon: Installation instructions and usage examples*
