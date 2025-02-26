@@ -159,26 +159,77 @@ async function waitForTaskCompletion(taskId) {
       // Check for successful completion
       if (result.code === 200) {
         // Check if the task is complete
-        if (result.data && result.data.status === "complete") {
+        if (result.data && (result.data.status === "complete" || result.data.status === "SUCCESS")) {
           console.log(`\n\n✅ Music generation complete after ${attempt} attempts!`);
           
+          // Add debug output to see the full response structure
+          console.log("Response structure:", JSON.stringify(result.data, null, 2));
+          
+          // Use our helper function to find all audio URLs in the response
+          const foundUrls = [];
+          findAudioUrls(result.data, foundUrls);
+          
+          console.log(`Found ${foundUrls.length} audio URLs in the response`);
+          
           // Extract audio URLs from the response
-          if (result.data.data && Array.isArray(result.data.data)) {
-            let downloadSuccess = false;
-            
-            for (let i = 0; i < result.data.data.length; i++) {
-              const track = result.data.data[i];
-              if (track.audio_url) {
-                const fileName = `${config.outputDir}generated_music_${i+1}.mp3`;
-                const success = await downloadFile(track.audio_url, fileName);
-                if (success) {
-                  downloadSuccess = true;
-                  console.log(`✅ Track ${i+1} saved as ${fileName}`);
-                }
+          let downloadSuccess = false;
+          
+          if (foundUrls.length > 0) {
+            // Download each found URL
+            for (let i = 0; i < foundUrls.length; i++) {
+              const { url, title } = foundUrls[i];
+              const safeTitle = title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+              const fileName = `${config.outputDir}${safeTitle}_${i+1}.mp3`;
+              const success = await downloadFile(url, fileName);
+              if (success) {
+                downloadSuccess = true;
+                console.log(`✅ Track "${title}" saved as ${fileName}`);
               }
             }
-            
-            return downloadSuccess;
+          } else {
+            // Fallback to the original methods if no URLs found with our helper
+            if (result.data.data && Array.isArray(result.data.data)) {
+              // First structure: result.data.data is an array of tracks
+              for (let i = 0; i < result.data.data.length; i++) {
+                const track = result.data.data[i];
+                if (track.audio_url) {
+                  const fileName = `${config.outputDir}generated_music_${i+1}.mp3`;
+                  const success = await downloadFile(track.audio_url, fileName);
+                  if (success) {
+                    downloadSuccess = true;
+                    console.log(`✅ Track ${i+1} saved as ${fileName}`);
+                  }
+                }
+              }
+            } else if (result.data.list && Array.isArray(result.data.list)) {
+              // Second structure: result.data.list is an array of tracks
+              for (let i = 0; i < result.data.list.length; i++) {
+                const track = result.data.list[i];
+                if (track.audio_url) {
+                  const fileName = `${config.outputDir}generated_music_${i+1}.mp3`;
+                  const success = await downloadFile(track.audio_url, fileName);
+                  if (success) {
+                    downloadSuccess = true;
+                    console.log(`✅ Track ${i+1} saved as ${fileName}`);
+                  }
+                }
+              }
+            } else if (result.data.audio_url) {
+              // Third structure: audio_url is directly in result.data
+              const fileName = `${config.outputDir}generated_music.mp3`;
+              const success = await downloadFile(result.data.audio_url, fileName);
+              if (success) {
+                downloadSuccess = true;
+                console.log(`✅ Track saved as ${fileName}`);
+              }
+            }
+          }
+          
+          if (downloadSuccess) {
+            return true;
+          } else {
+            console.log("❌ No audio URLs found in the response");
+            return false;
           }
         } else if (result.data && result.data.status) {
           // Status is available but not complete
@@ -200,6 +251,53 @@ async function waitForTaskCompletion(taskId) {
   console.log(`deno run -A musicgen/03_createMusic/index.js --task-id=${taskId}`);
   
   return false;
+}
+
+/**
+ * Helper function to recursively search for audio URLs in an object
+ * @param {Object} obj The object to search
+ * @param {Array} foundUrls Array to collect found URLs
+ */
+function findAudioUrls(obj, foundUrls = []) {
+  if (!obj || typeof obj !== 'object') return;
+  
+  // Check if this object has an audio_url property
+  if (obj.audio_url && typeof obj.audio_url === 'string') {
+    foundUrls.push({
+      url: obj.audio_url,
+      title: obj.title || 'Unknown'
+    });
+  }
+  
+  // Also check for other common URL property names
+  if (obj.audioUrl && typeof obj.audioUrl === 'string') {
+    foundUrls.push({
+      url: obj.audioUrl,
+      title: obj.title || 'Unknown'
+    });
+  }
+  
+  if (obj.url && typeof obj.url === 'string' && obj.url.endsWith('.mp3')) {
+    foundUrls.push({
+      url: obj.url,
+      title: obj.title || 'Unknown'
+    });
+  }
+  
+  // Recursively search arrays
+  if (Array.isArray(obj)) {
+    for (const item of obj) {
+      findAudioUrls(item, foundUrls);
+    }
+    return;
+  }
+  
+  // Recursively search object properties
+  for (const key in obj) {
+    if (obj[key] && typeof obj[key] === 'object') {
+      findAudioUrls(obj[key], foundUrls);
+    }
+  }
 }
 
 /**
