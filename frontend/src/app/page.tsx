@@ -37,9 +37,6 @@ export default function AudioVisualizer(): JSX.Element {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [file, setFile] = useState<File | null>(null);
-  const [visualStyle, setVisualStyle] = useState<"line" | "arrow" | "fill">(
-    "line",
-  );
 
   // Refs
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -79,13 +76,6 @@ export default function AudioVisualizer(): JSX.Element {
     smoothing: 0.1,
   });
 
-  // Format time in MM:SS format
-  const formatTime = (timeInSeconds: number): string => {
-    const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = Math.floor(timeInSeconds % 60);
-    return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-  };
-
   // Setup audio analyzer
   const setupAudioAnalyzer = (audioUrl: string): void => {
     // Close previous audio context if it exists
@@ -98,7 +88,7 @@ export default function AudioVisualizer(): JSX.Element {
     try {
       // Create new audio context
       const AudioContextClass =
-        window.AudioContext || (window as any).webkitAudioContext;
+        window.AudioContext || (window as AudioContext).webkitAudioContext;
       const audioContext = new AudioContextClass();
       audioContextRef.current = audioContext;
 
