@@ -90,26 +90,20 @@ async function runCommand(cmd, options = {}) {
     console.log(colors.dim(`Running command: ${cmd.join(" ")}`));
   }
   
-  const process = Deno.run({
-    cmd: cmd,
+  const command = new Deno.Command(cmd[0], {
+    args: cmd.slice(1),
     stdout: "piped",
     stderr: "piped",
     ...options
   });
   
-  const [status, stdout, stderr] = await Promise.all([
-    process.status(),
-    process.output(),
-    process.stderrOutput()
-  ]);
-  
-  process.close();
+  const { code, stdout, stderr } = await command.output();
   
   const output = new TextDecoder().decode(stdout);
   const error = new TextDecoder().decode(stderr);
   
-  if (!status.success) {
-    throw new Error(`Command failed with exit code ${status.code}\n${error}`);
+  if (code !== 0) {
+    throw new Error(`Command failed with exit code ${code}\n${error}`);
   }
   
   if (verbose && error) {

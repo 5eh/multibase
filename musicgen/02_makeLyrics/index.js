@@ -58,7 +58,7 @@ try {
 
   // Display only the lyrics
   console.log(lyrics);
-  return lyrics;
+  // Don't return at module level
 
 } catch (err) {
   console.error("ERROR OCCURRED:");
