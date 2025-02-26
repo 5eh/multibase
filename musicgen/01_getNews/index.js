@@ -62,8 +62,10 @@ try {
     options,
   );
   const responseData = await response.json();
+  const content = responseData.choices[0].message.content;
   console.log(colors.green("\nResult:"));
-  console.log(responseData.choices[0].message.content);
+  console.log(content);
+  // Don't return at module level
 } catch (err) {
   console.error(colors.red("Error:"), err);
 }
