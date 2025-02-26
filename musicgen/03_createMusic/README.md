@@ -1,11 +1,12 @@
 # 🎵 Music Generation Tool
 
-A colorful command-line tool that generates instrumental music tracks using the APIBox.ai API based on text descriptions.
+A colorful command-line tool that generates music tracks (with or without lyrics) using the APIBox.ai API based on text descriptions.
 
 ## ✨ Features
 
-- Generate instrumental music from text descriptions
+- Generate music with lyrics or instrumental tracks
 - Specify music style and title
+- Include custom lyrics or use the default SpaceX launch lyrics
 - Live status display with progress animation
 - Download multiple variations of your generated music
 - Resume checking on previously created tasks
@@ -42,18 +43,25 @@ This will generate a calm piano track by default.
 | `-t, --title` | Music title |
 | `-m, --model` | Model version (V3_5 or V4) |
 | `-i, --task-id` | Use existing task ID |
+| `-l, --lyrics` | Custom lyrics (default: SpaceX launch lyrics) |
+| `-n, --instrumental` | Generate instrumental music without lyrics |
 | `-h, --help` | Show help message |
 
 ### Examples
 
-Generate epic battle music:
+Generate music with the default SpaceX launch lyrics:
 ```bash
-deno run -A musicgen/03_createMusic/index.js -p "Epic orchestral battle music with drums and brass" -s "Cinematic" -t "Battle of the Ages"
+deno run -A musicgen/03_createMusic/index.js
 ```
 
-Generate electronic dance music:
+Generate instrumental epic battle music:
 ```bash
-deno run -A musicgen/03_createMusic/index.js -p "Upbeat electronic dance music with a strong beat" -s "EDM" -t "Dance Floor Energy"
+deno run -A musicgen/03_createMusic/index.js -p "Epic orchestral battle music with drums and brass" -s "Cinematic" -t "Battle of the Ages" -n
+```
+
+Generate music with custom lyrics:
+```bash
+deno run -A musicgen/03_createMusic/index.js -p "A country song about space travel" -s "Country" -t "Stars and Rockets" -l "My custom lyrics go here\nSecond line of lyrics"
 ```
 
 Check status of a previous task:
@@ -77,10 +85,17 @@ deno run -A musicgen/03_createMusic/index.js -i a4bc93b000b68ac221efea9e087042b9
 
 ```
 Creating music generation task:
-• Prompt: A calm and relaxing piano track with soft melodies
-• Style: Classical
-• Title: Peaceful Piano Meditation
+• Prompt: A rock song about SpaceX's historic launch
+• Style: Rock
+• Title: SpaceX Launch Day
 • Model: V3_5
+• Instrumental: No
+• Lyrics: Custom lyrics included
+  First few lines:
+  [Verse 1]
+  Countdown to history, December sky
+  SpaceX rockets ready to fly
+  ...
 ✅ Task created successfully! Task ID: a4bc93b000b68ac221efea9e087042b9
 
 Waiting for music generation to complete...
@@ -93,8 +108,8 @@ This typically takes 1-3 minutes.
 ...
 ✅ Music generation complete!
 Found 2 tracks
-✅ Music saved to ./peaceful_piano_meditation_1.mp3
-✅ Music saved to ./peaceful_piano_meditation_2.mp3
+✅ Music saved to ./spacex_launch_day_1.mp3
+✅ Music saved to ./spacex_launch_day_2.mp3
 
 ✨ Music generation complete!
 ```

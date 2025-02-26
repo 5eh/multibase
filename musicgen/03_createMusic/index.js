@@ -11,12 +11,44 @@ import { join } from "jsr:@std/path";
 const config = {
   apiUrl: 'https://apibox.erweima.ai/api/v1/generate',
   statusUrl: 'https://apibox.erweima.ai/api/v1/generate/record-info',
+  lyricsUrl: 'https://apibox.erweima.ai/api/v1/lyrics',
   apiKey: Deno.env.get("APIBOX_API_KEY"),
   callbackUrl: "https://api.example.com/callback", // Required by API but not used
   outputDir: "./",
   pollingInterval: 10000, // 10 seconds
   maxAttempts: 60         // 10 minutes total polling time
 };
+
+// Default SpaceX lyrics about the launch on December 3, 2024
+const defaultLyrics = `[Verse 1]
+Countdown to history, December sky
+SpaceX rockets ready to fly
+Metal and fire, dreams taking flight
+Breaking barriers, reaching new heights
+
+[Chorus]
+December third, twenty-twenty-four
+Humanity's reaching for something more
+Stars are calling, we're answering back
+SpaceX leading the way on this cosmic track
+
+[Verse 2]
+Engineers and dreamers working as one
+Building the future under the sun
+From Boca Chica to orbit above
+A testament to what humans can love
+
+[Bridge]
+The impossible becomes possible today
+New frontiers just a rocket away
+The stars our destination, the moon just a start
+SpaceX mission embedded in our heart
+
+[Outro]
+December third, mark the date
+SpaceX launch, we can't wait
+History written in the stars tonight
+As we witness this magnificent flight`;
 
 // Ensure API key is available
 if (!config.apiKey) {
@@ -26,21 +58,24 @@ if (!config.apiKey) {
 
 // Parse command line arguments
 const args = parseArgs(Deno.args, {
-  string: ["prompt", "style", "title", "model", "task-id"],
-  boolean: ["help"],
+  string: ["prompt", "style", "title", "model", "task-id", "lyrics"],
+  boolean: ["help", "instrumental"],
   alias: {
     h: "help",
     p: "prompt",
     s: "style",
     t: "title",
     m: "model",
-    i: "task-id"
+    i: "task-id",
+    l: "lyrics",
+    n: "instrumental"
   },
   default: {
-    prompt: "A calm and relaxing piano track with soft melodies",
-    style: "Classical",
-    title: "Peaceful Piano Meditation",
-    model: "V3_5"
+    prompt: "A rock song about SpaceX's historic launch",
+    style: "Rock",
+    title: "SpaceX Launch Day",
+    model: "V3_5",
+    instrumental: false
   }
 });
 
@@ -53,20 +88,23 @@ Usage:
   deno run -A index.js [options]
 
 Options:
-  -p, --prompt=TEXT     Music description (default: calm piano)
-  -s, --style=TEXT      Music style (default: Classical)
-  -t, --title=TEXT      Music title (default: Peaceful Piano Meditation)
+  -p, --prompt=TEXT     Music description (default: SpaceX launch song)
+  -s, --style=TEXT      Music style (default: Rock)
+  -t, --title=TEXT      Music title (default: SpaceX Launch Day)
   -m, --model=TEXT      Model version: V3_5 or V4 (default: V3_5)
   -i, --task-id=ID      Use existing task ID instead of creating new
+  -l, --lyrics=TEXT     Custom lyrics (default: SpaceX launch lyrics)
+  -n, --instrumental    Generate instrumental music without lyrics (default: false)
   -h, --help            Show this help message
 
 Example:
-  deno run -A index.js --prompt="Epic space battle music" --style="Cinematic"
+  deno run -A index.js --prompt="Epic space battle music" --style="Cinematic" --instrumental
 `));
   Deno.exit(0);
 }
 
-const { prompt, style, title, model } = args;
+const { prompt, style, title, model, instrumental } = args;
+const customLyrics = args.lyrics || defaultLyrics;
 const taskId = args["task-id"];
 
 /**
@@ -79,13 +117,22 @@ async function createMusicTask() {
   console.log(colors.dim(`• Style: ${colors.white(style)}`));
   console.log(colors.dim(`• Title: ${colors.white(title)}`));
   console.log(colors.dim(`• Model: ${colors.white(model)}`));
+  console.log(colors.dim(`• Instrumental: ${colors.white(instrumental ? "Yes" : "No")}`));
+  
+  if (!instrumental) {
+    console.log(colors.dim(`• Lyrics: ${colors.white("Custom lyrics included")}`));
+    console.log(colors.dim(colors.gray("First few lines:")));
+    const previewLines = customLyrics.split('\n').slice(0, 3);
+    previewLines.forEach(line => console.log(colors.dim(colors.gray(`  ${line}`))));
+    console.log(colors.dim(colors.gray("  ...")));
+  }
 
   const requestBody = {
-    prompt: prompt,
+    prompt: instrumental ? prompt : `${prompt}\n\n${customLyrics}`,
     style: style,
     title: title,
     customMode: true,
-    instrumental: true,
+    instrumental: instrumental,
     model: model,
     callBackUrl: config.callbackUrl
   };
