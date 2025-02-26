@@ -9,7 +9,7 @@
 
 import * as colors from "jsr:@std/fmt/colors";
 import { join } from "jsr:@std/path";
-import { Command } from "jsr:@std/cli/command";
+import { parseArgs } from "jsr:@std/cli/parse-args";
 
 // Check for required API keys
 const PERPLEXITY_API_KEY = Deno.env.get("PERPLEXITY_API_KEY");
@@ -29,17 +29,49 @@ if (missingKeys.length > 0) {
 }
 
 // Parse command line arguments
-const cli = new Command()
-  .name("musicgen")
-  .description("Generate music based on SpaceX news")
-  .option("-q, --query <query:string>", "News search query", { default: "latest SpaceX launch news" })
-  .option("-s, --style <style:string>", "Music style", { default: "Rock" })
-  .option("-t, --title <title:string>", "Music title", { default: "SpaceX Launch" })
-  .option("-m, --model <model:string>", "Music model (V3_5 or V4)", { default: "V3_5" })
-  .option("-i, --instrumental", "Generate instrumental music without lyrics")
-  .option("-v, --verbose", "Show detailed output");
+const args = parseArgs(Deno.args, {
+  string: ["query", "style", "title", "model"],
+  boolean: ["instrumental", "verbose"],
+  alias: {
+    q: "query",
+    s: "style",
+    t: "title",
+    m: "model",
+    i: "instrumental",
+    v: "verbose"
+  },
+  default: {
+    query: "latest SpaceX launch news",
+    style: "Rock",
+    title: "SpaceX Launch",
+    model: "V3_5",
+    instrumental: false,
+    verbose: false
+  }
+});
 
-const args = cli.parse(Deno.args);
+// Display help message if requested
+if (args.help) {
+  console.log(colors.cyan(`
+MusicGen Pipeline
+
+Usage:
+  deno run -A main.js [options]
+
+Options:
+  -q, --query=TEXT       News search query (default: latest SpaceX launch news)
+  -s, --style=TEXT       Music style (default: Rock)
+  -t, --title=TEXT       Music title (default: SpaceX Launch)
+  -m, --model=TEXT       Music model: V3_5 or V4 (default: V3_5)
+  -i, --instrumental     Generate instrumental music without lyrics
+  -v, --verbose          Show detailed output
+  -h, --help             Show this help message
+
+Example:
+  deno run -A main.js --query="SpaceX Starship launch" --style="Electronic"
+`));
+  Deno.exit(0);
+}
 
 // Set up paths to the individual scripts
 const getNewsScript = join(Deno.cwd(), "musicgen", "01_getNews", "index.js");
