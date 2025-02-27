@@ -12,7 +12,10 @@
     {
       "month": "November",
       "year": 2019,
-      "count": 918
+      "count": 918,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "December",
@@ -82,7 +85,10 @@
     {
       "month": "January",
       "year": 2021,
-      "count": 27734
+      "count": 27734,
+      "musicStyle": "Pop",
+      "musicDescription": "Catchy pop music",
+      "bpm": 115
     },
     {
       "month": "February",
@@ -312,7 +318,10 @@
     {
       "month": "November",
       "year": 2024,
-      "count": 4347886
+      "count": 4347886,
+      "musicStyle": "Speedcore",
+      "musicDescription": "Extremely fast electronic music",
+      "bpm": 290
     },
     {
       "month": "December",

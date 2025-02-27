@@ -177,6 +177,54 @@ async function main() {
     
     console.log(colors.dim(`Selected month: ${selectedMonth.month} ${selectedMonth.year}`));
     console.log(colors.dim(`Transaction count: ${selectedMonth.count}`));
+    
+    // Check if musicStyle and bpm are defined
+    if (!selectedMonth.musicStyle || !selectedMonth.bpm) {
+      // Calculate music style based on transaction count
+      const maxCount = analysisData.highestMonth.count;
+      const minCount = analysisData.lowestMonth.count;
+      const countRange = maxCount - minCount;
+      
+      // Define music styles if not in the data
+      const MUSIC_STYLES = [
+        { name: "Ambient", description: "Slow, atmospheric ambient music", minBpm: 60, maxBpm: 80 },
+        { name: "Chillout", description: "Relaxed electronic music", minBpm: 80, maxBpm: 100 },
+        { name: "Downtempo", description: "Mellow electronic beats", minBpm: 90, maxBpm: 110 },
+        { name: "Trip Hop", description: "Moody, atmospheric beats", minBpm: 90, maxBpm: 110 },
+        { name: "Lo-Fi", description: "Relaxed beats with vinyl crackle", minBpm: 70, maxBpm: 90 },
+        { name: "Jazz", description: "Smooth jazz with piano", minBpm: 80, maxBpm: 120 },
+        { name: "Folk", description: "Acoustic folk music", minBpm: 90, maxBpm: 120 },
+        { name: "Pop", description: "Catchy pop music", minBpm: 100, maxBpm: 130 },
+        { name: "Indie Rock", description: "Alternative rock with indie vibes", minBpm: 110, maxBpm: 140 },
+        { name: "Rock", description: "Energetic rock music", minBpm: 120, maxBpm: 150 },
+        { name: "Dance", description: "Upbeat dance music", minBpm: 120, maxBpm: 140 },
+        { name: "House", description: "Electronic house music", minBpm: 120, maxBpm: 130 },
+        { name: "Techno", description: "Driving electronic beats", minBpm: 120, maxBpm: 150 },
+        { name: "Drum and Bass", description: "Fast-paced electronic music", minBpm: 160, maxBpm: 180 },
+        { name: "Hardstyle", description: "Hard-hitting electronic music", minBpm: 150, maxBpm: 160 },
+        { name: "Speedcore", description: "Extremely fast electronic music", minBpm: 180, maxBpm: 300 }
+      ];
+      
+      // Calculate normalized count (0 to 1)
+      const normalizedCount = (selectedMonth.count - minCount) / countRange;
+      
+      // Select style based on normalized count
+      const styleIndex = Math.min(
+        Math.floor(normalizedCount * MUSIC_STYLES.length), 
+        MUSIC_STYLES.length - 1
+      );
+      const style = MUSIC_STYLES[styleIndex];
+      
+      // Calculate BPM
+      const bpmRange = style.maxBpm - style.minBpm;
+      const bpm = Math.round(style.minBpm + (normalizedCount * bpmRange));
+      
+      // Update the selectedMonth object
+      selectedMonth.musicStyle = style.name;
+      selectedMonth.musicDescription = style.description;
+      selectedMonth.bpm = bpm;
+    }
+    
     console.log(colors.dim(`Music style: ${selectedMonth.musicStyle} (${selectedMonth.bpm} BPM)`));
     
     // Set title if not provided
@@ -230,9 +278,13 @@ async function main() {
       "--prompt", `Music about Kusama blockchain in ${selectedMonth.month} ${selectedMonth.year}`,
       "--style", selectedMonth.musicStyle,
       "--title", title,
-      "--model", args.model,
-      "--bpm", selectedMonth.bpm.toString()
+      "--model", args.model
     ];
+    
+    // Only add BPM if it's defined
+    if (selectedMonth.bpm) {
+      musicArgs.push("--bpm", selectedMonth.bpm.toString());
+    }
     
     if (args.instrumental) {
       musicArgs.push("--instrumental");
