@@ -23,5 +23,19 @@
     "@subsquid/typeorm-codegen": "^2.0.1",
     "@types/node": "^20.14.8",
     "typescript": "^5.5.2"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "@apollo/protobufjs",
+      "bufferutil",
+      "es5-ext",
+      "utf-8-validate"
+    ],
+    "onlyBuiltDependencies": [
+      "@apollo/protobufjs",
+      "bufferutil",
+      "es5-ext",
+      "utf-8-validate"
+    ]
   }
 }
