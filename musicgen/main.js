@@ -85,6 +85,7 @@ if ((args.month && !args.year) || (!args.month && args.year)) {
 const analysisScript = join(Deno.cwd(), "musicgen", "00_analysis", "index.js");
 const analysisOutputDir = join(Deno.cwd(), "musicgen", "00_analysis", "output");
 const analysisJsonPath = join(analysisOutputDir, "analysis.json");
+const typstReportAnalysisPath = join(Deno.cwd(), "musicgen", "00_analysis", "typst_report", "analysis.json");
 const getNewsScript = join(Deno.cwd(), "musicgen", "01_getNews", "index.js");
 const makeLyricsScript = join(Deno.cwd(), "musicgen", "02_makeLyrics", "index.js");
 const createMusicScript = join(Deno.cwd(), "musicgen", "03_createMusic", "index.js");
@@ -149,7 +150,16 @@ async function main() {
     
     // Load the analysis data
     try {
-      const analysisJson = await Deno.readTextFile(analysisJsonPath);
+      // First try to load from typst_report folder
+      let analysisJson;
+      if (await exists(typstReportAnalysisPath)) {
+        console.log(colors.dim("Using analysis data from typst_report folder"));
+        analysisJson = await Deno.readTextFile(typstReportAnalysisPath);
+      } else {
+        // Fall back to the output folder
+        console.log(colors.dim("Using analysis data from output folder"));
+        analysisJson = await Deno.readTextFile(analysisJsonPath);
+      }
       analysisData = JSON.parse(analysisJson);
     } catch (error) {
       console.error(colors.red(`Error reading analysis data: ${error.message}`));
