@@ -1,5 +1,6 @@
 import { parseArgs } from "jsr:@std/cli/parse-args";
 import * as colors from "jsr:@std/fmt/colors";
+import { ensureDir } from "jsr:@std/fs/ensure-dir";
 
 const PERPLEXITY_API_KEY = Deno.env.get("PERPLEXITY_API_KEY");
 if (!PERPLEXITY_API_KEY) {
@@ -80,7 +81,30 @@ try {
   const content = responseData.choices[0].message.content;
   console.log(colors.green("\nResult:"));
   console.log(content);
-  // Don't return at module level
+  
+  // Create output directory and save to markdown file
+  await ensureDir("./output");
+  
+  // Create filename based on query
+  let filename;
+  if (args.month && args.year) {
+    filename = `kusama-news-${args.month.toLowerCase()}-${args.year}.md`;
+  } else {
+    filename = `query-results-${new Date().toISOString().split('T')[0]}.md`;
+  }
+  
+  // Create title for the markdown file
+  let title;
+  if (args.month && args.year) {
+    title = `# Kusama News - ${args.month} ${args.year}\n\n`;
+  } else {
+    title = `# Search Results: ${userQuery}\n\n`;
+  }
+  
+  // Write the content to the file
+  await Deno.writeTextFile(`./output/${filename}`, title + content);
+  console.log(colors.green(`\nOutput saved to output/${filename}`));
+  
 } catch (err) {
   console.error(colors.red("Error:"), err);
 }
