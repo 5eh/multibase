@@ -14,7 +14,7 @@ const config = {
   lyricsUrl: 'https://apibox.erweima.ai/api/v1/lyrics',
   apiKey: Deno.env.get("APIBOX_API_KEY"),
   callbackUrl: "https://api.example.com/callback", // Required by API but not used
-  outputDir: "./",
+  outputDir: "./output/",
   pollingInterval: 10000, // 10 seconds
   maxAttempts: 60         // 10 minutes total polling time
 };
@@ -184,10 +184,29 @@ async function downloadFile(url, outputPath) {
       throw new Error(`Download failed with status: ${response.status}`);
     }
     
-    const fileBytes = new Uint8Array(await response.arrayBuffer());
-    await Deno.writeFile(outputPath, fileBytes);
+    // Ensure output directory exists
+    try {
+      await Deno.mkdir(config.outputDir, { recursive: true });
+    } catch (err) {
+      if (!(err instanceof Deno.errors.AlreadyExists)) {
+        throw err;
+      }
+    }
     
-    console.log(colors.green(`✅ Music saved to ${colors.white(outputPath)}`));
+    // Check if we're using the output folder outside of the module
+    let finalOutputPath = outputPath;
+    
+    // If this is being called from the main.js script, adjust the path to be in the root output directory
+    if (Deno.cwd().endsWith("musicgen") && !outputPath.includes("03_createMusic")) {
+      // Extract just the filename from the path
+      const fileName = outputPath.split("/").pop();
+      finalOutputPath = `./output/${fileName}`;
+    }
+    
+    const fileBytes = new Uint8Array(await response.arrayBuffer());
+    await Deno.writeFile(finalOutputPath, fileBytes);
+    
+    console.log(colors.green(`✅ Music saved to ${colors.white(finalOutputPath)}`));
     return true;
   } catch (error) {
     console.error(colors.red(`❌ Download failed: ${error.message}`));
@@ -252,45 +271,64 @@ async function waitForTaskCompletion(taskId) {
           let downloadSuccess = false;
           
           if (foundUrls.length > 0) {
-            // Download each found URL
-            for (let i = 0; i < foundUrls.length; i++) {
-              const { url, title } = foundUrls[i];
+            // Download only the first URL
+            const { url, title } = foundUrls[0];
+            
+            // Extract month and year from title if available, or generate a safe filename
+            let fileName;
+            
+            // Try to match "Kusama January 2021" pattern in title
+            const titleMatch = title.match(/kusama\s+([a-z]+)\s+(\d{4})/i);
+            if (titleMatch) {
+              const [, month, year] = titleMatch;
+              fileName = `${config.outputDir}kusama_${month.toLowerCase()}_${year}_music.mp3`;
+            } else {
+              // Fallback to the safe title if no match
               const safeTitle = title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-              const fileName = `${config.outputDir}${safeTitle}_${i+1}.mp3`;
-              const success = await downloadFile(url, fileName);
-              if (success) {
-                downloadSuccess = true;
-              }
+              fileName = `${config.outputDir}${safeTitle}.mp3`;
+            }
+            
+            const success = await downloadFile(url, fileName);
+            if (success) {
+              downloadSuccess = true;
+              console.log(colors.dim(`Note: Found ${foundUrls.length} tracks, but only downloading the first one`));
             }
           } else {
             // Fallback to the original methods if no URLs found with our helper
-            if (result.data.data && Array.isArray(result.data.data)) {
-              // First structure: result.data.data is an array of tracks
-              for (let i = 0; i < result.data.data.length; i++) {
-                const track = result.data.data[i];
-                if (track.audio_url) {
-                  const fileName = `${config.outputDir}generated_music_${i+1}.mp3`;
-                  const success = await downloadFile(track.audio_url, fileName);
-                  if (success) {
-                    downloadSuccess = true;
-                  }
+            if (result.data.data && Array.isArray(result.data.data) && result.data.data.length > 0) {
+              // First structure: result.data.data is an array of tracks - only use the first one
+              const track = result.data.data[0];
+              if (track.audio_url) {
+                // Use a standard format with current date if title doesn't follow our pattern
+                const currentDate = new Date();
+                const month = currentDate.toLocaleString('en-US', { month: 'long' });
+                const year = currentDate.getFullYear();
+                const fileName = `${config.outputDir}kusama_${month.toLowerCase()}_${year}_music.mp3`;
+                const success = await downloadFile(track.audio_url, fileName);
+                if (success) {
+                  downloadSuccess = true;
                 }
               }
-            } else if (result.data.list && Array.isArray(result.data.list)) {
-              // Second structure: result.data.list is an array of tracks
-              for (let i = 0; i < result.data.list.length; i++) {
-                const track = result.data.list[i];
-                if (track.audio_url) {
-                  const fileName = `${config.outputDir}generated_music_${i+1}.mp3`;
-                  const success = await downloadFile(track.audio_url, fileName);
-                  if (success) {
-                    downloadSuccess = true;
-                  }
+            } else if (result.data.list && Array.isArray(result.data.list) && result.data.list.length > 0) {
+              // Second structure: result.data.list is an array of tracks - only use the first one
+              const track = result.data.list[0];
+              if (track.audio_url) {
+                // Use a standard format with current date if title doesn't follow our pattern
+                const currentDate = new Date();
+                const month = currentDate.toLocaleString('en-US', { month: 'long' });
+                const year = currentDate.getFullYear();
+                const fileName = `${config.outputDir}kusama_${month.toLowerCase()}_${year}_music.mp3`;
+                const success = await downloadFile(track.audio_url, fileName);
+                if (success) {
+                  downloadSuccess = true;
                 }
               }
             } else if (result.data.audio_url) {
               // Third structure: audio_url is directly in result.data
-              const fileName = `${config.outputDir}generated_music.mp3`;
+              const currentDate = new Date();
+              const month = currentDate.toLocaleString('en-US', { month: 'long' });
+              const year = currentDate.getFullYear();
+              const fileName = `${config.outputDir}kusama_${month.toLowerCase()}_${year}_music.mp3`;
               const success = await downloadFile(result.data.audio_url, fileName);
               if (success) {
                 downloadSuccess = true;
@@ -388,6 +426,15 @@ async function main() {
   try {
     // Get task ID (either from command line or by creating a new task)
     const id = taskId || await createMusicTask();
+    
+    // Ensure output directory exists
+    try {
+      await Deno.mkdir("./output", { recursive: true });
+    } catch (err) {
+      if (!(err instanceof Deno.errors.AlreadyExists)) {
+        throw err;
+      }
+    }
     
     // Save to a file for reference
     await Deno.writeTextFile("last_task_id.txt", id);

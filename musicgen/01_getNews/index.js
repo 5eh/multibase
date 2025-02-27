@@ -42,7 +42,21 @@ const systemPrompt = args.month && args.year
      Include specific dates, transaction volumes, governance proposals, 
      parachain auctions, and other relevant information from that time period.
      Format as a proper news article with headline, date, and structured paragraphs.
-     Be factual and precise.`
+     Be factual and precise.
+     
+     IMPORTANT: You must cite sources for facts and statements using numbered footnotes like [1], [2], etc. in the text.
+     Include at least 5-7 different sources throughout the article for credibility.
+     
+     At the end of the article, include a "## References" section with a numbered list of all cited sources.
+     Each reference must include:
+     - Title of the article/source
+     - Author/publisher
+     - Date published (if available)
+     - URL (if available)
+     - Brief description of the content
+     
+     Example of a good reference:
+     [1] "Kusama Network Launch", Web3 Foundation Blog, October 2019, https://web3.foundation/news/kusama-network-launch - Announcement of the Kusama network launch with technical details.`
   : "Be precise and concise.";
 
 const options = {
@@ -57,7 +71,7 @@ const options = {
       { role: "system", content: systemPrompt },
       { role: "user", content: userQuery },
     ],
-    max_tokens: 1500,
+    max_tokens: 2000,
     temperature: 0.2,
     top_p: 0.9,
     search_domain_filter: null,
@@ -82,15 +96,27 @@ try {
   console.log(colors.green("\nResult:"));
   console.log(content);
   
-  // Create output directory and save to markdown file
-  await ensureDir("./output");
+  // Determine if we're running from the module directory or from the musicgen root
+  const isRunningFromRoot = Deno.cwd().endsWith("musicgen") && !Deno.cwd().endsWith("01_getNews");
+  
+  // Set output directory based on where we're running from
+  let outputDir = "./output";
+  if (isRunningFromRoot) {
+    // If running from musicgen root, use the root output directory
+    await ensureDir("./output");
+    // Also ensure module output directory exists
+    await ensureDir("./01_getNews/output");
+  } else {
+    // If running from module directory, use the module's output directory
+    await ensureDir(outputDir);
+  }
   
   // Create filename based on query
   let filename;
   if (args.month && args.year) {
-    filename = `kusama-news-${args.month.toLowerCase()}-${args.year}.md`;
+    filename = `kusama_${args.month.toLowerCase()}_${args.year}_news.md`;
   } else {
-    filename = `query-results-${new Date().toISOString().split('T')[0]}.md`;
+    filename = `query_results_${new Date().toISOString().split('T')[0]}.md`;
   }
   
   // Create title for the markdown file
@@ -101,9 +127,14 @@ try {
     title = `# Search Results: ${userQuery}\n\n`;
   }
   
+  // Determine the final output path
+  const finalOutputPath = isRunningFromRoot 
+    ? `./output/${filename}`  // Save to root output when run from root
+    : `${outputDir}/${filename}`;  // Save to module output when run from module
+  
   // Write the content to the file
-  await Deno.writeTextFile(`./output/${filename}`, title + content);
-  console.log(colors.green(`\nOutput saved to output/${filename}`));
+  await Deno.writeTextFile(finalOutputPath, title + content);
+  console.log(colors.green(`\nOutput saved to ${finalOutputPath}`));
   
 } catch (err) {
   console.error(colors.red("Error:"), err);

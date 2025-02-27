@@ -31,7 +31,11 @@ const args = parseArgs(Deno.args, {
   alias: { o: "output" },
 });
 
-const outputDir = args.output;
+// Determine if we're running from the module directory or from the musicgen root
+const isRunningFromRoot = Deno.cwd().endsWith("musicgen") && !Deno.cwd().endsWith("00_analysis");
+
+// Set output directory based on where we're running from
+let outputDir = args.output;
 
 async function runAnalysis() {
   console.log(colors.blue("Analyzing transaction data..."));
@@ -176,7 +180,21 @@ This analysis provides insights into the distribution of Kusama blockchain trans
     const jsonPath = join(outputDir, 'analysis.json');
 
     // Create Typst data file
-    const typstDir = join(outputDir, '..', 'typst_report');
+    let typstDir;
+    if (isRunningFromRoot) {
+      // If running from musicgen root
+      typstDir = join(Deno.cwd(), '00_analysis', 'typst_report');
+      
+      // Also ensure the root output directory exists
+      await ensureDir('./output');
+      
+      // Copy the analysis.json to the root output directory
+      await Deno.writeTextFile('./output/analysis.json', JSON.stringify(result, null, 2));
+    } else {
+      // If running from module directory
+      typstDir = join(Deno.cwd(), 'typst_report');
+    }
+    
     await ensureDir(typstDir);
     const typstPath = join(typstDir, 'data.typ');
 

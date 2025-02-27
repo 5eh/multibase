@@ -6,6 +6,7 @@
  * 2. Get news about Kusama for a specific month using 01_getNews
  * 3. Generate lyrics based on the news using 02_makeLyrics
  * 4. Create music with the lyrics using 03_createMusic, with style based on transaction volume
+ * 5. Generate a thumbnail image for the track using 04_createThumbnail
  */
 
 import * as colors from "jsr:@std/fmt/colors";
@@ -17,12 +18,14 @@ import { exists } from "jsr:@std/fs/exists";
 const PERPLEXITY_API_KEY = Deno.env.get("PERPLEXITY_API_KEY");
 const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
 const APIBOX_API_KEY = Deno.env.get("APIBOX_API_KEY");
+const BFL_API_KEY = Deno.env.get("BFL_API_KEY");
 
 // Validate API keys
 const missingKeys = [];
 if (!PERPLEXITY_API_KEY) missingKeys.push("PERPLEXITY_API_KEY");
 if (!OPENAI_API_KEY) missingKeys.push("OPENAI_API_KEY");
 if (!APIBOX_API_KEY) missingKeys.push("APIBOX_API_KEY");
+if (!BFL_API_KEY) missingKeys.push("BFL_API_KEY");
 
 if (missingKeys.length > 0) {
   console.error(colors.red(`Error: Missing required environment variables: ${missingKeys.join(", ")}`));
@@ -69,6 +72,12 @@ Options:
   -s, --skip-analysis    Skip analysis step (use existing analysis.json)
   -h, --help             Show this help message
 
+Required API Keys:
+  PERPLEXITY_API_KEY     For news retrieval
+  OPENAI_API_KEY         For lyrics generation and thumbnail prompt enhancement
+  APIBOX_API_KEY         For music generation
+  BFL_API_KEY            For thumbnail generation
+
 Example:
   deno run -A main.js --month="January" --year="2021"
 `));
@@ -82,13 +91,16 @@ if ((args.month && !args.year) || (!args.month && args.year)) {
 }
 
 // Set up paths to the individual scripts
-const analysisScript = join(Deno.cwd(), "musicgen", "00_analysis", "index.js");
-const analysisOutputDir = join(Deno.cwd(), "musicgen", "00_analysis", "output");
+const baseDir = Deno.cwd().endsWith("musicgen") ? Deno.cwd() : join(Deno.cwd(), "musicgen");
+const analysisScript = join(baseDir, "00_analysis", "index.js");
+const analysisOutputDir = join(baseDir, "00_analysis", "output");
 const analysisJsonPath = join(analysisOutputDir, "analysis.json");
-const typstReportAnalysisPath = join(Deno.cwd(), "musicgen", "00_analysis", "typst_report", "analysis.json");
-const getNewsScript = join(Deno.cwd(), "musicgen", "01_getNews", "index.js");
-const makeLyricsScript = join(Deno.cwd(), "musicgen", "02_makeLyrics", "index.js");
-const createMusicScript = join(Deno.cwd(), "musicgen", "03_createMusic", "index.js");
+const typstReportAnalysisPath = join(baseDir, "00_analysis", "typst_report", "analysis.json");
+const typstReportPdfPath = join(baseDir, "00_analysis", "typst_report", "report.pdf");
+const getNewsScript = join(baseDir, "01_getNews", "index.js");
+const makeLyricsScript = join(baseDir, "02_makeLyrics", "index.js");
+const createMusicScript = join(baseDir, "03_createMusic", "index.js");
+const createThumbnailScript = join(baseDir, "04_createThumbnail", "index.js");
 
 /**
  * Run a command and capture its output
@@ -158,6 +170,37 @@ async function main() {
           analysisJson = fileContent.substring(0, firstJsonEnd);
         } else {
           analysisJson = fileContent;
+        }
+        
+        // Copy the report.pdf to both the analysis output folder and the root output folder
+        if (await exists(typstReportPdfPath)) {
+          console.log(colors.dim(`Found report.pdf at ${typstReportPdfPath}`));
+          try {
+            // Create analysis output directory
+            await Deno.mkdir(analysisOutputDir, { recursive: true });
+            console.log(colors.dim(`Created analysis output directory: ${analysisOutputDir}`));
+            
+            // Copy to analysis output directory
+            const analysisReportPath = join(analysisOutputDir, "report.pdf");
+            await Deno.copyFile(typstReportPdfPath, analysisReportPath);
+            console.log(colors.dim(`Copied report.pdf to ${analysisReportPath}`));
+            
+            // Also copy to the root output directory
+            const rootOutputDir = join(baseDir, "output");
+            await Deno.mkdir(rootOutputDir, { recursive: true });
+            console.log(colors.dim(`Created root output directory: ${rootOutputDir}`));
+            
+            const rootReportPath = join(rootOutputDir, "kusama_analysis_report.pdf");
+            await Deno.copyFile(typstReportPdfPath, rootReportPath);
+            console.log(colors.dim(`Copied report.pdf to ${rootReportPath}`));
+            
+            console.log(colors.green("✅ Copied report.pdf to output folders"));
+          } catch (copyError) {
+            console.error(colors.red(`Error copying report.pdf: ${copyError.message}`));
+            console.error(colors.red(`Stack trace: ${copyError.stack}`));
+          }
+        } else {
+          console.log(colors.yellow(`Note: report.pdf not found at ${typstReportPdfPath}`));
         }
       } else {
         // Fall back to the output folder
@@ -310,8 +353,23 @@ async function main() {
     
     const musicResult = await runCommand(musicArgs);
     
+    // Step 5: Create thumbnail for the music
+    console.log(colors.dim("\nStep 5/5: Creating thumbnail image..."));
+    
+    // Create thumbnail with appropriate parameters
+    const thumbnailArgs = [
+      "deno", "run", "-A", createThumbnailScript,
+      "--title", title,
+      "--style", selectedMonth.musicStyle,
+      "--prompt", `Kusama blockchain visualization for ${selectedMonth.month} ${selectedMonth.year}`,
+      "--output", `kusama_${selectedMonth.month.toLowerCase()}_${selectedMonth.year}_cover.png`,
+      "--ratio", "1:1"
+    ];
+    
+    const thumbnailResult = await runCommand(thumbnailArgs);
+    
     console.log(colors.green("\n✅ Pipeline completed successfully!"));
-    console.log(colors.cyan(`Your Kusama ${selectedMonth.month} ${selectedMonth.year} music has been created.`));
+    console.log(colors.cyan(`Your Kusama ${selectedMonth.month} ${selectedMonth.year} music and thumbnail have been created.`));
     console.log(colors.dim(`Style: ${selectedMonth.musicStyle} (${selectedMonth.bpm} BPM)`));
     console.log(colors.dim(`Based on ${selectedMonth.count} transactions`));
     

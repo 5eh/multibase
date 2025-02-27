@@ -64,6 +64,43 @@ try {
 
   // Display only the lyrics
   console.log(lyrics);
+  
+  // Determine if we're running from the module directory or from the musicgen root
+  const isRunningFromRoot = Deno.cwd().endsWith("musicgen") && !Deno.cwd().endsWith("02_makeLyrics");
+  
+  // Set output directory based on where we're running from
+  let outputDir = "./output";
+  
+  // Create output directory based on run location
+  try {
+    if (isRunningFromRoot) {
+      // If running from musicgen root, ensure both root and module output directories exist
+      await Deno.mkdir(outputDir, { recursive: true });
+      await Deno.mkdir("./02_makeLyrics/output", { recursive: true });
+    } else {
+      // If running from module directory, just ensure the module output directory exists
+      await Deno.mkdir(outputDir, { recursive: true });
+    }
+  } catch (error) {
+    if (!(error instanceof Deno.errors.AlreadyExists)) {
+      throw error;
+    }
+  }
+  
+  // Create a filename based on month/year or current date
+  const filename = month && year 
+    ? `kusama_${month.toLowerCase()}_${year}_lyrics.md` 
+    : `lyrics_${new Date().toISOString().split('T')[0]}.md`;
+  
+  // Determine the final output path
+  const filePath = isRunningFromRoot 
+    ? `${outputDir}/${filename}`  // Save to root output when run from root
+    : `${outputDir}/${filename}`;  // Save to module output when run from module
+  
+  // Save lyrics to a markdown file
+  await Deno.writeTextFile(filePath, lyrics);
+  
+  console.log(`\nLyrics saved to ${filePath}`);
   // Don't return at module level
 
 } catch (err) {
