@@ -89,17 +89,18 @@ Usage:
   deno run -A index.js [options]
 
 Options:
-  -p, --prompt=TEXT     Music description (default: SpaceX launch song)
+  -p, --prompt=TEXT     Music description (default: "A song about Kusama blockchain")
   -s, --style=TEXT      Music style (default: Rock)
-  -t, --title=TEXT      Music title (default: SpaceX Launch Day)
+  -t, --title=TEXT      Music title (default: "Kusama Blockchain")
   -m, --model=TEXT      Model version: V3_5 or V4 (default: V3_5)
   -i, --task-id=ID      Use existing task ID instead of creating new
-  -l, --lyrics=TEXT     Custom lyrics (default: SpaceX launch lyrics)
+  -l, --lyrics=TEXT     Custom lyrics (default: Kusama blockchain lyrics)
+  -b, --bpm=NUMBER      Beats per minute for the music
   -n, --instrumental    Generate instrumental music without lyrics (default: false)
   -h, --help            Show this help message
 
 Example:
-  deno run -A index.js --prompt="Epic space battle music" --style="Cinematic" --instrumental
+  deno run -A index.js --prompt="Music about Kusama blockchain in January 2021" --style="Dance" --bpm="128"
 `));
   Deno.exit(0);
 }

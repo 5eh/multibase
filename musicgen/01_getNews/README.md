@@ -1,12 +1,13 @@
-# 📰 News Fetcher
+# 📰 Kusama News Fetcher
 
-A Deno script that fetches the latest news and information using the Perplexity AI API. This module serves as the first step in the MusicGen pipeline, providing factual content that will be transformed into lyrics and music.
+A Deno script that fetches historical news and information about the Kusama blockchain using the Perplexity AI API. This module serves as the second step in the MusicGen pipeline, providing factual content that will be transformed into lyrics and music.
 
 ## ✨ Features
 
-- Searches for news using a custom query
-- Uses Perplexity's Sonar Pro model for high-quality, up-to-date responses
-- Returns concise, accurate information with recent results (past 24 hours)
+- Searches for Kusama blockchain news by month and year
+- Generates comprehensive news articles for historical Kusama events
+- Uses Perplexity's Sonar Pro model for high-quality responses
+- Returns structured articles with references and citations
 - Colorized output for better readability
 - Designed to work both independently and as part of the MusicGen pipeline
 
@@ -27,16 +28,22 @@ export PERPLEXITY_API_KEY="your-perplexity-key-here"
 
 ### Standalone Usage
 
-Run the script with your search query:
+Run the script with month and year:
 
 ```bash
-deno run -A index.js --query="Latest news on SpaceX launches"
+deno run -A index.js --month="January" --year="2021"
 ```
 
 Or use the short form:
 
 ```bash
-deno run -A index.js -q="Latest news on SpaceX launches"
+deno run -A index.js -m="January" -y="2021"
+```
+
+You can also use a custom query:
+
+```bash
+deno run -A index.js --query="Latest Kusama parachain auction results"
 ```
 
 ### As Part of MusicGen Pipeline
@@ -44,45 +51,66 @@ deno run -A index.js -q="Latest news on SpaceX launches"
 This module is automatically called by the main pipeline script:
 
 ```bash
-deno run -A ../../main.js
+deno run -A ../../main.js --month="January" --year="2021"
 ```
 
 ## ⚙️ Parameters
 
-- `query` or `q`: Your search query (required)
+- `month` or `m`: Month to search for (e.g., "January")
+- `year` or `y`: Year to search for (e.g., "2021")
+- `query` or `q`: Custom search query (alternative to month/year)
 
 ## 📤 Output
 
 The script outputs:
-- A colorized display of the search query
+- A colorized display of the search query or month/year
 - The retrieved news content with a "Result:" header
-- Factual, concise information focused on recent news (past day)
+- A Markdown file with the news content saved to the output directory
 
-When used in the pipeline, this output is passed to the lyrics generation module.
+For month/year searches, the output is structured as a comprehensive news article about Kusama for that time period, including:
+- Headlines and key events
+- Development updates
+- Market performance
+- Governance activities
+- References and citations
 
 ## 🔄 Integration
 
-This module is designed as the first step in a three-part pipeline:
+This module is designed as part of the MusicGen pipeline:
 
-1. **News Fetcher** (this module) - Retrieves factual content
-2. **Lyrics Generator** - Transforms content into lyrics
-3. **Music Creator** - Generates music with the lyrics
+1. **Transaction Analysis** - Analyzes blockchain data
+2. **News Fetcher** (this module) - Retrieves historical news about Kusama
+3. **Lyrics Generator** - Transforms content into creative lyrics
+4. **Music Creator** - Generates music with the lyrics
+5. **Thumbnail Generator** - Creates album cover art for the generated music
 
 ## 📝 Example Output
 
 ```
-Searching: "latest SpaceX launch news"
+Searching for Kusama news from: January 2021
 
 Result:
-SpaceX has been busy with several recent and upcoming launches:
+# Kusama Network: January 2021 in Review
 
-1. Starlink Launch: SpaceX launched 23 Starlink satellites to low Earth orbit using a Falcon 9 rocket. The rocket successfully landed on the "Just Read the Instructions" droneship in the Atlantic Ocean.
+January 2021 marked a significant month for the Kusama Network as it continued its journey as Polkadot's canary network, setting the stage for parachain functionality and experiencing notable market developments.
 
-2. Crew-8 Mission: SpaceX is preparing for the Crew-8 mission to the International Space Station, scheduled for early March 2024.
+## Technical Developments
 
-3. Starship Testing: SpaceX is continuing development of its Starship vehicle, with preparations for the next test flight following previous partial successes.
+The Kusama development team focused intensely on preparing the network for parachain functionality throughout January. Engineers worked on finalizing the auction mechanism that would later be used to allocate parachain slots on the network [1]. These preparations were critical as Kusama would serve as the testing ground before similar features would be implemented on Polkadot.
 
-4. Commercial Launches: SpaceX continues to deploy satellites for various commercial customers alongside its Starlink constellation.
+On January 13, 2021, Kusama successfully upgraded to runtime version 2027, which included various improvements to the underlying infrastructure [2]. This upgrade enhanced the network's stability and laid additional groundwork for the upcoming parachain functionality.
 
-The company maintains its position as the world's most active launch provider, with dozens of missions planned for 2024.
+...
+
+## References
+
+[1] "Polkadot and Kusama's Parachain Auction Mechanism", Gavin Wood, January 2021, https://polkadot.network/blog/polkadot-parachain-auctions - Detailed explanation of the auction mechanism design and implementation plans.
+
+[2] "Kusama Network Runtime Upgrade v2027", Parity Technologies, January 13, 2021, https://kusama.polkassembly.io/post/505 - Technical details about the runtime upgrade and its implications.
+
+...
 ```
+
+## 📄 License
+
+MIT

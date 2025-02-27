@@ -1,12 +1,12 @@
-# 🎵 Music Generation Tool
+# 🎵 Kusama Music Generator
 
-A colorful command-line tool that generates music tracks (with or without lyrics) using the APIBox.ai API. This module serves as the final step in the MusicGen pipeline, transforming lyrics into complete musical compositions.
+A colorful command-line tool that generates music tracks (with or without lyrics) using the APIBox.ai API based on Kusama blockchain data. This module serves as the fourth step in the MusicGen pipeline, transforming lyrics into complete musical compositions.
 
 ## ✨ Features
 
 - Generate music with lyrics or instrumental tracks
-- Specify music style and title
-- Include custom lyrics from the lyrics generator or use default SpaceX lyrics
+- Customize music style and BPM based on transaction volume
+- Use Kusama-themed lyrics from the lyrics generator
 - Live status display with progress animation
 - Download multiple variations of your generated music
 - Resume checking on previously created tasks
@@ -35,50 +35,42 @@ Basic usage:
 deno run -A index.js
 ```
 
-This will generate a rock song about SpaceX with default lyrics.
+This will generate a rock song about Kusama blockchain with default lyrics.
+
+With specific month and year:
+
+```bash
+deno run -A index.js --prompt="Music about Kusama blockchain in January 2021" --title="Kusama January 2021"
+```
 
 ### As Part of MusicGen Pipeline
 
 This module is automatically called by the main pipeline script:
 
 ```bash
-deno run -A ../../main.js
+deno run -A ../../main.js --month="January" --year="2021"
 ```
 
-### Command Line Options
+## ⚙️ Parameters
 
 | Option | Description |
 |--------|-------------|
-| `-p, --prompt` | Music description |
-| `-s, --style` | Music style |
-| `-t, --title` | Music title |
-| `-m, --model` | Model version (V3_5 or V4) |
+| `-p, --prompt` | Music description (default: "A song about Kusama blockchain") |
+| `-s, --style` | Music style (default: "Rock") |
+| `-t, --title` | Music title (default: "Kusama Blockchain") |
+| `-b, --bpm` | Beats per minute (optional) |
+| `-m, --model` | Model version (V3_5 or V4) (default: V3_5) |
 | `-i, --task-id` | Use existing task ID |
-| `-l, --lyrics` | Custom lyrics (default: SpaceX launch lyrics) |
+| `-l, --lyrics` | Custom lyrics (default: Kusama blockchain lyrics) |
 | `-n, --instrumental` | Generate instrumental music without lyrics |
 | `-h, --help` | Show help message |
 
-### Examples
+## 📤 Output
 
-Generate music with the default SpaceX launch lyrics:
-```bash
-deno run -A index.js
-```
-
-Generate instrumental epic battle music:
-```bash
-deno run -A index.js -p "Epic orchestral battle music with drums and brass" -s "Cinematic" -t "Battle of the Ages" -n
-```
-
-Generate music with custom lyrics:
-```bash
-deno run -A index.js -p "A country song about space travel" -s "Country" -t "Stars and Rockets" -l "My custom lyrics go here\nSecond line of lyrics"
-```
-
-Check status of a previous task:
-```bash
-deno run -A index.js -i a4bc93b000b68ac221efea9e087042b9
-```
+The module generates:
+- MP3 audio files of the generated music (usually 2 variations)
+- Files are saved with the title name in the current directory
+- A task ID is saved to last_task_id.txt for resuming interrupted generations
 
 ## ⚙️ How It Works
 
@@ -94,27 +86,30 @@ deno run -A index.js -i a4bc93b000b68ac221efea9e087042b9
 
 ## 🔄 Integration
 
-This module is designed as the final step in a three-part pipeline:
+This module is designed as part of the MusicGen pipeline:
 
-1. **News Fetcher** - Retrieves factual content about SpaceX or other topics
-2. **Lyrics Generator** - Transforms content into lyrics
-3. **Music Creator** (this module) - Generates music with the lyrics
+1. **Transaction Analysis** - Analyzes blockchain data
+2. **News Fetcher** - Retrieves historical news about Kusama blockchain
+3. **Lyrics Generator** - Transforms content into creative lyrics
+4. **Music Creator** (this module) - Generates music using the lyrics
+5. **Thumbnail Generator** - Creates album cover art for the music
 
 ## 📝 Example Output
 
 ```
 Creating music generation task:
-• Prompt: Music about SpaceX based on this news: SpaceX has been busy with several recent and upcoming launches...
-• Style: Rock
-• Title: SpaceX Launch
+• Prompt: Music about Kusama blockchain in January 2021
+• Style: Dance
+• Title: Kusama January 2021
 • Model: V3_5
 • Instrumental: No
 • Lyrics: Custom lyrics included
   First few lines:
-  (Verse 1)  
-  Rocket's flame lights up the night,  
-  Breaking through the veil of sky,
+  (Verse 1)
+  Digital canaries in the blockchain mine
+  Testing grounds where innovations shine
   ...
+• BPM: 128
 ✅ Task created successfully! Task ID: a4bc93b000b68ac221efea9e087042b9
 
 Waiting for music generation to complete...
@@ -127,8 +122,8 @@ This typically takes 1-3 minutes.
 ...
 ✅ Music generation complete!
 Found 2 tracks
-✅ Music saved to ./spacex_launch_1.mp3
-✅ Music saved to ./spacex_launch_2.mp3
+✅ Music saved to ./kusama_january_2021_1.mp3
+✅ Music saved to ./kusama_january_2021_2.mp3
 
 ✨ Music generation complete!
 ```

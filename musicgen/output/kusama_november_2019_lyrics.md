@@ -1,45 +1,43 @@
-**Verse 1:**  
-In the land of digital dreams, where wild ideas roam,  
-Kusama rose like dawn, beneath a shimmering dome.  
-A canary in the coalmine, testing skies so high,  
-November 2019, under a technicolor sky.  
+**(Verse 1)**  
+In the haze of November, twenty-nineteen,  
+A canary took flight in a digital dream,  
+Through the wires of the world, a whispering net,  
+Kusama's bold journey just starting to set.  
+Validators gathered, a hundred strong,  
+Weaving a tapestry where they belong.  
+Decentralized voices, a chorus of code,  
+Building a future where dreams can unfold.  
 
-Proof-of-Stake was born, with promises to keep,  
-Validators gathered, sowing seeds they would reap.  
-A hundred thirty strong, staking KSM with pride,  
-Building blocks in the chain, where ambition would ride.
+**(Chorus)**  
+Oh, November 2019, when Kusama soared,  
+An experimental realm where ideas poured.  
+In the heart of the blockchain, a revolution woke,  
+Kusama, your spirit, in every heartbeat spoke.  
 
-**Chorus:**  
-Oh, November 2019, in the heart of blockchain dreams,  
-Where Kusama spread its wings, on pathways of moonbeams.  
-A network gaining strength, in a symphony of code,  
-Guiding us to futures, where innovation flowed.  
+**(Verse 2)**  
+Governance awoke, from slumber arose,  
+Referenda and proposals, the path we chose.  
+Changes in the air, like autumn leaves,  
+Adjusting rewards, with belief, it breathes.  
+Parachains began their first design,  
+Connecting worlds in a network so fine.  
+Staking the future on the wings of KSM,  
+Every transaction a note in this anthem.  
 
-**Verse 2:**  
-Governance by the people, on-chain voices spoke,  
-Proposals turned to action, the tricameral awoke.  
-Parachains in motion, Acala, Moonbeam's glide,  
-A tapestry of projects, on Kusama's wild ride.  
+**(Chorus)**  
+Oh, November 2019, when Kusama soared,  
+An experimental realm where ideas poured.  
+In the heart of the blockchain, a revolution woke,  
+Kusama, your spirit, in every heartbeat spoke.  
 
-Tokens danced in the market, from $1.70 to five,  
-KSM found new heights, as the network came alive.  
-Hope and speculation, in each rising tide,  
-Fueling the journey, where potential would collide.
+**(Bridge)**  
+As Gavin Wood said, we move toward the dawn,  
+Where Polkadot waits with the curtains drawn.  
+A vital testing ground, where the brave explore,  
+In this digital symphony, we are forevermore.  
 
-**Chorus:**  
-Oh, November 2019, in the heart of blockchain dreams,  
-Where Kusama spread its wings, on pathways of moonbeams.  
-A network gaining strength, in a symphony of code,  
-Guiding us to futures, where innovation flowed.  
-
-**Bridge:**  
-Gavin's words of wisdom, in each block and byte,  
-Kusama's vivid tale, a radiant guiding light.  
-Forging paths for Polkadot, in shadows and in gleams,  
-A testbed for the future, built on digital dreams.
-
-**Outro:**  
-November 2019, a chapter now retold,  
-In the pulse of Kusama, a story to unfold.  
-Together we will journey, through the unknown and the free,  
-Where the canary network sings, in a blockchain symphony.
+**(Outro)**  
+In the echoes of November, memories remain,  
+A network of dreams with nothing to restrain.  
+The rhythm of progress, steady and true,  
+Kusama, we'll follow the journey with you.  
