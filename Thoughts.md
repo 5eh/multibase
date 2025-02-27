@@ -6,7 +6,7 @@ This document outlines the Multibase project workflow and deliverables. Each ste
 
 ```mermaid
 graph LR
-    01_analysis --> 02_newsarticle --> 03_songbook --> 04_playlist
+    01_analysis --> 02_newsarticle --> 03_songbook --> 04_playlist --> 05_app
 ```
 
 ## Workflow Stages
@@ -47,6 +47,16 @@ graph LR
 - **Output**: `song_<month>.mp3` files
 - **Deliverable**: Spotify-ready playlist of Kusama-inspired music
 
+### 05_app
+- **Purpose**: Create an interactive application for users to experience all project components
+- **Features**:
+  - Read transaction analysis data
+  - Browse monthly news articles
+  - View generated lyrics
+  - Listen to blockchain-inspired music
+- **Output**: Web application and/or mobile app
+- **Deliverable**: Complete interactive experience showcasing the Kusama blockchain's story through data, text, and audio
+
 ## Data Structure Example
 
 | Year | Month    | TransactionCount |
@@ -60,3 +70,4 @@ graph LR
 2. **News Collection**: Curated articles by month
 3. **Songbook**: Generated lyrics by month
 4. **Music Playlist**: Generated songs reflecting blockchain activity
+5. **Interactive Application**: Web/mobile app for experiencing all components
