@@ -3,6 +3,26 @@ import * as colors from "jsr:@std/fmt/colors";
 import { join } from "jsr:@std/path";
 import { ensureDir } from "jsr:@std/fs";
 
+// Music style mapping based on transaction volume
+const MUSIC_STYLES = [
+  { name: "Ambient", description: "Slow, atmospheric ambient music", minBpm: 60, maxBpm: 80 },
+  { name: "Chillout", description: "Relaxed electronic music", minBpm: 80, maxBpm: 100 },
+  { name: "Downtempo", description: "Mellow electronic beats", minBpm: 90, maxBpm: 110 },
+  { name: "Trip Hop", description: "Moody, atmospheric beats", minBpm: 90, maxBpm: 110 },
+  { name: "Lo-Fi", description: "Relaxed beats with vinyl crackle", minBpm: 70, maxBpm: 90 },
+  { name: "Jazz", description: "Smooth jazz with piano", minBpm: 80, maxBpm: 120 },
+  { name: "Folk", description: "Acoustic folk music", minBpm: 90, maxBpm: 120 },
+  { name: "Pop", description: "Catchy pop music", minBpm: 100, maxBpm: 130 },
+  { name: "Indie Rock", description: "Alternative rock with indie vibes", minBpm: 110, maxBpm: 140 },
+  { name: "Rock", description: "Energetic rock music", minBpm: 120, maxBpm: 150 },
+  { name: "Dance", description: "Upbeat dance music", minBpm: 120, maxBpm: 140 },
+  { name: "House", description: "Electronic house music", minBpm: 120, maxBpm: 130 },
+  { name: "Techno", description: "Driving electronic beats", minBpm: 120, maxBpm: 150 },
+  { name: "Drum and Bass", description: "Fast-paced electronic music", minBpm: 160, maxBpm: 180 },
+  { name: "Hardstyle", description: "Hard-hitting electronic music", minBpm: 150, maxBpm: 160 },
+  { name: "Speedcore", description: "Extremely fast electronic music", minBpm: 180, maxBpm: 300 }
+];
+
 
 // Parse command line arguments
 const args = parseArgs(Deno.args, {
@@ -66,11 +86,36 @@ async function runAnalysis() {
     const highestMonth = monthEntries.reduce((max, entry) => entry[1] > max[1] ? entry : max, [null, 0]);
     const lowestMonth = monthEntries.reduce((min, entry) => entry[1] < min[1] ? entry : min, [null, Infinity]);
 
+    // Calculate transaction count range for style mapping
+    const maxCount = highestMonth[1];
+    const minCount = lowestMonth[1];
+    const countRange = maxCount - minCount;
+
     // Create sorted data for better presentation
     const sortedMonths = monthEntries
       .map(([monthYear, count]) => {
         const [month, year] = monthYear.split(' ');
-        return { month, year: parseInt(year), count };
+        
+        // Calculate music style based on transaction count
+        const normalizedCount = (count - minCount) / countRange; // 0 to 1
+        const styleIndex = Math.min(
+          Math.floor(normalizedCount * MUSIC_STYLES.length), 
+          MUSIC_STYLES.length - 1
+        );
+        const style = MUSIC_STYLES[styleIndex];
+        
+        // Calculate BPM based on transaction count
+        const bpmRange = style.maxBpm - style.minBpm;
+        const bpm = Math.round(style.minBpm + (normalizedCount * bpmRange));
+        
+        return { 
+          month, 
+          year: parseInt(year), 
+          count,
+          musicStyle: style.name,
+          musicDescription: style.description,
+          bpm
+        };
       })
       .sort((a, b) => {
         if (a.year !== b.year) return a.year - b.year;
@@ -81,25 +126,26 @@ async function runAnalysis() {
 
     // Generate Markdown content
     const tableRows = sortedMonths.map(item =>
-      `| ${item.month} ${item.year} | ${item.count} |`
+      `| ${item.month} ${item.year} | ${item.count} | ${item.musicStyle} | ${item.bpm} BPM |`
     ).join('\n');
 
-    const markdownContent = `# Analysis of Transactions
+    const markdownContent = `# Analysis of Kusama Transactions
 
 ## Overview
 Total transactions analyzed: **${totalTransactions}**
 
 ## Monthly Breakdown
 
-| Month | Number of Transactions |
-|-------|------------------------|
+| Month | Number of Transactions | Music Style | BPM |
+|-------|------------------------|-------------|-----|
 ${tableRows}
 
 ## Key Findings
 - Highest transaction volume: **${highestMonth[0]}** with **${highestMonth[1]}** transactions
 - Lowest transaction volume: **${lowestMonth[0]}** with **${lowestMonth[1]}** transactions
+- Music styles range from Ambient (low transaction volume) to Speedcore (high volume)
 
-This analysis provides insights into the distribution of blockchain transactions over time.
+This analysis provides insights into the distribution of Kusama blockchain transactions over time.
 
 *Generated on: ${new Date().toLocaleString()}*
 `;
@@ -118,7 +164,10 @@ This analysis provides insights into the distribution of blockchain transactions
       monthlyData: sortedMonths.map(item => ({
         month: item.month,
         year: item.year,
-        count: item.count
+        count: item.count,
+        musicStyle: item.musicStyle,
+        musicDescription: item.musicDescription,
+        bpm: item.bpm
       }))
     };
 

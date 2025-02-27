@@ -58,7 +58,7 @@ if (!config.apiKey) {
 
 // Parse command line arguments
 const args = parseArgs(Deno.args, {
-  string: ["prompt", "style", "title", "model", "task-id", "lyrics"],
+  string: ["prompt", "style", "title", "model", "task-id", "lyrics", "bpm"],
   boolean: ["help", "instrumental"],
   alias: {
     h: "help",
@@ -68,12 +68,13 @@ const args = parseArgs(Deno.args, {
     m: "model",
     i: "task-id",
     l: "lyrics",
-    n: "instrumental"
+    n: "instrumental",
+    b: "bpm"
   },
   default: {
-    prompt: "A rock song about SpaceX's historic launch",
+    prompt: "A song about Kusama blockchain",
     style: "Rock",
-    title: "SpaceX Launch Day",
+    title: "Kusama Blockchain",
     model: "V3_5",
     instrumental: false
   }
@@ -127,8 +128,12 @@ async function createMusicTask() {
     console.log(colors.dim(colors.gray("  ...")));
   }
 
+  // Add BPM to the prompt if specified
+  const bpmText = args.bpm ? ` with ${args.bpm} BPM` : "";
+  const styleWithBpm = `${style}${bpmText}`;
+  
   const requestBody = {
-    prompt: instrumental ? prompt : `${prompt}\n\n${customLyrics}`,
+    prompt: instrumental ? `${prompt} in ${styleWithBpm} style` : `${prompt} in ${styleWithBpm} style\n\n${customLyrics}`,
     style: style,
     title: title,
     customMode: true,

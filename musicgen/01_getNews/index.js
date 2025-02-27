@@ -11,23 +11,38 @@ if (!PERPLEXITY_API_KEY) {
 
 // Parse command line arguments
 const args = parseArgs(Deno.args, {
-  string: ["query"],
-  alias: { q: "query" },
+  string: ["query", "month", "year"],
+  alias: { q: "query", m: "month", y: "year" },
 });
 
-if (!args.query) {
+// Determine the query to use
+let userQuery;
+if (args.month && args.year) {
+  userQuery = `Kusama blockchain news and events in ${args.month} ${args.year}`;
+  console.log(colors.blue(`Searching for Kusama news from: ${args.month} ${args.year}`));
+} else if (args.query) {
+  userQuery = args.query;
+  console.log(colors.blue(`Searching: "${userQuery}"`));
+} else {
   console.error(
     colors.yellow('Usage: deno run -A index.js --query="your search query"'),
   );
   console.error(
-    colors.yellow('   or: deno run -A index.js -q="your search query"'),
+    colors.yellow('   or: deno run -A index.js --month="January" --year="2021"'),
   );
   Deno.exit(1);
 }
 
-// Query from command line argument
-const userQuery = args.query;
-console.log(colors.blue(`Searching: "${userQuery}"`));
+// Prepare system prompt based on whether we're searching for a specific month
+const systemPrompt = args.month && args.year 
+  ? `You are a blockchain news reporter specializing in the Kusama ecosystem. 
+     Create a well-structured news article summarizing key Kusama events, developments, 
+     and market activity during ${args.month} ${args.year}. 
+     Include specific dates, transaction volumes, governance proposals, 
+     parachain auctions, and other relevant information from that time period.
+     Format as a proper news article with headline, date, and structured paragraphs.
+     Be factual and precise.`
+  : "Be precise and concise.";
 
 const options = {
   method: "POST",
@@ -38,7 +53,7 @@ const options = {
   body: JSON.stringify({
     model: "sonar-pro",
     messages: [
-      { role: "system", content: "Be precise and concise." },
+      { role: "system", content: systemPrompt },
       { role: "user", content: userQuery },
     ],
     max_tokens: 1500,
@@ -47,7 +62,7 @@ const options = {
     search_domain_filter: null,
     return_images: false,
     return_related_questions: false,
-    search_recency_filter: "day",
+    search_recency_filter: args.month && args.year ? null : "day", // Don't limit to recent news for historical queries
     top_k: 0,
     stream: false,
     presence_penalty: 0,

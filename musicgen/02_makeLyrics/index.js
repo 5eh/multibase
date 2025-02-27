@@ -9,17 +9,19 @@ if (!OPENAI_API_KEY) {
 
 // Parse command line arguments
 const args = parseArgs(Deno.args, {
-  string: ["context"],
-  alias: { c: "context" },
+  string: ["context", "month", "year"],
+  alias: { c: "context", m: "month", y: "year" },
 });
 
 if (!args.context) {
   console.error("Usage: deno run -A index.js --context=\"markdown formatted news content\"");
-  console.error("   or: deno run -A index.js -c=\"markdown formatted news content\"");
+  console.error("   or: deno run -A index.js -c=\"markdown formatted news content\" --month=\"January\" --year=\"2021\"");
   Deno.exit(1);
 }
 
 const context = args.context;
+const month = args.month || "";
+const year = args.year || "";
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -31,10 +33,14 @@ const prompt = `Create meaningful song lyrics based on the following content:
 
 ${context}
 
+${month && year ? `These lyrics should specifically reference ${month} ${year} as the time period.` : ""}
+
 The lyrics should:
-- Capture the essence and emotional core of the content
+- Capture the essence and emotional core of the content about Kusama blockchain
 - Include a chorus and at least two verses
 - Be creative, original, and emotionally resonant
+- ${month && year ? `Explicitly mention "${month} ${year}" at least once in the lyrics` : ""}
+- Include blockchain terminology and Kusama-specific references
 - Be suitable for a musical composition`;
 
 try {
