@@ -1,5 +1,5 @@
 {
-  "totalTransactions": 7611970,
+  "totalTransactions": 7612539,
   "highestMonth": {
     "period": "November 2024",
     "count": 4347886
@@ -20,300 +20,474 @@
     {
       "month": "December",
       "year": 2019,
-      "count": 7699
+      "count": 7699,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "January",
       "year": 2020,
-      "count": 2164
+      "count": 2164,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "February",
       "year": 2020,
-      "count": 5119
+      "count": 5119,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "March",
       "year": 2020,
-      "count": 4595
+      "count": 4595,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "April",
       "year": 2020,
-      "count": 9344
+      "count": 9344,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "May",
       "year": 2020,
-      "count": 12777
+      "count": 12777,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "June",
       "year": 2020,
-      "count": 5028
+      "count": 5028,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "July",
       "year": 2020,
-      "count": 9826
+      "count": 9826,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "August",
       "year": 2020,
-      "count": 12717
+      "count": 12717,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "September",
       "year": 2020,
-      "count": 25261
+      "count": 25261,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "October",
       "year": 2020,
-      "count": 12452
+      "count": 12452,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "November",
       "year": 2020,
-      "count": 14772
+      "count": 14772,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "December",
       "year": 2020,
-      "count": 18143
+      "count": 18143,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "January",
       "year": 2021,
       "count": 27734,
-      "musicStyle": "Pop",
-      "musicDescription": "Catchy pop music",
-      "bpm": 115
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "February",
       "year": 2021,
-      "count": 29549
+      "count": 29549,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "March",
       "year": 2021,
-      "count": 38736
+      "count": 38736,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "April",
       "year": 2021,
-      "count": 45419
+      "count": 45419,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "May",
       "year": 2021,
-      "count": 164074
+      "count": 164074,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 61
     },
     {
       "month": "June",
       "year": 2021,
-      "count": 161762
+      "count": 161762,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 61
     },
     {
       "month": "July",
       "year": 2021,
-      "count": 60710
+      "count": 60710,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "August",
       "year": 2021,
-      "count": 98561
+      "count": 98561,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "September",
       "year": 2021,
-      "count": 207735
+      "count": 207735,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 61
     },
     {
       "month": "October",
       "year": 2021,
-      "count": 157306
+      "count": 157306,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 61
     },
     {
       "month": "November",
       "year": 2021,
-      "count": 177266
+      "count": 177266,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 61
     },
     {
       "month": "December",
       "year": 2021,
-      "count": 89430
+      "count": 89430,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "January",
       "year": 2022,
-      "count": 63683
+      "count": 63683,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "February",
       "year": 2022,
-      "count": 48429
+      "count": 48429,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "March",
       "year": 2022,
-      "count": 64376
+      "count": 64376,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "April",
       "year": 2022,
-      "count": 48740
+      "count": 48740,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "May",
       "year": 2022,
-      "count": 90630
+      "count": 90630,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "June",
       "year": 2022,
-      "count": 51987
+      "count": 51987,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "July",
       "year": 2022,
-      "count": 48885
+      "count": 48885,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "August",
       "year": 2022,
-      "count": 120717
+      "count": 120717,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 61
     },
     {
       "month": "September",
       "year": 2022,
-      "count": 39301
+      "count": 39301,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "October",
       "year": 2022,
-      "count": 96835
+      "count": 96835,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "November",
       "year": 2022,
-      "count": 54954
+      "count": 54954,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "December",
       "year": 2022,
-      "count": 60880
+      "count": 60880,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "January",
       "year": 2023,
-      "count": 49080
+      "count": 49080,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "February",
       "year": 2023,
-      "count": 42972
+      "count": 42972,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "March",
       "year": 2023,
-      "count": 44409
+      "count": 44409,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "April",
       "year": 2023,
-      "count": 45039
+      "count": 45039,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "May",
       "year": 2023,
-      "count": 40647
+      "count": 40647,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "June",
       "year": 2023,
-      "count": 36234
+      "count": 36234,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "July",
       "year": 2023,
-      "count": 38414
+      "count": 38414,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "August",
       "year": 2023,
-      "count": 35899
+      "count": 35899,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "September",
       "year": 2023,
-      "count": 30606
+      "count": 30606,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "October",
       "year": 2023,
-      "count": 36222
+      "count": 36222,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "November",
       "year": 2023,
-      "count": 47402
+      "count": 47402,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "December",
       "year": 2023,
-      "count": 74394
+      "count": 74394,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "January",
       "year": 2024,
-      "count": 52554
+      "count": 52554,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "February",
       "year": 2024,
-      "count": 53352
+      "count": 53352,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "March",
       "year": 2024,
-      "count": 66144
+      "count": 66144,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "April",
       "year": 2024,
-      "count": 53049
+      "count": 53049,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "May",
       "year": 2024,
-      "count": 49078
+      "count": 49078,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "June",
       "year": 2024,
-      "count": 29937
+      "count": 29937,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "July",
       "year": 2024,
-      "count": 32665
+      "count": 32665,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "August",
       "year": 2024,
-      "count": 33678
+      "count": 33678,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "September",
       "year": 2024,
-      "count": 30091
+      "count": 30091,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "October",
       "year": 2024,
-      "count": 35258
+      "count": 35258,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "November",
@@ -321,22 +495,31 @@
       "count": 4347886,
       "musicStyle": "Speedcore",
       "musicDescription": "Extremely fast electronic music",
-      "bpm": 290
+      "bpm": 300
     },
     {
       "month": "December",
       "year": 2024,
-      "count": 53078
+      "count": 53078,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "January",
       "year": 2025,
-      "count": 38052
+      "count": 38052,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     },
     {
       "month": "February",
       "year": 2025,
-      "count": 27316
+      "count": 27885,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     }
   ]
 }

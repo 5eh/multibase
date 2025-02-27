@@ -95,22 +95,22 @@ async function runAnalysis() {
     const sortedMonths = monthEntries
       .map(([monthYear, count]) => {
         const [month, year] = monthYear.split(' ');
-        
+
         // Calculate music style based on transaction count
         const normalizedCount = (count - minCount) / countRange; // 0 to 1
         const styleIndex = Math.min(
-          Math.floor(normalizedCount * MUSIC_STYLES.length), 
+          Math.floor(normalizedCount * MUSIC_STYLES.length),
           MUSIC_STYLES.length - 1
         );
         const style = MUSIC_STYLES[styleIndex];
-        
+
         // Calculate BPM based on transaction count
         const bpmRange = style.maxBpm - style.minBpm;
         const bpm = Math.round(style.minBpm + (normalizedCount * bpmRange));
-        
-        return { 
-          month, 
-          year: parseInt(year), 
+
+        return {
+          month,
+          year: parseInt(year),
           count,
           musicStyle: style.name,
           musicDescription: style.description,
@@ -175,12 +175,92 @@ This analysis provides insights into the distribution of Kusama blockchain trans
     const markdownPath = join(outputDir, 'analysis.md');
     const jsonPath = join(outputDir, 'analysis.json');
 
+    // Create Typst data file
+    const typstDir = join(outputDir, '..', 'typst_report');
+    await ensureDir(typstDir);
+    const typstPath = join(typstDir, 'data.typ');
+
+    // Generate yearly data
+    const yearlyData = sortedMonths.reduce((acc, item) => {
+      const year = item.year;
+      const existingYear = acc.find(y => y.year === year);
+
+      if (existingYear) {
+        existingYear.count += item.count;
+      } else {
+        acc.push({ year, count: item.count });
+      }
+
+      return acc;
+    }, []).sort((a, b) => a.year - b.year);
+
+    // Generate Typst content
+    let typstContent = `#let totalTransactions = ${totalTransactions}\n`;
+    typstContent += `#let highestMonth = (\n  period: "${highestMonth[0]}",\n  count: ${highestMonth[1]}\n)\n\n`;
+    typstContent += `#let lowestMonth = (\n  period: "${lowestMonth[0]}",\n  count: ${lowestMonth[1]}\n)\n\n`;
+
+    // Monthly data
+    typstContent += `#let monthlyData = (\n`;
+    sortedMonths.forEach(item => {
+      typstContent += `  (\n`;
+      typstContent += `    month: "${item.month}",\n`;
+      typstContent += `    year: ${item.year},\n`;
+      typstContent += `    count: ${item.count}`;
+      
+      // Only include music style and BPM for key months
+      // November 2019 (first month), January 2021 (significant growth), November 2024 (highest spike)
+      if ((item.month === "November" && item.year === 2019) || 
+          (item.month === "January" && item.year === 2021) || 
+          (item.month === "November" && item.year === 2024)) {
+        typstContent += `,\n    musicStyle: "${item.musicStyle}",\n`;
+        typstContent += `    bpm: ${item.bpm}\n`;
+      } else {
+        typstContent += `\n`;
+      }
+      typstContent += `  ),\n`;
+    });
+    typstContent += `)\n\n`;
+
+    // Yearly data
+    typstContent += `#let yearlyData = (\n`;
+    yearlyData.forEach(item => {
+      typstContent += `  (year: ${item.year}, count: ${item.count}),\n`;
+    });
+    typstContent += `)\n`;
+
     await Deno.writeTextFile(markdownPath, markdownContent);
     await Deno.writeTextFile(jsonPath, JSON.stringify(jsonData, null, 2));
+    await Deno.writeTextFile(typstPath, typstContent);
+
+    // Run typst compile to generate the PDF report
+    console.log(colors.blue(`Compiling Typst report...`));
+    const reportTypPath = join(typstDir, 'report.typ');
+    const reportPdfPath = join(typstDir, 'report.pdf');
+    
+    try {
+      const typstCmd = new Deno.Command('typst', {
+        args: ['compile', reportTypPath, reportPdfPath],
+        stdout: 'piped',
+        stderr: 'piped',
+      });
+      
+      const typstOutput = await typstCmd.output();
+      
+      if (typstOutput.code === 0) {
+        console.log(colors.green(`Typst report compiled successfully: ${reportPdfPath}`));
+      } else {
+        const errorMessage = new TextDecoder().decode(typstOutput.stderr);
+        console.log(colors.yellow(`Warning: Typst report compilation had issues: ${errorMessage}`));
+      }
+    } catch (typstError) {
+      console.log(colors.yellow(`Warning: Could not run typst command: ${typstError.message}`));
+      console.log(colors.yellow(`To generate the PDF, manually run: typst compile ${reportTypPath} ${reportPdfPath}`));
+    }
 
     console.log(colors.green(`Analysis complete!`));
     console.log(colors.green(`Markdown file created: ${markdownPath}`));
     console.log(colors.green(`JSON file created: ${jsonPath}`));
+    console.log(colors.green(`Typst data file created: ${typstPath}`));
 
   } catch (error) {
     console.error(colors.red('Error running analysis:'), error.message);

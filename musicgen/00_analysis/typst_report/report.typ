@@ -1,3 +1,5 @@
+#import "data.typ" : totalTransactions, highestMonth, lowestMonth, monthlyData, yearlyData
+
 #set page(
   margin: (x: 2.5cm, y: 2.5cm),
   fill: rgb("#fffef0"),
@@ -47,9 +49,9 @@
 
 = Executive Summary
 
-This report analyzes the temporal patterns of blockchain transactions from November 2019 to February 2025. The analysis shows that there have been *7,611,970* total transactions during this period, with significant variations in transaction volume over time.
+This report analyzes the temporal patterns of blockchain transactions from November 2019 to February 2025. The analysis shows that there have been *#totalTransactions* total transactions during this period, with significant variations in transaction volume over time.
 
-The highest transaction volume was observed in *November 2024* with *4,347,886* transactions, while the lowest volume was in *November 2019* with only *918* transactions. This represents a growth of over *4,700x* from the lowest to the highest month.
+The highest transaction volume was observed in *#highestMonth.period* with *#highestMonth.count* transactions, while the lowest volume was in *#lowestMonth.period* with only *#lowestMonth.count* transactions. This represents a growth of over *#calc.round(highestMonth.count / lowestMonth.count)x* from the lowest to the highest month.
 
 = Transaction Volume Over Time
 
@@ -59,6 +61,22 @@ The transaction volume has shown significant fluctuations over the analyzed peri
 - Significant activity during mid-2021
 - A general upward trend from 2019 to 2021
 - More stabilized transaction volumes from 2022 to early 2024
+
+#let getCount = (month, year) => {
+  let found = monthlyData.find(m => m.month == month and m.year == year)
+  if found == none { 
+    return [-] 
+  } else { 
+    return [#found.count] 
+  }
+}
+
+#let months = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+#let shortMonthToFull = (short) => {
+  let idx = months.position(m => m == short)
+  if idx == none { return short }
+  return ("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December").at(idx)
+}
 
 #figure(
   caption: [Monthly Transaction Volume (excluding Nov 2024 outlier)],
@@ -74,24 +92,29 @@ The transaction volume has shown significant fluctuations over the analyzed peri
     stroke: 0.5pt + rgb("#48301a"),
     inset: 5pt,
     [*Month*], [*2019*], [*2020*], [*2021*], [*2022*], [*2023*], [*2024*], [*2025*],
-    [*Jan*], [-], [2,164], [27,734], [63,683], [49,080], [52,554], [38,052],
-    [*Feb*], [-], [5,119], [29,549], [48,429], [42,972], [53,352], [27,316],
-    [*Mar*], [-], [4,595], [38,736], [64,376], [44,409], [66,144], [-],
-    [*Apr*], [-], [9,344], [45,419], [48,740], [45,039], [53,049], [-],
-    [*May*], [-], [12,777], [164,074], [90,630], [40,647], [49,078], [-],
-    [*Jun*], [-], [5,028], [161,762], [51,987], [36,234], [29,937], [-],
-    [*Jul*], [-], [9,826], [60,710], [48,885], [38,414], [32,665], [-],
-    [*Aug*], [-], [12,717], [98,561], [120,717], [35,899], [33,678], [-],
-    [*Sep*], [-], [25,261], [207,735], [39,301], [30,606], [30,091], [-],
-    [*Oct*], [-], [12,452], [157,306], [96,835], [36,222], [35,258], [-],
-    [*Nov*], [918], [14,772], [177,266], [54,954], [47,402], [4,347,886], [-],
-    [*Dec*], [7,699], [18,143], [89,430], [60,880], [74,394], [53,078], [-],
+    ..months.map(m => ([*#m*], getCount(shortMonthToFull(m), 2019), getCount(shortMonthToFull(m), 2020), getCount(shortMonthToFull(m), 2021), getCount(shortMonthToFull(m), 2022), getCount(shortMonthToFull(m), 2023), getCount(shortMonthToFull(m), 2024), getCount(shortMonthToFull(m), 2025))).flatten(),
   )
 )
 
 = Yearly Comparison
 
 The yearly transaction patterns show the evolution of blockchain adoption:
+
+#let yearlyData = (
+  (year: 2019, count: 8617),
+  (year: 2020, count: 120726),
+  (year: 2021, count: 1158282),
+  (year: 2022, count: 740417),
+  (year: 2023, count: 520966),
+  (year: 2024, count: 4784740),
+  (year: 2025, count: 65368)
+)
+
+#let maxYearlyCount = yearlyData.map(y => y.count).fold(0, calc.max)
+#let getBoxWidth = (count) => {
+  let maxWidth = 8cm
+  return maxWidth * count / maxYearlyCount
+}
 
 #figure(
   caption: [Transaction Volume by Year],
@@ -107,19 +130,29 @@ The yearly transaction patterns show the evolution of blockchain adoption:
     stroke: 0.5pt + rgb("#48301a"),
     inset: 8pt,
     [*Year*], [*Transaction Count*], [*Visualization*],
-    [2019], [8,617], [#box(width: 0.5cm, height: 0.6cm, fill: rgb("#d35400"), radius: 2pt)],
-    [2020], [120,726], [#box(width: 2cm, height: 0.6cm, fill: rgb("#e67e22"), radius: 2pt)],
-    [2021], [1,158,282], [#box(width: 5cm, height: 0.6cm, fill: rgb("#f39c12"), radius: 2pt)],
-    [2022], [740,417], [#box(width: 3.5cm, height: 0.6cm, fill: rgb("#f5b041"), radius: 2pt)],
-    [2023], [520,966], [#box(width: 3cm, height: 0.6cm, fill: rgb("#f8c471"), radius: 2pt)],
-    [2024], [4,784,740], [#box(width: 8cm, height: 0.6cm, fill: rgb("#d35400"), radius: 2pt)],
-    [2025 (partial)], [65,368], [#box(width: 0.75cm, height: 0.6cm, fill: rgb("#edbb99"), radius: 2pt)],
+    ..yearlyData.map(y => {
+      let yearName = if y.year == 2025 { [2025 (partial)] } else { [#y.year] }
+      let boxColor = if y.year == 2024 { rgb("#d35400") } 
+                     else if y.year == 2021 { rgb("#f39c12") }
+                     else if y.year == 2025 { rgb("#edbb99") }
+                     else if y.year == 2019 { rgb("#d35400") }
+                     else if y.year == 2020 { rgb("#e67e22") }
+                     else if y.year == 2022 { rgb("#f5b041") }
+                     else { rgb("#f8c471") }
+      return (
+        yearName, 
+        [#y.count], 
+        [#box(width: getBoxWidth(y.count), height: 0.6cm, fill: boxColor, radius: 2pt)]
+      )
+    }).flatten(),
   )
 )
 
 = Musical Representation Analysis
 
 As part of our innovative approach, we've mapped transaction data to musical characteristics:
+
+#let musicData = monthlyData.filter(m => "musicStyle" in m)
 
 #figure(
   caption: [Musical Representation of Transaction Volume],
@@ -134,9 +167,7 @@ As part of our innovative approach, we've mapped transaction data to musical cha
     stroke: 0.5pt + rgb("#48301a"),
     inset: 8pt,
     [*Period*], [*Transaction Count*], [*Music Style*], [*BPM*],
-    [November 2019], [918], [Ambient], [60],
-    [January 2021], [27,734], [Pop], [115],
-    [November 2024], [4,347,886], [Speedcore], [290],
+    ..musicData.map(m => ([#m.month #m.year], [#m.count], [#m.musicStyle], [#m.bpm])).flatten(),
   )
 )
 
