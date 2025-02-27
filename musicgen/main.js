@@ -133,34 +133,40 @@ async function main() {
   try {
     console.log(colors.cyan("🎵 Starting Kusama MusicGen Pipeline 🎵"));
     
-    // Step 1: Run analysis or use existing analysis
+    // Step 1: Use existing analysis data
     let analysisData;
     
-    if (!args["skip-analysis"] || !(await exists(analysisJsonPath))) {
-      console.log(colors.dim("Step 1/4: Analyzing Kusama blockchain transactions..."));
-      
-      await runCommand([
-        "deno", "run", "-A", analysisScript
-      ]);
-      
-      console.log(colors.green("✅ Analysis completed successfully!"));
-    } else {
-      console.log(colors.yellow("Skipping analysis step, using existing analysis.json"));
-    }
+    // Always skip the analysis step since we're using the typst_report data
+    console.log(colors.dim("Step 1/4: Loading Kusama blockchain transaction data..."));
+    args["skip-analysis"] = true;
     
     // Load the analysis data
     try {
       // First try to load from typst_report folder
       let analysisJson;
+      
       if (await exists(typstReportAnalysisPath)) {
         console.log(colors.dim("Using analysis data from typst_report folder"));
-        analysisJson = await Deno.readTextFile(typstReportAnalysisPath);
+        
+        // Read the file content
+        const fileContent = await Deno.readTextFile(typstReportAnalysisPath);
+        
+        // Check if the file contains multiple JSON objects (the file appears to have duplicated content)
+        if (fileContent.trim().endsWith("}}") && fileContent.indexOf("}}") !== fileContent.lastIndexOf("}}")) {
+          // Find the first complete JSON object
+          const firstJsonEnd = fileContent.indexOf("}}") + 2;
+          analysisJson = fileContent.substring(0, firstJsonEnd);
+        } else {
+          analysisJson = fileContent;
+        }
       } else {
         // Fall back to the output folder
         console.log(colors.dim("Using analysis data from output folder"));
         analysisJson = await Deno.readTextFile(analysisJsonPath);
       }
+      
       analysisData = JSON.parse(analysisJson);
+      console.log(colors.green("✅ Analysis data loaded successfully!"));
     } catch (error) {
       console.error(colors.red(`Error reading analysis data: ${error.message}`));
       Deno.exit(1);
