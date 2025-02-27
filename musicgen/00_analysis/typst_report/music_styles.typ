@@ -29,7 +29,13 @@ Total transactions analyzed: #data.totalTransactions
 #let months = data.monthlyData.sorted(key: m => m.year * 100 + {
   let month_names = ("January", "February", "March", "April", "May", "June", 
                      "July", "August", "September", "October", "November", "December")
-  month_names.position(m.month) + 1
+  let month_index = 0
+  for (i, name) in month_names.enumerate() {
+    if (name == m.month) {
+      month_index = i
+    }
+  }
+  month_index + 1
 })
 
 #figure(
