@@ -2,7 +2,7 @@ import { parseArgs } from "jsr:@std/cli/parse-args";
 import * as colors from "jsr:@std/fmt/colors";
 import { ensureDir } from "jsr:@std/fs/ensure-dir";
 import { OpenAI } from "jsr:@openai/openai";
-import { setupPaths, compileTypst } from "../common/output.js";
+import { compileTypst, setupPaths } from "../common/output.js";
 
 const PERPLEXITY_API_KEY = Deno.env.get("PERPLEXITY_API_KEY");
 const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
@@ -17,7 +17,9 @@ if (!PERPLEXITY_API_KEY) {
 // Optional OpenAI key - we'll use it if available for better structuring
 if (!OPENAI_API_KEY) {
   console.log(
-    colors.yellow("Note: OPENAI_API_KEY not set. Will use raw Perplexity results without additional structuring.")
+    colors.yellow(
+      "Note: OPENAI_API_KEY not set. Will use raw Perplexity results without additional structuring.",
+    ),
   );
 }
 
@@ -31,7 +33,9 @@ const args = parseArgs(Deno.args, {
 let userQuery;
 if (args.month && args.year) {
   userQuery = `Kusama blockchain news and events in ${args.month} ${args.year}`;
-  console.log(colors.blue(`Searching for Kusama news from: ${args.month} ${args.year}`));
+  console.log(
+    colors.blue(`Searching for Kusama news from: ${args.month} ${args.year}`),
+  );
 } else if (args.query) {
   userQuery = args.query;
   console.log(colors.blue(`Searching: "${userQuery}"`));
@@ -40,13 +44,15 @@ if (args.month && args.year) {
     colors.yellow('Usage: deno run -A index.js --query="your search query"'),
   );
   console.error(
-    colors.yellow('   or: deno run -A index.js --month="January" --year="2021"'),
+    colors.yellow(
+      '   or: deno run -A index.js --month="January" --year="2021"',
+    ),
   );
   Deno.exit(1);
 }
 
 // Prepare system prompt based on whether we're searching for a specific month
-const systemPrompt = args.month && args.year 
+const systemPrompt = args.month && args.year
   ? `You are a blockchain news reporter specializing in the Kusama ecosystem, writing for "The Blockchain Times" newspaper.
      Create a comprehensive, detailed newspaper-style article about Kusama during ${args.month} ${args.year}.
      
@@ -118,20 +124,21 @@ try {
   const responseData = await response.json();
   let content = responseData.choices[0].message.content;
   console.log(colors.green("\nPerplexity Result Received"));
-  
+
   // Structure the content if OpenAI API key is available
   let structuredContent = content;
   if (OPENAI_API_KEY && args.month && args.year) {
     try {
       console.log(colors.blue("Structuring content with OpenAI..."));
-      
+
       // Initialize the OpenAI client
       const openai = new OpenAI({
         apiKey: OPENAI_API_KEY,
       });
-      
+
       // Define the system message for content structuring
-      const systemMessage = `You are a professional newspaper editor restructuring content for "The Blockchain Times". Your task is to transform raw Kusama blockchain news from ${args.month} ${args.year} into a newspaper article that fills PRECISELY 2.0-2.5 columns (ideal target: 2.2 columns) in a three-column layout.
+      const systemMessage =
+        `You are a professional newspaper editor restructuring content for "The Blockchain Times". Your task is to transform raw Kusama blockchain news from ${args.month} ${args.year} into a newspaper article that fills PRECISELY 2.0-2.5 columns (ideal target: 2.2 columns) in a three-column layout.
       
       NEWSPAPER STRUCTURE:
       1. Create a punchy, attention-grabbing headline (8-12 words max)
@@ -173,49 +180,58 @@ try {
       The goal is to generate enough high-quality content to fill 2.5 newspaper columns while remaining authentic to newspaper style.
       
       IMPORTANT: You MUST ensure that ALL numbered references like [1], [2], etc. are completely removed from the final text.`;
-      
+
       // Make the API call using the OpenAI client
       const response = await openai.chat.completions.create({
         model: "gpt-4",
         messages: [
           {
             role: "system",
-            content: systemMessage
+            content: systemMessage,
           },
           {
             role: "user",
-            content: content
-          }
-        ]
+            content: content,
+          },
+        ],
       });
-      
+
       if (response.choices && response.choices.length > 0) {
         structuredContent = response.choices[0].message.content;
-        console.log(colors.green("Content successfully structured for newspaper format"));
+        console.log(
+          colors.green("Content successfully structured for newspaper format"),
+        );
       } else {
-        console.log(colors.yellow("Could not structure with OpenAI, using original content"));
+        console.log(
+          colors.yellow(
+            "Could not structure with OpenAI, using original content",
+          ),
+        );
         console.error(colors.red("OpenAI API returned no completions"));
       }
     } catch (openaiErr) {
-      console.log(colors.yellow("Error using OpenAI API, using original content:"), openaiErr);
+      console.log(
+        colors.yellow("Error using OpenAI API, using original content:"),
+        openaiErr,
+      );
     }
   }
-  
+
   // Show the content to the user
   console.log(colors.green("\nResult:"));
   console.log(structuredContent);
-  
+
   // Set up standardized paths for this module
   const paths = await setupPaths("01_getNews");
-  
+
   // Create filename based on query
   let filename;
   if (args.month && args.year) {
     filename = `kusama_${args.month.toLowerCase()}_${args.year}_news.md`;
   } else {
-    filename = `query_results_${new Date().toISOString().split('T')[0]}.md`;
+    filename = `query_results_${new Date().toISOString().split("T")[0]}.md`;
   }
-  
+
   // Create title for the markdown file
   let title;
   if (args.month && args.year) {
@@ -223,19 +239,19 @@ try {
   } else {
     title = `# Search Results: ${userQuery}\n\n`;
   }
-  
+
   // Determine the final output paths
   const outputDataPath = paths.getOutputPath(filename);
   const rootOutputPath = paths.getRootOutputPath(filename);
-  
+
   // Write the content to the output directory
   await Deno.writeTextFile(outputDataPath, title + structuredContent);
-  
+
   // Copy to root output if running from root
   if (paths.isRunningFromRoot) {
     await Deno.writeTextFile(rootOutputPath, title + structuredContent);
   }
-  
+
   console.log(colors.green(`\nOutput saved to ${outputDataPath}`));
 
   // Generate the newspaper Typst file and PDF
@@ -245,44 +261,51 @@ try {
 
       // Check if we need to update newspaper_data.typ
       const mdContent = title + content;
-      
+
       // Extract articles from markdown
       const articles = [];
       let mainHeadline = "";
       let leadParagraph = "";
       let lookingForward = "";
-      
+
       // First, get the main headline (the # heading)
       const mainHeadlineMatch = mdContent.match(/# (?:")?([^"\n]+)(?:")?/);
       if (mainHeadlineMatch) {
         mainHeadline = mainHeadlineMatch[1].trim();
-        
+
         // Get lead paragraph - text between headline and first ## heading
-        const leadMatch = mdContent.match(/# (?:")?[^"\n]+(?:")?(?:\n\n|\n)([^#]+?)(?=\n\n##|\n##)/s);
+        const leadMatch = mdContent.match(
+          /# (?:")?[^"\n]+(?:")?(?:\n\n|\n)([^#]+?)(?=\n\n##|\n##)/s,
+        );
         if (leadMatch) {
           leadParagraph = leadMatch[1].trim();
           // Remove all citation references like [1], [2], etc. from lead paragraph
-          leadParagraph = leadParagraph.replace(/\[\d+\]/g, '');
+          leadParagraph = leadParagraph.replace(/\[\d+\]/g, "");
         }
       }
-      
+
       // Extract all articles (sections with ## headings)
-      const articlePattern = /## (?:")?([^"\n]+)(?:")?(?:\n\n|\n)((?:(?!##).)+)/gs;
+      const articlePattern =
+        /## (?:")?([^"\n]+)(?:")?(?:\n\n|\n)((?:(?!##).)+)/gs;
       const articleMatches = [...mdContent.matchAll(articlePattern)];
-      
+
       articleMatches.forEach((match, index) => {
         const title = match[1].trim();
         let content = match[2].trim();
-        
+
         // Remove all citation references like [1], [2], etc.
-        content = content.replace(/\[\d+\]/g, '');
-        
+        content = content.replace(/\[\d+\]/g, "");
+
         // Check if this is a "Looking Forward" or "Conclusion" section
-        if (title.toLowerCase().includes("looking forward") || 
-            title.toLowerCase().includes("conclusion")) {
+        if (
+          title.toLowerCase().includes("looking forward") ||
+          title.toLowerCase().includes("conclusion")
+        ) {
           lookingForward = content;
-        } else if (title.toLowerCase().includes("references") || 
-                   title.toLowerCase().includes("sources")) {
+        } else if (
+          title.toLowerCase().includes("references") ||
+          title.toLowerCase().includes("sources")
+        ) {
           // Skip reference sections entirely
           return;
         } else {
@@ -290,11 +313,11 @@ try {
           articles.push({
             title: title,
             content: content,
-            byline: getBylineForArticle(index, title)
+            byline: getBylineForArticle(index, title),
           });
         }
       });
-      
+
       // If no "Looking Forward" section found, check for a conclusion paragraph
       if (!lookingForward && articles.length > 0) {
         const lastArticle = articles[articles.length - 1];
@@ -303,111 +326,146 @@ try {
           // Use the last paragraph as conclusion
           lookingForward = paragraphs[paragraphs.length - 1];
           // Remove any citation references from the conclusion
-          lookingForward = lookingForward.replace(/\[\d+\]/g, '');
+          lookingForward = lookingForward.replace(/\[\d+\]/g, "");
           // Update the last article to remove this paragraph
           lastArticle.content = paragraphs.slice(0, -1).join("\n\n");
         }
       }
-      
+
       // Final clean-up: Make sure all references are removed from content
-      lookingForward = lookingForward.replace(/\[\d+\]/g, '');
-      articles.forEach(article => {
-        article.content = article.content.replace(/\[\d+\]/g, '');
+      lookingForward = lookingForward.replace(/\[\d+\]/g, "");
+      articles.forEach((article) => {
+        article.content = article.content.replace(/\[\d+\]/g, "");
       });
-      
+
       // Helper function to assign appropriate bylines based on content
       function getBylineForArticle(index, title) {
         const titleLower = title.toLowerCase();
-        
+
         if (titleLower.includes("gov") || titleLower.includes("governance")) {
           return "Blockchain Policy Correspondent";
-        } else if (titleLower.includes("parachain") || titleLower.includes("ecosystem")) {
+        } else if (
+          titleLower.includes("parachain") || titleLower.includes("ecosystem")
+        ) {
           return "Blockchain Report";
-        } else if (titleLower.includes("tech") || titleLower.includes("development")) {
+        } else if (
+          titleLower.includes("tech") || titleLower.includes("development")
+        ) {
           return "Technology Reporter";
-        } else if (titleLower.includes("market") || titleLower.includes("token") || titleLower.includes("ksm")) {
+        } else if (
+          titleLower.includes("market") || titleLower.includes("token") ||
+          titleLower.includes("ksm")
+        ) {
           return "Market Analysis";
         } else {
-          const bylines = ["Special Correspondent", "Web3 Analyst", "Staff Reporter", "Kusama Beat"];
+          const bylines = [
+            "Special Correspondent",
+            "Web3 Analyst",
+            "Staff Reporter",
+            "Kusama Beat",
+          ];
           return bylines[index % bylines.length];
         }
       }
-      
+
       // Now we have:
       // - mainHeadline: The main newspaper headline
       // - leadParagraph: The intro paragraph
       // - articles: Array of { title, content, byline } for each article
       // - lookingForward: The conclusion/looking forward section
-      
+
       // For compatibility with existing template, map to headlines array
       const headlines = [
         // First item is the main headline and lead content
         {
           title: mainHeadline,
-          content: leadParagraph
+          content: leadParagraph,
         },
         // Add all the articles
-        ...articles
+        ...articles,
       ];
-      
+
       // Set conclusion
       const conclusion = lookingForward;
-      
+
       // Create newspaper_data.typ with enhanced article data
       let dataContent = `#let title = "Kusama Blockchain"\n`;
-      dataContent += `#let subtitle = "News Digest - ${args.month} ${args.year}"\n`;
+      dataContent +=
+        `#let subtitle = "News Digest - ${args.month} ${args.year}"\n`;
       dataContent += `#let date = "${args.month} ${args.year}"\n\n`;
-      
+
       dataContent += `#let headlines = (\n`;
       // First item is always the main headline
       dataContent += `  (\n`;
       dataContent += `    title: "${headlines[0].title}",\n`;
-      dataContent += `    content: "${headlines[0].content.replace(/"/g, '\\"')}"\n`;
+      dataContent += `    content: "${
+        headlines[0].content.replace(/"/g, '\\"')
+      }"\n`;
       dataContent += `  ),\n`;
-      
+
       // Add remaining articles with bylines
       for (let i = 1; i < headlines.length; i++) {
         const headline = headlines[i];
         dataContent += `  (\n`;
         dataContent += `    title: "${headline.title}",\n`;
-        dataContent += `    content: "${headline.content.replace(/"/g, '\\"')}",\n`;
+        dataContent += `    content: "${
+          headline.content.replace(/"/g, '\\"')
+        }",\n`;
         // Include byline if available
         if (headline.byline) {
           dataContent += `    byline: "${headline.byline}"\n`;
         } else {
-          dataContent += `    byline: "${getDefaultByline(i-1, headline.title)}"\n`;
+          dataContent += `    byline: "${
+            getDefaultByline(i - 1, headline.title)
+          }"\n`;
         }
         dataContent += `  ),\n`;
       }
       dataContent += `)\n\n`;
-      
+
       dataContent += `#let conclusion = "${conclusion.replace(/"/g, '\\"')}"\n`;
-      
+
       // Helper function for default bylines if not provided
       function getDefaultByline(index, title) {
         const titleLower = title.toLowerCase();
-        
+
         if (titleLower.includes("gov") || titleLower.includes("governance")) {
           return "Blockchain Policy Correspondent";
-        } else if (titleLower.includes("parachain") || titleLower.includes("ecosystem")) {
+        } else if (
+          titleLower.includes("parachain") || titleLower.includes("ecosystem")
+        ) {
           return "Blockchain Report";
-        } else if (titleLower.includes("tech") || titleLower.includes("development")) {
+        } else if (
+          titleLower.includes("tech") || titleLower.includes("development")
+        ) {
           return "Technology Reporter";
-        } else if (titleLower.includes("market") || titleLower.includes("token") || titleLower.includes("ksm")) {
+        } else if (
+          titleLower.includes("market") || titleLower.includes("token") ||
+          titleLower.includes("ksm")
+        ) {
           return "Market Analysis";
         } else {
-          const bylines = ["Special Correspondent", "Web3 Analyst", "Staff Reporter", "Kusama Beat"];
+          const bylines = [
+            "Special Correspondent",
+            "Web3 Analyst",
+            "Staff Reporter",
+            "Kusama Beat",
+          ];
           return bylines[index % bylines.length];
         }
       }
-      
-      await Deno.writeTextFile(paths.getTypstPath('newspaper_data.typ'), dataContent);
-      
+
+      await Deno.writeTextFile(
+        paths.getTypstPath("newspaper_data.typ"),
+        dataContent,
+      );
+
       // Create newspaper.typ if it doesn't exist
-      const newspaperTypPath = paths.getTypstPath('newspaper.typ');
+      const newspaperTypPath = paths.getTypstPath("newspaper.typ");
       if (!await Deno.stat(newspaperTypPath).catch(() => false)) {
         // Create a basic newspaper template - this should be replaced with your actual template
-        const newspaperTemplate = `#import "newspaper_data.typ" : title, subtitle, date, headlines, conclusion
+        const newspaperTemplate =
+          `#import "newspaper_data.typ" : title, subtitle, date, headlines, conclusion
 
 // Page setup
 #set page(
@@ -514,32 +572,44 @@ try {
     Prepared by Multibase Blockchain News · February 2025
   ]
 ]`;
-        
+
         await Deno.writeTextFile(newspaperTypPath, newspaperTemplate);
       }
-      
+
       // Define the PDF output path
-      const pdfFilename = `kusama_${args.month.toLowerCase()}_${args.year}_newspaper.pdf`;
+      const pdfFilename =
+        `kusama_${args.month.toLowerCase()}_${args.year}_newspaper.pdf`;
       const pdfOutputPath = paths.getOutputPath(pdfFilename);
-      
+
       // Compile the Typst file to PDF
-      const compileSuccess = await compileTypst(newspaperTypPath, pdfOutputPath);
-      
+      const compileSuccess = await compileTypst(
+        newspaperTypPath,
+        pdfOutputPath,
+      );
+
       if (!compileSuccess) {
         throw new Error("Typst compilation failed");
       }
-      
+
       // Copy to root output directory
       await paths.copyToRootOutput(pdfFilename);
-      
+
       // PDF has been successfully created
-      console.log(colors.green(`\nNewspaper PDF generated at ${pdfOutputPath}`));
+      console.log(
+        colors.green(`\nNewspaper PDF generated at ${pdfOutputPath}`),
+      );
     } catch (typstErr) {
-      console.error(colors.yellow("\nCould not generate PDF newspaper:"), typstErr);
-      console.log(colors.yellow("Make sure Typst is installed with: cargo install typst-cli"));
+      console.error(
+        colors.yellow("\nCould not generate PDF newspaper:"),
+        typstErr,
+      );
+      console.log(
+        colors.yellow(
+          "Make sure Typst is installed with: cargo install typst-cli",
+        ),
+      );
     }
   }
-  
 } catch (err) {
   console.error(colors.red("Error:"), err);
 }

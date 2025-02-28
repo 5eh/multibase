@@ -1,6 +1,9 @@
 # 🎵 Kusama Music Generator
 
-A colorful command-line tool that generates music tracks (with or without lyrics) using the APIBox.ai API based on Kusama blockchain data. This module serves as the fourth step in the MusicGen pipeline, transforming lyrics into complete musical compositions.
+A colorful command-line tool that generates music tracks (with or without
+lyrics) using the APIBox.ai API based on Kusama blockchain data. This module
+serves as the fourth step in the MusicGen pipeline, transforming lyrics into
+complete musical compositions.
 
 ## ✨ Features
 
@@ -53,35 +56,38 @@ deno run -A ../../main.js --month="January" --year="2021"
 
 ## ⚙️ Parameters
 
-| Option | Description |
-|--------|-------------|
-| `-p, --prompt` | Music description (default: "A song about Kusama blockchain") |
-| `-s, --style` | Music style (default: "Rock") |
-| `-t, --title` | Music title (default: "Kusama Blockchain") |
-| `-b, --bpm` | Beats per minute (optional) |
-| `-m, --model` | Model version (V3_5 or V4) (default: V3_5) |
-| `-i, --task-id` | Use existing task ID |
-| `-l, --lyrics` | Custom lyrics (default: Kusama blockchain lyrics) |
-| `-n, --instrumental` | Generate instrumental music without lyrics |
-| `-h, --help` | Show help message |
+| Option               | Description                                                   |
+| -------------------- | ------------------------------------------------------------- |
+| `-p, --prompt`       | Music description (default: "A song about Kusama blockchain") |
+| `-s, --style`        | Music style (default: "Rock")                                 |
+| `-t, --title`        | Music title (default: "Kusama Blockchain")                    |
+| `-b, --bpm`          | Beats per minute (optional)                                   |
+| `-m, --model`        | Model version (V3_5 or V4) (default: V3_5)                    |
+| `-i, --task-id`      | Use existing task ID                                          |
+| `-l, --lyrics`       | Custom lyrics (default: Kusama blockchain lyrics)             |
+| `-n, --instrumental` | Generate instrumental music without lyrics                    |
+| `-h, --help`         | Show help message                                             |
 
 ## 📤 Output
 
 The module generates:
+
 - MP3 audio files of the generated music (usually 2 variations)
 - Files are saved with the title name in the current directory
 - A task ID is saved to last_task_id.txt for resuming interrupted generations
 
 ## ⚙️ How It Works
 
-1. The script sends a request to the APIBox.ai API with your prompt, style, and lyrics
+1. The script sends a request to the APIBox.ai API with your prompt, style, and
+   lyrics
 2. It receives a task ID and begins polling for completion status
 3. The generation process goes through several stages:
    - **Initializing**: Setting up the generation task
    - **Creating music**: Composing the musical structure
    - **Finalizing**: Refining and preparing the tracks
    - **Complete**: Music is ready for download
-4. When complete, the script downloads the generated MP3 files (usually 2 variations)
+4. When complete, the script downloads the generated MP3 files (usually 2
+   variations)
 5. Files are saved with the title name in the current directory
 
 ## 🔄 Integration
@@ -130,7 +136,8 @@ Found 2 tracks
 
 ## 🔍 Troubleshooting
 
-- If generation times out, you can resume by using the task ID (saved in last_task_id.txt)
+- If generation times out, you can resume by using the task ID (saved in
+  last_task_id.txt)
 - Make sure your API key is correctly set as an environment variable
 - Check your internet connection if downloads fail
 

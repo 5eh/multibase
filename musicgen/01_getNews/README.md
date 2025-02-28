@@ -1,6 +1,9 @@
 # 📰 Kusama News Fetcher
 
-A Deno script that fetches historical news and information about the Kusama blockchain using the Perplexity AI API. This module serves as the second step in the MusicGen pipeline, providing factual content that will be transformed into lyrics and music.
+A Deno script that fetches historical news and information about the Kusama
+blockchain using the Perplexity AI API. This module serves as the second step in
+the MusicGen pipeline, providing factual content that will be transformed into
+lyrics and music.
 
 ## ✨ Features
 
@@ -18,8 +21,10 @@ A Deno script that fetches historical news and information about the Kusama bloc
 - [Deno](https://deno.land/) installed
 - Perplexity AI API key (required)
 - OpenAI API key (optional, for enhanced content structuring)
-- [Typst](https://typst.app/) installed (for PDF newspaper generation) - can be installed with `cargo install typst-cli`
-- pdfinfo and pdftk (optional, for PDF post-processing to ensure single-page output)
+- [Typst](https://typst.app/) installed (for PDF newspaper generation) - can be
+  installed with `cargo install typst-cli`
+- pdfinfo and pdftk (optional, for PDF post-processing to ensure single-page
+  output)
 
 ## 🔑 Environment Setup
 
@@ -72,12 +77,16 @@ deno run -A ../../main.js --month="January" --year="2021"
 ## 📤 Output
 
 The script outputs:
+
 - A colorized display of the search query or month/year
 - The retrieved news content with a "Result:" header
 - A Markdown file with the news content saved to the output directory
-- A beautifully formatted PDF newspaper generated from the content (requires Typst)
+- A beautifully formatted PDF newspaper generated from the content (requires
+  Typst)
 
-For month/year searches, the output is structured as a comprehensive news article about Kusama for that time period, including:
+For month/year searches, the output is structured as a comprehensive news
+article about Kusama for that time period, including:
+
 - Headlines and key events
 - Development updates
 - Market performance
@@ -85,6 +94,7 @@ For month/year searches, the output is structured as a comprehensive news articl
 - References and citations
 
 The newspaper-style PDF includes:
+
 - Professional newspaper layout with masthead
 - Two-column article format
 - Section headers for different news topics

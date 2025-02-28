@@ -9,21 +9,23 @@ import { join } from "jsr:@std/path";
 
 // Configuration
 const config = {
-  apiUrl: 'https://apibox.erweima.ai/api/v1/generate',
-  statusUrl: 'https://apibox.erweima.ai/api/v1/generate/record-info',
-  lyricsUrl: 'https://apibox.erweima.ai/api/v1/lyrics',
+  apiUrl: "https://apibox.erweima.ai/api/v1/generate",
+  statusUrl: "https://apibox.erweima.ai/api/v1/generate/record-info",
+  lyricsUrl: "https://apibox.erweima.ai/api/v1/lyrics",
   apiKey: Deno.env.get("APIBOX_API_KEY"),
   callbackUrl: "https://api.example.com/callback", // Required by API but not used
   outputDir: "./output/",
   pollingInterval: 10000, // 10 seconds
-  maxAttempts: 60,        // 10 minutes total polling time
-  inputDir: "./input/"
+  maxAttempts: 60, // 10 minutes total polling time
+  inputDir: "./input/",
 };
 
 // Load the default lyrics from the input file
 let defaultLyrics = "";
 try {
-  defaultLyrics = Deno.readTextFileSync(`${config.inputDir}kusama_january_2021_lyrics.md`);
+  defaultLyrics = Deno.readTextFileSync(
+    `${config.inputDir}kusama_january_2021_lyrics.md`,
+  );
 } catch (error) {
   // Fallback lyrics if file is not found
   defaultLyrics = `**Title: Boundless Skies of Kusama**
@@ -43,7 +45,9 @@ Our hearts beat in sync with the digital skies.`;
 
 // Ensure API key is available
 if (!config.apiKey) {
-  console.error(colors.red("Error: APIBOX_API_KEY environment variable is not set"));
+  console.error(
+    colors.red("Error: APIBOX_API_KEY environment variable is not set"),
+  );
   Deno.exit(1);
 }
 
@@ -60,15 +64,15 @@ const args = parseArgs(Deno.args, {
     i: "task-id",
     l: "lyrics",
     n: "instrumental",
-    b: "bpm"
+    b: "bpm",
   },
   default: {
     prompt: "A song about Kusama blockchain in January 2021",
     style: "Rock",
     title: "Boundless Skies of Kusama",
     model: "V3_5",
-    instrumental: false
-  }
+    instrumental: false,
+  },
 });
 
 // Show help if requested
@@ -110,31 +114,41 @@ async function createMusicTask() {
   console.log(colors.dim(`• Style: ${colors.white(style)}`));
   console.log(colors.dim(`• Title: ${colors.white(title)}`));
   console.log(colors.dim(`• Model: ${colors.white(model)}`));
-  console.log(colors.dim(`• Instrumental: ${colors.white(instrumental ? "Yes" : "No")}`));
-  
+  console.log(
+    colors.dim(`• Instrumental: ${colors.white(instrumental ? "Yes" : "No")}`),
+  );
+
   if (!instrumental) {
-    console.log(colors.dim(`• Lyrics: ${colors.white("Custom lyrics included")}`));
+    console.log(
+      colors.dim(`• Lyrics: ${colors.white("Custom lyrics included")}`),
+    );
     console.log(colors.dim(colors.gray("First few lines:")));
-    const previewLines = customLyrics.split('\n').slice(0, 3);
-    previewLines.forEach(line => console.log(colors.dim(colors.gray(`  ${line}`))));
+    const previewLines = customLyrics.split("\n").slice(0, 3);
+    previewLines.forEach((line) =>
+      console.log(colors.dim(colors.gray(`  ${line}`)))
+    );
     console.log(colors.dim(colors.gray("  ...")));
   }
 
   // Add BPM to the prompt if specified
   const bpmText = args.bpm ? ` with ${args.bpm} BPM` : "";
   const styleWithBpm = `${style}${bpmText}`;
-  
+
   // Truncate lyrics if they exceed the 2999 character limit
   const maxLyricsLength = 2999;
   let truncatedLyrics = customLyrics;
-  
+
   if (!instrumental && customLyrics.length > maxLyricsLength) {
-    console.log(colors.yellow(`Warning: Lyrics exceed the maximum length of ${maxLyricsLength} characters. Truncating...`));
+    console.log(
+      colors.yellow(
+        `Warning: Lyrics exceed the maximum length of ${maxLyricsLength} characters. Truncating...`,
+      ),
+    );
     // Find the last complete verse/chorus/section that fits within the limit
-    const lines = customLyrics.split('\n');
+    const lines = customLyrics.split("\n");
     let currentLength = 0;
     let truncatedLines = [];
-    
+
     for (const line of lines) {
       if (currentLength + line.length + 1 <= maxLyricsLength) {
         truncatedLines.push(line);
@@ -143,29 +157,35 @@ async function createMusicTask() {
         break;
       }
     }
-    
-    truncatedLyrics = truncatedLines.join('\n');
-    console.log(colors.dim(`Truncated lyrics from ${customLyrics.length} to ${truncatedLyrics.length} characters`));
+
+    truncatedLyrics = truncatedLines.join("\n");
+    console.log(
+      colors.dim(
+        `Truncated lyrics from ${customLyrics.length} to ${truncatedLyrics.length} characters`,
+      ),
+    );
   }
-  
+
   const requestBody = {
-    prompt: instrumental ? `${prompt} in ${styleWithBpm} style` : `${prompt} in ${styleWithBpm} style\n\n${truncatedLyrics}`,
+    prompt: instrumental
+      ? `${prompt} in ${styleWithBpm} style`
+      : `${prompt} in ${styleWithBpm} style\n\n${truncatedLyrics}`,
     style: style,
     title: title,
     customMode: true,
     instrumental: instrumental,
     model: model,
-    callBackUrl: config.callbackUrl
+    callBackUrl: config.callbackUrl,
   };
 
   const options = {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': `Bearer ${config.apiKey}`
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${config.apiKey}`,
     },
-    body: JSON.stringify(requestBody)
+    body: JSON.stringify(requestBody),
   };
 
   try {
@@ -173,17 +193,26 @@ async function createMusicTask() {
     const result = await response.json();
 
     if (result.code === 200 && result.data?.taskId) {
-      console.log(colors.green(`✅ Task created successfully! Task ID: ${colors.white(result.data.taskId)}`));
+      console.log(
+        colors.green(
+          `✅ Task created successfully! Task ID: ${
+            colors.white(result.data.taskId)
+          }`,
+        ),
+      );
       return result.data.taskId;
     } else {
-      throw new Error(`Error creating task: ${result.msg || JSON.stringify(result)}`);
+      throw new Error(
+        `Error creating task: ${result.msg || JSON.stringify(result)}`,
+      );
     }
   } catch (error) {
-    console.error(colors.red(`❌ Failed to create music task: ${error.message}`));
+    console.error(
+      colors.red(`❌ Failed to create music task: ${error.message}`),
+    );
     Deno.exit(1);
   }
 }
-
 
 /**
  * Downloads a file from a URL
@@ -192,14 +221,14 @@ async function createMusicTask() {
  */
 async function downloadFile(url, outputPath) {
   console.log(colors.dim(`Downloading music...`));
-  
+
   try {
     const response = await fetch(url);
-    
+
     if (!response.ok) {
       throw new Error(`Download failed with status: ${response.status}`);
     }
-    
+
     // Ensure output directory exists
     try {
       await Deno.mkdir(config.outputDir, { recursive: true });
@@ -208,21 +237,25 @@ async function downloadFile(url, outputPath) {
         throw err;
       }
     }
-    
+
     // Check if we're using the output folder outside of the module
     let finalOutputPath = outputPath;
-    
+
     // If this is being called from the main.js script, adjust the path to be in the root output directory
-    if (Deno.cwd().endsWith("musicgen") && !outputPath.includes("03_createMusic")) {
+    if (
+      Deno.cwd().endsWith("musicgen") && !outputPath.includes("03_createMusic")
+    ) {
       // Extract just the filename from the path
       const fileName = outputPath.split("/").pop();
       finalOutputPath = `./output/${fileName}`;
     }
-    
+
     const fileBytes = new Uint8Array(await response.arrayBuffer());
     await Deno.writeFile(finalOutputPath, fileBytes);
-    
-    console.log(colors.green(`✅ Music saved to ${colors.white(finalOutputPath)}`));
+
+    console.log(
+      colors.green(`✅ Music saved to ${colors.white(finalOutputPath)}`),
+    );
     return true;
   } catch (error) {
     console.error(colors.red(`❌ Download failed: ${error.message}`));
@@ -238,102 +271,141 @@ async function downloadFile(url, outputPath) {
 async function waitForTaskCompletion(taskId) {
   console.log(colors.blue(`\nWaiting for music generation to complete...`));
   console.log(colors.dim(`This typically takes 1-3 minutes.`));
-  
+
   const options = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Accept': 'application/json',
-      'Authorization': `Bearer ${config.apiKey}`
-    }
+      "Accept": "application/json",
+      "Authorization": `Bearer ${config.apiKey}`,
+    },
   };
 
   // Construct the status URL with the task ID as a query parameter
   const statusUrl = `${config.statusUrl}?taskId=${taskId}`;
-  
+
   // For progress bar
   let lastStatus = "";
   let progressChar = "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏".split("");
   let progressIndex = 0;
-  
+
   for (let attempt = 1; attempt <= config.maxAttempts; attempt++) {
     // Update spinner
     if (lastStatus) {
-      Deno.stdout.writeSync(new TextEncoder().encode(`\r${colors.cyan(progressChar[progressIndex])} ${lastStatus} ${colors.dim(`(${attempt}/${config.maxAttempts})`)}`));
+      Deno.stdout.writeSync(
+        new TextEncoder().encode(
+          `\r${colors.cyan(progressChar[progressIndex])} ${lastStatus} ${
+            colors.dim(`(${attempt}/${config.maxAttempts})`)
+          }`,
+        ),
+      );
       progressIndex = (progressIndex + 1) % progressChar.length;
     } else {
-      Deno.stdout.writeSync(new TextEncoder().encode(`\r${colors.cyan(progressChar[progressIndex])} ${colors.dim(`Checking status (${attempt}/${config.maxAttempts})`)}`));
+      Deno.stdout.writeSync(
+        new TextEncoder().encode(
+          `\r${colors.cyan(progressChar[progressIndex])} ${
+            colors.dim(`Checking status (${attempt}/${config.maxAttempts})`)
+          }`,
+        ),
+      );
       progressIndex = (progressIndex + 1) % progressChar.length;
     }
-    
+
     try {
       const response = await fetch(statusUrl, options);
       const result = await response.json();
-      
+
       // Check for successful completion
       if (result.code === 200) {
         // Check if the task is complete
-        if (result.data && (result.data.status === "complete" || result.data.status === "SUCCESS")) {
+        if (
+          result.data &&
+          (result.data.status === "complete" ||
+            result.data.status === "SUCCESS")
+        ) {
           console.log(`\r${colors.green(`✅ Music generation complete!`)}`);
-          
+
           // Use our helper function to find all audio URLs in the response
           const foundUrls = [];
           findAudioUrls(result.data, foundUrls);
-          
+
           if (foundUrls.length > 0) {
-            console.log(colors.dim(`Found ${foundUrls.length} track${foundUrls.length > 1 ? 's' : ''}`));
+            console.log(
+              colors.dim(
+                `Found ${foundUrls.length} track${
+                  foundUrls.length > 1 ? "s" : ""
+                }`,
+              ),
+            );
           }
-          
+
           // Extract audio URLs from the response
           let downloadSuccess = false;
-          
+
           if (foundUrls.length > 0) {
             // Download only the first URL
             const { url, title } = foundUrls[0];
-            
+
             // Extract month and year from title if available, or generate a safe filename
             let fileName;
-            
+
             // Try to match "Kusama January 2021" pattern in title
             const titleMatch = title.match(/kusama\s+([a-z]+)\s+(\d{4})/i);
             if (titleMatch) {
               const [, month, year] = titleMatch;
-              fileName = `${config.outputDir}kusama_${month.toLowerCase()}_${year}_music.mp3`;
+              fileName =
+                `${config.outputDir}kusama_${month.toLowerCase()}_${year}_music.mp3`;
             } else {
               // Fallback to the safe title if no match
-              const safeTitle = title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+              const safeTitle = title.replace(/[^a-z0-9]/gi, "_").toLowerCase();
               fileName = `${config.outputDir}${safeTitle}.mp3`;
             }
-            
+
             const success = await downloadFile(url, fileName);
             if (success) {
               downloadSuccess = true;
-              console.log(colors.dim(`Note: Found ${foundUrls.length} tracks, but only downloading the first one`));
+              console.log(
+                colors.dim(
+                  `Note: Found ${foundUrls.length} tracks, but only downloading the first one`,
+                ),
+              );
             }
           } else {
             // Fallback to the original methods if no URLs found with our helper
-            if (result.data.data && Array.isArray(result.data.data) && result.data.data.length > 0) {
+            if (
+              result.data.data && Array.isArray(result.data.data) &&
+              result.data.data.length > 0
+            ) {
               // First structure: result.data.data is an array of tracks - only use the first one
               const track = result.data.data[0];
               if (track.audio_url) {
                 // Use a standard format with current date if title doesn't follow our pattern
                 const currentDate = new Date();
-                const month = currentDate.toLocaleString('en-US', { month: 'long' });
+                const month = currentDate.toLocaleString("en-US", {
+                  month: "long",
+                });
                 const year = currentDate.getFullYear();
-                const fileName = `${config.outputDir}kusama_${month.toLowerCase()}_${year}_music.mp3`;
+                const fileName =
+                  `${config.outputDir}kusama_${month.toLowerCase()}_${year}_music.mp3`;
                 const success = await downloadFile(track.audio_url, fileName);
                 if (success) {
                   downloadSuccess = true;
                 }
               }
-            } else if (result.data.list && Array.isArray(result.data.list) && result.data.list.length > 0) {
+            } else if (
+              result.data.list && Array.isArray(result.data.list) &&
+              result.data.list.length > 0
+            ) {
               // Second structure: result.data.list is an array of tracks - only use the first one
               const track = result.data.list[0];
               if (track.audio_url) {
                 // Use a standard format with current date if title doesn't follow our pattern
                 const currentDate = new Date();
-                const month = currentDate.toLocaleString('en-US', { month: 'long' });
+                const month = currentDate.toLocaleString("en-US", {
+                  month: "long",
+                });
                 const year = currentDate.getFullYear();
-                const fileName = `${config.outputDir}kusama_${month.toLowerCase()}_${year}_music.mp3`;
+                const fileName =
+                  `${config.outputDir}kusama_${month.toLowerCase()}_${year}_music.mp3`;
                 const success = await downloadFile(track.audio_url, fileName);
                 if (success) {
                   downloadSuccess = true;
@@ -342,16 +414,22 @@ async function waitForTaskCompletion(taskId) {
             } else if (result.data.audio_url) {
               // Third structure: audio_url is directly in result.data
               const currentDate = new Date();
-              const month = currentDate.toLocaleString('en-US', { month: 'long' });
+              const month = currentDate.toLocaleString("en-US", {
+                month: "long",
+              });
               const year = currentDate.getFullYear();
-              const fileName = `${config.outputDir}kusama_${month.toLowerCase()}_${year}_music.mp3`;
-              const success = await downloadFile(result.data.audio_url, fileName);
+              const fileName =
+                `${config.outputDir}kusama_${month.toLowerCase()}_${year}_music.mp3`;
+              const success = await downloadFile(
+                result.data.audio_url,
+                fileName,
+              );
               if (success) {
                 downloadSuccess = true;
               }
             }
           }
-          
+
           if (downloadSuccess) {
             return true;
           } else {
@@ -364,27 +442,44 @@ async function waitForTaskCompletion(taskId) {
             "PENDING": "Initializing...",
             "TEXT_SUCCESS": "Creating music...",
             "FIRST_SUCCESS": "Finalizing...",
-            "SUCCESS": "Complete"
+            "SUCCESS": "Complete",
           };
-          
-          const friendlyStatus = statusMap[result.data.status] || result.data.status;
+
+          const friendlyStatus = statusMap[result.data.status] ||
+            result.data.status;
           lastStatus = `Status: ${friendlyStatus}`;
         }
       } else if (result.code !== 200) {
-        console.log(`\r${colors.red(`❌ API error ${result.code}: ${result.msg || "Unknown error"}`)}`);
+        console.log(
+          `\r${
+            colors.red(
+              `❌ API error ${result.code}: ${result.msg || "Unknown error"}`,
+            )
+          }`,
+        );
       }
     } catch (error) {
-      console.log(`\r${colors.red(`❌ Error checking status: ${error.message}`)}`);
+      console.log(
+        `\r${colors.red(`❌ Error checking status: ${error.message}`)}`,
+      );
     }
-    
+
     // Wait before next polling attempt
-    await new Promise(resolve => setTimeout(resolve, config.pollingInterval));
+    await new Promise((resolve) => setTimeout(resolve, config.pollingInterval));
   }
-  
+
   console.log(`\n${colors.red(`❌ Timed out waiting for music to be ready.`)}`);
-  console.log(colors.yellow(`The task may still be processing. Try running this command later:`));
-  console.log(colors.cyan(`deno run -A musicgen/03_createMusic/index.js --task-id=${taskId}`));
-  
+  console.log(
+    colors.yellow(
+      `The task may still be processing. Try running this command later:`,
+    ),
+  );
+  console.log(
+    colors.cyan(
+      `deno run -A musicgen/03_createMusic/index.js --task-id=${taskId}`,
+    ),
+  );
+
   return false;
 }
 
@@ -394,31 +489,31 @@ async function waitForTaskCompletion(taskId) {
  * @param {Array} foundUrls Array to collect found URLs
  */
 function findAudioUrls(obj, foundUrls = []) {
-  if (!obj || typeof obj !== 'object') return;
-  
+  if (!obj || typeof obj !== "object") return;
+
   // Check if this object has an audio_url property
-  if (obj.audio_url && typeof obj.audio_url === 'string') {
+  if (obj.audio_url && typeof obj.audio_url === "string") {
     foundUrls.push({
       url: obj.audio_url,
-      title: obj.title || 'Unknown'
+      title: obj.title || "Unknown",
     });
   }
-  
+
   // Also check for other common URL property names
-  if (obj.audioUrl && typeof obj.audioUrl === 'string') {
+  if (obj.audioUrl && typeof obj.audioUrl === "string") {
     foundUrls.push({
       url: obj.audioUrl,
-      title: obj.title || 'Unknown'
+      title: obj.title || "Unknown",
     });
   }
-  
-  if (obj.url && typeof obj.url === 'string' && obj.url.endsWith('.mp3')) {
+
+  if (obj.url && typeof obj.url === "string" && obj.url.endsWith(".mp3")) {
     foundUrls.push({
       url: obj.url,
-      title: obj.title || 'Unknown'
+      title: obj.title || "Unknown",
     });
   }
-  
+
   // Recursively search arrays
   if (Array.isArray(obj)) {
     for (const item of obj) {
@@ -426,10 +521,10 @@ function findAudioUrls(obj, foundUrls = []) {
     }
     return;
   }
-  
+
   // Recursively search object properties
   for (const key in obj) {
-    if (obj[key] && typeof obj[key] === 'object') {
+    if (obj[key] && typeof obj[key] === "object") {
       findAudioUrls(obj[key], foundUrls);
     }
   }
@@ -442,7 +537,7 @@ async function main() {
   try {
     // Get task ID (either from command line or by creating a new task)
     const id = taskId || await createMusicTask();
-    
+
     // Ensure output directory exists
     try {
       await Deno.mkdir("./output", { recursive: true });
@@ -451,19 +546,23 @@ async function main() {
         throw err;
       }
     }
-    
+
     // Save to a file for reference
     await Deno.writeTextFile("last_task_id.txt", id);
     console.log(colors.dim(`Task ID saved to last_task_id.txt`));
-    
+
     // Wait for task to complete and download music
     const success = await waitForTaskCompletion(id);
-    
+
     if (success) {
       console.log(colors.green(`\n✨ Music generation complete!`));
     } else {
       console.log(colors.yellow(`\nYou can check the status later with:`));
-      console.log(colors.cyan(`deno run -A musicgen/03_createMusic/index.js --task-id=${id}`));
+      console.log(
+        colors.cyan(
+          `deno run -A musicgen/03_createMusic/index.js --task-id=${id}`,
+        ),
+      );
     }
   } catch (error) {
     console.error(colors.red(`Error: ${error.message}`));

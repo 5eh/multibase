@@ -1,11 +1,14 @@
 # 🎵 MusicGen - AI Music Generator for Kusama Blockchain
 
-A complete pipeline that transforms Kusama blockchain transaction data into original music tracks in five steps:
+A complete pipeline that transforms Kusama blockchain transaction data into
+original music tracks in five steps:
 
 1. **Transaction Analysis** - Analyzes blockchain data for insights and trends
 2. **Get News** - Fetches historical news about Kusama for a specific month/year
-3. **Make Lyrics** - Transforms blockchain data and news into creative song lyrics
-4. **Create Music** - Generates music tracks with style based on transaction volume
+3. **Make Lyrics** - Transforms blockchain data and news into creative song
+   lyrics
+4. **Create Music** - Generates music tracks with style based on transaction
+   volume
 5. **Create Thumbnail** - Generates album cover art for the music tracks
 
 ## ✨ Features
@@ -46,6 +49,7 @@ deno run -A musicgen/main.js
 ```
 
 This will:
+
 1. Load blockchain transaction analysis data
 2. Search for Kusama news from the earliest month in the data
 3. Generate lyrics based on that news
@@ -54,30 +58,33 @@ This will:
 
 ### Command Line Options
 
-| Option | Description |
-|--------|-------------|
-| `-m, --month` | Month to analyze (e.g., "January") |
-| `-y, --year` | Year to analyze (e.g., "2021") |
-| `-t, --title` | Music title (default: "Kusama <Month> <Year>") |
-| `-d, --model` | Music model: V3_5 or V4 (default: V3_5) |
-| `-i, --instrumental` | Generate instrumental music without lyrics |
-| `-v, --verbose` | Show detailed output |
+| Option                | Description                                     |
+| --------------------- | ----------------------------------------------- |
+| `-m, --month`         | Month to analyze (e.g., "January")              |
+| `-y, --year`          | Year to analyze (e.g., "2021")                  |
+| `-t, --title`         | Music title (default: "Kusama <Month> <Year>")  |
+| `-d, --model`         | Music model: V3_5 or V4 (default: V3_5)         |
+| `-i, --instrumental`  | Generate instrumental music without lyrics      |
+| `-v, --verbose`       | Show detailed output                            |
 | `-s, --skip-analysis` | Skip analysis step (use existing analysis.json) |
-| `-h, --help` | Show help message |
+| `-h, --help`          | Show help message                               |
 
 ### Examples
 
 Generate music for a specific month and year:
+
 ```bash
 deno run -A musicgen/main.js --month="January" --year="2021"
 ```
 
 Create instrumental music:
+
 ```bash
 deno run -A musicgen/main.js --month="January" --year="2021" --instrumental
 ```
 
 Get detailed output:
+
 ```bash
 deno run -A musicgen/main.js --verbose
 ```
@@ -94,13 +101,15 @@ deno run -A musicgen/main.js --verbose
     - `output/` - All generated files (PDFs, JSON, MD, images, audio, etc.)
 
 ### Modules
+
 - `00_analysis/` - Analyzes blockchain transaction data
 - `01_getNews/` - Retrieves news content about Kusama
 - `02_makeLyrics/` - Generates lyrics from news
 - `03_createMusic/` - Creates music from lyrics
 - `04_createThumbnail/` - Generates album cover art
 
-Each module can also be run independently. See their respective README files for details.
+Each module can also be run independently. See their respective README files for
+details.
 
 ## 📤 Output
 
@@ -108,11 +117,13 @@ The complete pipeline generates the following files in the `output` directory:
 
 - `kusama_analysis_report.pdf` - PDF report of blockchain transaction analysis
 - `kusama_[month]_[year]_newspaper.pdf` - PDF newspaper with historical news
-- `kusama_[month]_[year]_news.md` - The retrieved news content in markdown format
+- `kusama_[month]_[year]_news.md` - The retrieved news content in markdown
+  format
 - `kusama_[month]_[year]_lyrics.md` - The generated lyrics
 - `kusama_[month]_[year]_lyrics.pdf` - PDF formatted version of the lyrics
 - `kusama_[month]_[year]_music_1.mp3` - The first generated music track
-- `kusama_[month]_[year]_music_2.mp3` - The second generated music track (variation)
+- `kusama_[month]_[year]_music_2.mp3` - The second generated music track
+  (variation)
 - `kusama_[month]_[year]_cover.png` - The album cover thumbnail
 - `analysis.json` - Blockchain transaction analysis data
 
@@ -123,7 +134,8 @@ The MusicGen pipeline consists of five integrated modules:
 1. **Transaction Analysis** - Analyzes blockchain data for insights
 2. **News Fetcher** - Retrieves historical news about Kusama blockchain
 3. **Lyrics Generator** - Transforms content into creative lyrics
-4. **Music Creator** - Generates music using the lyrics with style based on transaction volume
+4. **Music Creator** - Generates music using the lyrics with style based on
+   transaction volume
 5. **Thumbnail Generator** - Creates album cover art for the music
 
 ## 📝 Example Output
@@ -176,7 +188,8 @@ Based on 15,243 transactions
 
 - If any step fails, check that your API keys are correctly set
 - For detailed error information, run with the `--verbose` flag
-- If music generation times out, you can resume using the task ID from `last_task_id.txt`
+- If music generation times out, you can resume using the task ID from
+  `last_task_id.txt`
 
 ## 📄 License
 

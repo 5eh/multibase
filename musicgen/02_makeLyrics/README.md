@@ -1,6 +1,8 @@
 # 🎵 Kusama Song Lyrics Generator
 
-This module takes Kusama blockchain news content and transforms it into creative song lyrics using OpenAI's GPT-4o model. It serves as the third step in the MusicGen pipeline, bridging factual content with musical expression.
+This module takes Kusama blockchain news content and transforms it into creative
+song lyrics using OpenAI's GPT-4o model. It serves as the third step in the
+MusicGen pipeline, bridging factual content with musical expression.
 
 ## ✨ Features
 
@@ -53,7 +55,8 @@ deno run -A ../../main.js --month="January" --year="2021"
 
 ## ⚙️ Parameters
 
-- `-c, --context`: Markdown-formatted content to transform into lyrics (required)
+- `-c, --context`: Markdown-formatted content to transform into lyrics
+  (required)
 - `-m, --month`: Month to reference in the lyrics (e.g., "January")
 - `-y, --year`: Year to reference in the lyrics (e.g., "2021")
 - `-h, --help`: Show help message
@@ -61,10 +64,12 @@ deno run -A ../../main.js --month="January" --year="2021"
 ## 📤 Output
 
 The module generates:
+
 - Formatted lyrics with multiple verses and chorus sections
 - Lyrics that incorporate blockchain terminology and Kusama references
 - Content that captures the essence of the input while adding creative elements
-- A markdown file saved to the output directory with naming format `kusama_[month]_[year]_lyrics.md`
+- A markdown file saved to the output directory with naming format
+  `kusama_[month]_[year]_lyrics.md`
 
 ## 🔄 Integration
 
@@ -79,6 +84,7 @@ This module is designed as part of the MusicGen pipeline:
 ## 📝 Example
 
 ### Input (news content):
+
 ```
 # Kusama Network: January 2021 in Review
 
@@ -88,6 +94,7 @@ The Kusama development team focused intensely on preparing the network for parac
 ```
 
 ### Output (lyrics):
+
 ```
 (Verse 1)
 Digital canaries in the blockchain mine
