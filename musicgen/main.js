@@ -3,10 +3,11 @@
  *
  * This script orchestrates the full pipeline:
  * 1. Analyze blockchain transaction data using 00_analysis
- * 2. Get news about Kusama for a specific month using 01_getNews
- * 3. Generate lyrics based on the news using 02_makeLyrics
- * 4. Create music with the lyrics using 03_createMusic, with style based on transaction volume
- * 5. Generate a thumbnail image for the track using 04_createThumbnail
+ * 2. Loop through each month in the analysis data:
+ *    a. Get news about Kusama for the specific month using 01_getNews
+ *    b. Generate lyrics based on the news using 02_makeLyrics
+ *    c. Create music with the lyrics using 03_createMusic, with style based on transaction volume
+ *    d. Generate a thumbnail image for the track using 04_createThumbnail
  */
 
 import * as colors from "jsr:@std/fmt/colors";
@@ -45,8 +46,8 @@ if (missingKeys.length > 0) {
 
 // Parse command line arguments
 const args = parseArgs(Deno.args, {
-  string: ["month", "year", "model", "title"],
-  boolean: ["instrumental", "verbose", "skip-analysis"],
+  string: ["month", "year", "model", "title", "process-year"],
+  boolean: ["instrumental", "verbose", "skip-analysis", "loop-all-months"],
   alias: {
     m: "month",
     y: "year",
@@ -55,12 +56,15 @@ const args = parseArgs(Deno.args, {
     i: "instrumental",
     v: "verbose",
     s: "skip-analysis",
+    l: "loop-all-months",
+    p: "process-year",
   },
   default: {
     model: "V3_5",
     instrumental: false,
     verbose: false,
     "skip-analysis": false,
+    "loop-all-months": false,
   },
 });
 
@@ -73,14 +77,16 @@ Usage:
   deno run -A main.js [options]
 
 Options:
-  -m, --month=TEXT       Month to analyze (e.g., "January")
-  -y, --year=TEXT        Year to analyze (e.g., "2021")
-  -t, --title=TEXT       Music title (default: "Kusama <Month> <Year>")
-  -d, --model=TEXT       Music model: V3_5 or V4 (default: V3_5)
-  -i, --instrumental     Generate instrumental music without lyrics
-  -v, --verbose          Show detailed output
-  -s, --skip-analysis    Skip analysis step (use existing analysis.json)
-  -h, --help             Show this help message
+  -m, --month=TEXT         Month to analyze (e.g., "January")
+  -y, --year=TEXT          Year to analyze (e.g., "2021")
+  -p, --process-year=TEXT  Process all months for a specific year (e.g., "2021")
+  -t, --title=TEXT         Music title (default: "Kusama <Month> <Year>")
+  -d, --model=TEXT         Music model: V3_5 or V4 (default: V3_5)
+  -i, --instrumental       Generate instrumental music without lyrics
+  -v, --verbose            Show detailed output
+  -s, --skip-analysis      Skip analysis step (use existing analysis.json)
+  -l, --loop-all-months    Process all months from analysis data in chronological order
+  -h, --help               Show this help message
 
 Required API Keys:
   PERPLEXITY_API_KEY     For news retrieval
@@ -88,8 +94,10 @@ Required API Keys:
   APIBOX_API_KEY         For music generation
   BFL_API_KEY            For thumbnail generation
 
-Example:
+Examples:
   deno run -A main.js --month="January" --year="2021"
+  deno run -A main.js --process-year="2021"
+  deno run -A main.js --loop-all-months
 `));
   Deno.exit(0);
 }
@@ -156,154 +164,30 @@ async function runCommand(cmd, options = {}) {
 }
 
 /**
- * Main function to orchestrate the pipeline
+ * Process a single month through the pipeline
+ * @param {Object} selectedMonth - The month data from analysis
+ * @param {Object} analysisData - The full analysis data
+ * @param {Object} args - Command line arguments
+ * @param {Array<string>} logs - Array to collect log messages
+ * @returns {Promise<void>}
  */
-async function main() {
+async function processMonth(selectedMonth, analysisData, args, logs = []) {
   try {
-    console.log(colors.cyan("🎵 Starting Kusama MusicGen Pipeline 🎵"));
-
-    // Step 1: Use existing analysis data
-    let analysisData;
-
+    const logMessage =
+      `🎵 Processing: ${selectedMonth.month} ${selectedMonth.year} 🎵`;
     console.log(
-      colors.dim("Step 1/4: Loading Kusama blockchain transaction data..."),
+      colors.blue("=================================================="),
+    );
+    console.log(
+      colors.blue(logMessage),
+    );
+    console.log(
+      colors.blue("=================================================="),
     );
 
-    // Check if analysis directory exists or if analysis.json doesn't exist
-    if (!await exists(analysisOutputDir) || !await exists(analysisJsonPath)) {
-      console.log(colors.dim("Analysis data not found, running analysis..."));
-
-      // Ensure directories exist
-      await Deno.mkdir(analysisOutputDir, { recursive: true });
-
-      // Run the analysis script
-      try {
-        console.log(colors.dim("Running analysis..."));
-        await runCommand(["deno", "run", "-A", analysisScript]);
-        console.log(colors.green("✅ Analysis completed successfully!"));
-      } catch (error) {
-        console.error(colors.red(`Error running analysis: ${error.message}`));
-        Deno.exit(1);
-      }
-    } else if (!args["skip-analysis"]) {
-      // If not skipping analysis and it exists, check if we should re-run
-      console.log(
-        colors.dim(
-          "Analysis data found. Use --skip-analysis to skip re-running analysis.",
-        ),
-      );
-
-      try {
-        console.log(
-          colors.dim("Running analysis to ensure up-to-date data..."),
-        );
-        await runCommand(["deno", "run", "-A", analysisScript]);
-        console.log(colors.green("✅ Analysis completed successfully!"));
-      } catch (error) {
-        console.error(colors.red(`Error running analysis: ${error.message}`));
-        Deno.exit(1);
-      }
-    } else {
-      console.log(colors.dim("Using existing analysis data (--skip-analysis)"));
-    }
-
-    // Load the analysis data
-    try {
-      let analysisJson;
-
-      // Check if data exists in the new typst directory
-      if (await exists(analysisTypstJsonPath)) {
-        console.log(colors.dim("Using analysis data from typst directory"));
-        analysisJson = await Deno.readTextFile(analysisTypstJsonPath);
-      } // Then try the data directory
-      else if (await exists(analysisJsonPath)) {
-        console.log(
-          colors.dim("Using analysis data from output/data directory"),
-        );
-        analysisJson = await Deno.readTextFile(analysisJsonPath);
-      } // Finally, try the old paths for compatibility
-      else if (
-        await exists(
-          join(baseDir, "00_analysis", "typst_report", "analysis.json"),
-        )
-      ) {
-        const oldPath = join(
-          baseDir,
-          "00_analysis",
-          "typst_report",
-          "analysis.json",
-        );
-        console.log(
-          colors.dim(`Using analysis data from legacy location: ${oldPath}`),
-        );
-        analysisJson = await Deno.readTextFile(oldPath);
-      } else {
-        throw new Error("Could not find analysis.json in any location");
-      }
-
-      // Ensure the PDF is copied to output directories if it exists
-      const rootOutputDir = join(baseDir, "output");
-
-      // Ensure output directory exists
-      await Deno.mkdir(rootOutputDir, { recursive: true });
-
-      // Check for PDF in the output directory
-      if (await exists(analysisPdfPath)) {
-        console.log(
-          colors.dim(`Found analysis report PDF at ${analysisPdfPath}`),
-        );
-
-        // Copy to the root output directory
-        const rootReportPath = join(
-          rootOutputDir,
-          "kusama_analysis_report.pdf",
-        );
-        await Deno.copyFile(analysisPdfPath, rootReportPath);
-        console.log(colors.dim(`Copied analysis report to ${rootReportPath}`));
-
-        console.log(
-          colors.green("✅ Analysis report PDF copied to output folders"),
-        );
-      } else {
-        console.log(
-          colors.yellow(`Note: Analysis PDF not found at ${analysisPdfPath}`),
-        );
-      }
-
-      analysisData = JSON.parse(analysisJson);
-      console.log(colors.green("✅ Analysis data loaded successfully!"));
-    } catch (error) {
-      console.error(
-        colors.red(`Error reading analysis data: ${error.message}`),
-      );
-      Deno.exit(1);
-    }
-
-    // Select month data to use
-    let selectedMonth;
-
-    if (args.month && args.year) {
-      // Find the specified month in the data
-      selectedMonth = analysisData.monthlyData.find(
-        (m) =>
-          m.month.toLowerCase() === args.month.toLowerCase() &&
-          m.year === parseInt(args.year),
-      );
-
-      if (!selectedMonth) {
-        console.error(
-          colors.red(`No data found for ${args.month} ${args.year}`),
-        );
-        Deno.exit(1);
-      }
-    } else {
-      // Use the first month in the data (usually the earliest)
-      selectedMonth = analysisData.monthlyData[0];
-      console.log(
-        colors.blue(
-          `No month specified, using first month in data: ${selectedMonth.month} ${selectedMonth.year}`,
-        ),
-      );
+    // Add to logs if provided
+    if (logs) {
+      logs.push(`\n${new Date().toISOString()} - ${logMessage}`);
     }
 
     // Copy newspaper.pdf for the selected month if it exists
@@ -485,9 +369,9 @@ async function main() {
     const title = args.title ||
       `Kusama ${selectedMonth.month} ${selectedMonth.year}`;
 
-    // Step 2: Get news about Kusama for the selected month
+    // Step 1: Get news about Kusama for the selected month
     console.log(
-      colors.dim("\nStep 2/4: Getting Kusama news for the selected month..."),
+      colors.dim("\nStep 1/4: Getting Kusama news for the selected month..."),
     );
 
     const newsContent = await runCommand([
@@ -509,9 +393,9 @@ async function main() {
     console.log(colors.dim("Preview:"));
     console.log(colors.dim(newsResult.substring(0, 200) + "..."));
 
-    // Step 3: Generate lyrics based on the news
+    // Step 2: Generate lyrics based on the news
     console.log(
-      colors.dim("\nStep 3/4: Generating lyrics based on the news..."),
+      colors.dim("\nStep 2/4: Generating lyrics based on the news..."),
     );
 
     let lyrics;
@@ -542,8 +426,8 @@ async function main() {
       lyrics = "";
     }
 
-    // Step 4: Create music with the lyrics
-    console.log(colors.dim("\nStep 4/4: Creating music..."));
+    // Step 3: Create music with the lyrics
+    console.log(colors.dim("\nStep 3/4: Creating music..."));
 
     const musicArgs = [
       "deno",
@@ -571,14 +455,16 @@ async function main() {
       // Check if lyrics exceed API limit and truncate if necessary
       const maxLyricsLength = 2900; // Slightly below the 2999 limit for safety
       let truncatedLyrics = lyrics;
-      
+
       if (lyrics.length > maxLyricsLength) {
-        console.log(colors.yellow(`Lyrics exceed the API limit, truncating...`));
+        console.log(
+          colors.yellow(`Lyrics exceed the API limit, truncating...`),
+        );
         // Find the last complete verse/chorus that fits
-        const lines = lyrics.split('\n');
+        const lines = lyrics.split("\n");
         let currentLength = 0;
         let truncatedLines = [];
-        
+
         for (const line of lines) {
           if (currentLength + line.length + 1 <= maxLyricsLength) {
             truncatedLines.push(line);
@@ -587,18 +473,22 @@ async function main() {
             break;
           }
         }
-        
-        truncatedLyrics = truncatedLines.join('\n');
-        console.log(colors.dim(`Truncated lyrics from ${lyrics.length} to ${truncatedLyrics.length} characters`));
+
+        truncatedLyrics = truncatedLines.join("\n");
+        console.log(
+          colors.dim(
+            `Truncated lyrics from ${lyrics.length} to ${truncatedLyrics.length} characters`,
+          ),
+        );
       }
-      
+
       musicArgs.push("--lyrics", truncatedLyrics);
     }
 
     const musicResult = await runCommand(musicArgs);
 
-    // Step 5: Create thumbnail for the music
-    console.log(colors.dim("\nStep 5/5: Creating thumbnail image..."));
+    // Step 4: Create thumbnail for the music
+    console.log(colors.dim("\nStep 4/4: Creating thumbnail image..."));
 
     // Create thumbnail with appropriate parameters
     const thumbnailArgs = [
@@ -620,18 +510,380 @@ async function main() {
 
     const thumbnailResult = await runCommand(thumbnailArgs);
 
-    console.log(colors.green("\n✅ Pipeline completed successfully!"));
+    const successMessage =
+      `✅ Month processed successfully! Your Kusama ${selectedMonth.month} ${selectedMonth.year} music and thumbnail have been created.`;
+    console.log(colors.green(`\n${successMessage}`));
     console.log(
       colors.cyan(
         `Your Kusama ${selectedMonth.month} ${selectedMonth.year} music and thumbnail have been created.`,
       ),
     );
+
+    const styleMessage =
+      `Style: ${selectedMonth.musicStyle} (${selectedMonth.bpm} BPM), based on ${selectedMonth.count} transactions`;
     console.log(
       colors.dim(
         `Style: ${selectedMonth.musicStyle} (${selectedMonth.bpm} BPM)`,
       ),
     );
     console.log(colors.dim(`Based on ${selectedMonth.count} transactions`));
+
+    // Add success to logs
+    if (logs) {
+      logs.push(`${new Date().toISOString()} - ${successMessage}`);
+      logs.push(`${new Date().toISOString()} - ${styleMessage}`);
+    }
+
+    return true;
+  } catch (error) {
+    const errorMessage =
+      `❌ Error processing ${selectedMonth.month} ${selectedMonth.year}: ${error.message}`;
+    console.error(
+      colors.red(
+        `\n${errorMessage}`,
+      ),
+    );
+
+    // Add error to logs
+    if (logs) {
+      logs.push(`${new Date().toISOString()} - ${errorMessage}`);
+    }
+
+    return false;
+  }
+}
+
+/**
+ * Main function to orchestrate the pipeline
+ */
+async function main() {
+  try {
+    console.log(colors.cyan("🎵 Starting Kusama MusicGen Pipeline 🎵"));
+
+    // Step 1: Load analysis data
+    let analysisData;
+
+    console.log(
+      colors.dim("Step 1: Loading Kusama blockchain transaction data..."),
+    );
+
+    // Check if analysis directory exists or if analysis.json doesn't exist
+    if (!await exists(analysisOutputDir) || !await exists(analysisJsonPath)) {
+      console.log(colors.dim("Analysis data not found, running analysis..."));
+
+      // Ensure directories exist
+      await Deno.mkdir(analysisOutputDir, { recursive: true });
+
+      // Run the analysis script
+      try {
+        console.log(colors.dim("Running analysis..."));
+        await runCommand(["deno", "run", "-A", analysisScript]);
+        console.log(colors.green("✅ Analysis completed successfully!"));
+      } catch (error) {
+        console.error(colors.red(`Error running analysis: ${error.message}`));
+        Deno.exit(1);
+      }
+    } else if (!args["skip-analysis"]) {
+      // If not skipping analysis and it exists, check if we should re-run
+      console.log(
+        colors.dim(
+          "Analysis data found. Use --skip-analysis to skip re-running analysis.",
+        ),
+      );
+
+      try {
+        console.log(
+          colors.dim("Running analysis to ensure up-to-date data..."),
+        );
+        await runCommand(["deno", "run", "-A", analysisScript]);
+        console.log(colors.green("✅ Analysis completed successfully!"));
+      } catch (error) {
+        console.error(colors.red(`Error running analysis: ${error.message}`));
+        Deno.exit(1);
+      }
+    } else {
+      console.log(colors.dim("Using existing analysis data (--skip-analysis)"));
+    }
+
+    // Load the analysis data
+    try {
+      let analysisJson;
+
+      // Check if data exists in the new typst directory
+      if (await exists(analysisTypstJsonPath)) {
+        console.log(colors.dim("Using analysis data from typst directory"));
+        analysisJson = await Deno.readTextFile(analysisTypstJsonPath);
+      } // Then try the data directory
+      else if (await exists(analysisJsonPath)) {
+        console.log(
+          colors.dim("Using analysis data from output/data directory"),
+        );
+        analysisJson = await Deno.readTextFile(analysisJsonPath);
+      } // Finally, try the old paths for compatibility
+      else if (
+        await exists(
+          join(baseDir, "00_analysis", "typst_report", "analysis.json"),
+        )
+      ) {
+        const oldPath = join(
+          baseDir,
+          "00_analysis",
+          "typst_report",
+          "analysis.json",
+        );
+        console.log(
+          colors.dim(`Using analysis data from legacy location: ${oldPath}`),
+        );
+        analysisJson = await Deno.readTextFile(oldPath);
+      } else {
+        throw new Error("Could not find analysis.json in any location");
+      }
+
+      // Ensure the PDF is copied to output directories if it exists
+      const rootOutputDir = join(baseDir, "output");
+
+      // Ensure output directory exists
+      await Deno.mkdir(rootOutputDir, { recursive: true });
+
+      // Check for PDF in the output directory
+      if (await exists(analysisPdfPath)) {
+        console.log(
+          colors.dim(`Found analysis report PDF at ${analysisPdfPath}`),
+        );
+
+        // Copy to the root output directory
+        const rootReportPath = join(
+          rootOutputDir,
+          "kusama_analysis_report.pdf",
+        );
+        await Deno.copyFile(analysisPdfPath, rootReportPath);
+        console.log(colors.dim(`Copied analysis report to ${rootReportPath}`));
+
+        console.log(
+          colors.green("✅ Analysis report PDF copied to output folders"),
+        );
+      } else {
+        console.log(
+          colors.yellow(`Note: Analysis PDF not found at ${analysisPdfPath}`),
+        );
+      }
+
+      analysisData = JSON.parse(analysisJson);
+      console.log(colors.green("✅ Analysis data loaded successfully!"));
+    } catch (error) {
+      console.error(
+        colors.red(`Error reading analysis data: ${error.message}`),
+      );
+      Deno.exit(1);
+    }
+
+    // Step 2: Process months
+    console.log(colors.dim("\nStep 2: Processing months..."));
+
+    if (args["loop-all-months"]) {
+      // Process all months in chronological order
+      console.log(colors.blue("Processing all months from analysis data..."));
+
+      // Create logs array to store processing information
+      const logs = [
+        `Start processing all months - ${new Date().toISOString()}`,
+      ];
+      logs.push(`Total months to process: ${analysisData.monthlyData.length}`);
+
+      // Sort months chronologically
+      const chronologicalMonths = [...analysisData.monthlyData].sort((a, b) => {
+        if (a.year !== b.year) return a.year - b.year;
+        const months = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+        return months.indexOf(a.month) - months.indexOf(b.month);
+      });
+
+      let successCount = 0;
+      const totalMonths = chronologicalMonths.length;
+      logs.push(`Months are sorted chronologically`);
+
+      for (let i = 0; i < totalMonths; i++) {
+        const month = chronologicalMonths[i];
+        const progressMessage = `Processing month ${
+          i + 1
+        } of ${totalMonths}: ${month.month} ${month.year}`;
+        console.log(colors.blue(progressMessage));
+        logs.push(`\n${new Date().toISOString()} - ${progressMessage}`);
+
+        const success = await processMonth(month, analysisData, args, logs);
+        if (success) {
+          successCount++;
+        }
+      }
+
+      const completionMessage =
+        `✅ Completed processing ${successCount} out of ${totalMonths} months`;
+      console.log(colors.green(`\n${completionMessage}`));
+      logs.push(`\n${new Date().toISOString()} - ${completionMessage}`);
+
+      if (successCount < totalMonths) {
+        const warningMessage = `⚠️ Some months (${
+          totalMonths - successCount
+        }) failed to process completely`;
+        console.log(colors.yellow(warningMessage));
+        logs.push(`${new Date().toISOString()} - ${warningMessage}`);
+      }
+
+      // Write logs to file
+      const logsPath = join(baseDir, "output", "logs.txt");
+      try {
+        await Deno.writeTextFile(logsPath, logs.join("\n"));
+        console.log(colors.dim(`Processing logs saved to ${logsPath}`));
+      } catch (logError) {
+        console.error(colors.red(`Error writing logs: ${logError.message}`));
+      }
+    } else if (args["process-year"]) {
+      // Process all months for a specific year
+      const yearToProcess = parseInt(args["process-year"]);
+      if (isNaN(yearToProcess)) {
+        console.error(colors.red(`Invalid year: ${args["process-year"]}`));
+        Deno.exit(1);
+      }
+
+      // Create logs array to store processing information
+      const logs = [
+        `Start processing year ${yearToProcess} - ${new Date().toISOString()}`,
+      ];
+
+      // Filter and sort months for the specified year
+      const monthsForYear = analysisData.monthlyData
+        .filter((m) => m.year === yearToProcess)
+        .sort((a, b) => {
+          const months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ];
+          return months.indexOf(a.month) - months.indexOf(b.month);
+        });
+
+      if (monthsForYear.length === 0) {
+        const errorMessage = `No data found for year ${yearToProcess}`;
+        console.error(colors.red(errorMessage));
+        logs.push(`${new Date().toISOString()} - Error: ${errorMessage}`);
+
+        // Write logs to file even if we exit
+        const logsPath = join(baseDir, "output", "logs.txt");
+        try {
+          await Deno.writeTextFile(logsPath, logs.join("\n"));
+        } catch (logError) {
+          console.error(colors.red(`Error writing logs: ${logError.message}`));
+        }
+        Deno.exit(1);
+      }
+
+      const startMessage = `Processing all months for year ${yearToProcess}...`;
+      console.log(colors.blue(startMessage));
+      logs.push(`${new Date().toISOString()} - ${startMessage}`);
+      logs.push(`Total months to process: ${monthsForYear.length}`);
+
+      let successCount = 0;
+      const totalMonths = monthsForYear.length;
+
+      for (let i = 0; i < totalMonths; i++) {
+        const month = monthsForYear[i];
+        const progressMessage = `Processing month ${
+          i + 1
+        } of ${totalMonths}: ${month.month} ${yearToProcess}`;
+        console.log(colors.blue(progressMessage));
+        logs.push(`\n${new Date().toISOString()} - ${progressMessage}`);
+
+        const success = await processMonth(month, analysisData, args, logs);
+        if (success) {
+          successCount++;
+        }
+      }
+
+      const completionMessage =
+        `✅ Completed processing ${successCount} out of ${totalMonths} months for year ${yearToProcess}`;
+      console.log(colors.green(`\n${completionMessage}`));
+      logs.push(`\n${new Date().toISOString()} - ${completionMessage}`);
+
+      if (successCount < totalMonths) {
+        const warningMessage = `⚠️ Some months (${
+          totalMonths - successCount
+        }) failed to process completely`;
+        console.log(colors.yellow(warningMessage));
+        logs.push(`${new Date().toISOString()} - ${warningMessage}`);
+      }
+
+      // Write logs to file
+      const logsPath = join(baseDir, "output", "logs.txt");
+      try {
+        await Deno.writeTextFile(logsPath, logs.join("\n"));
+        console.log(colors.dim(`Processing logs saved to ${logsPath}`));
+      } catch (logError) {
+        console.error(colors.red(`Error writing logs: ${logError.message}`));
+      }
+    } else if (args.month && args.year) {
+      // Process only the specified month
+      const selectedMonth = analysisData.monthlyData.find(
+        (m) =>
+          m.month.toLowerCase() === args.month.toLowerCase() &&
+          m.year === parseInt(args.year),
+      );
+
+      if (!selectedMonth) {
+        console.error(
+          colors.red(`No data found for ${args.month} ${args.year}`),
+        );
+        Deno.exit(1);
+      }
+
+      const success = await processMonth(selectedMonth, analysisData, args);
+      if (!success) {
+        console.error(
+          colors.red(`Failed to process ${args.month} ${args.year}`),
+        );
+        Deno.exit(1);
+      }
+    } else {
+      // Default: Process only the first month in the data
+      const selectedMonth = analysisData.monthlyData[0];
+      console.log(
+        colors.blue(
+          `No month specified, using first month in data: ${selectedMonth.month} ${selectedMonth.year}`,
+        ),
+      );
+
+      const success = await processMonth(selectedMonth, analysisData, args);
+      if (!success) {
+        console.error(
+          colors.red(
+            `Failed to process ${selectedMonth.month} ${selectedMonth.year}`,
+          ),
+        );
+        Deno.exit(1);
+      }
+    }
+
+    console.log(colors.green("\n🎉 Pipeline completed successfully! 🎉"));
   } catch (error) {
     console.error(colors.red(`\n❌ Error: ${error.message}`));
     Deno.exit(1);
