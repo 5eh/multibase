@@ -2,6 +2,7 @@ import { parseArgs } from "jsr:@std/cli/parse-args";
 import * as colors from "jsr:@std/fmt/colors";
 import { ensureDir } from "jsr:@std/fs/ensure-dir";
 import { OpenAI } from "jsr:@openai/openai";
+import { setupPaths, compileTypst } from "../common/output.js";
 
 const PERPLEXITY_API_KEY = Deno.env.get("PERPLEXITY_API_KEY");
 const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
@@ -204,20 +205,8 @@ try {
   console.log(colors.green("\nResult:"));
   console.log(structuredContent);
   
-  // Determine if we're running from the module directory or from the musicgen root
-  const isRunningFromRoot = Deno.cwd().endsWith("musicgen") && !Deno.cwd().endsWith("01_getNews");
-  
-  // Set output directory based on where we're running from
-  let outputDir = "./output";
-  if (isRunningFromRoot) {
-    // If running from musicgen root, use the root output directory
-    await ensureDir("./output");
-    // Also ensure module output directory exists
-    await ensureDir("./01_getNews/output");
-  } else {
-    // If running from module directory, use the module's output directory
-    await ensureDir(outputDir);
-  }
+  // Set up standardized paths for this module
+  const paths = await setupPaths("01_getNews");
   
   // Create filename based on query
   let filename;
@@ -235,22 +224,24 @@ try {
     title = `# Search Results: ${userQuery}\n\n`;
   }
   
-  // Determine the final output path
-  const finalOutputPath = isRunningFromRoot 
-    ? `./output/${filename}`  // Save to root output when run from root
-    : `${outputDir}/${filename}`;  // Save to module output when run from module
+  // Determine the final output paths
+  const outputDataPath = paths.getOutputPath(filename);
+  const rootOutputPath = paths.getRootOutputPath(filename);
   
-  // Write the content to the file
-  await Deno.writeTextFile(finalOutputPath, title + structuredContent);
-  console.log(colors.green(`\nOutput saved to ${finalOutputPath}`));
+  // Write the content to the output directory
+  await Deno.writeTextFile(outputDataPath, title + structuredContent);
+  
+  // Copy to root output if running from root
+  if (paths.isRunningFromRoot) {
+    await Deno.writeTextFile(rootOutputPath, title + structuredContent);
+  }
+  
+  console.log(colors.green(`\nOutput saved to ${outputDataPath}`));
 
   // Generate the newspaper Typst file and PDF
   if (args.month && args.year) {
     try {
-      // Determine module output directory path
-      const moduleOutputDir = isRunningFromRoot 
-        ? "./01_getNews/output" 
-        : "./output";
+      // Our output directories are already managed by the paths utility
 
       // Check if we need to update newspaper_data.typ
       const mdContent = title + content;
@@ -410,10 +401,10 @@ try {
         }
       }
       
-      await Deno.writeTextFile(`${moduleOutputDir}/newspaper_data.typ`, dataContent);
+      await Deno.writeTextFile(paths.getTypstPath('newspaper_data.typ'), dataContent);
       
       // Create newspaper.typ if it doesn't exist
-      const newspaperTypPath = `${moduleOutputDir}/newspaper.typ`;
+      const newspaperTypPath = paths.getTypstPath('newspaper.typ');
       if (!await Deno.stat(newspaperTypPath).catch(() => false)) {
         // Create a basic newspaper template - this should be replaced with your actual template
         const newspaperTemplate = `#import "newspaper_data.typ" : title, subtitle, date, headlines, conclusion
@@ -527,76 +518,22 @@ try {
         await Deno.writeTextFile(newspaperTypPath, newspaperTemplate);
       }
       
+      // Define the PDF output path
+      const pdfFilename = `kusama_${args.month.toLowerCase()}_${args.year}_newspaper.pdf`;
+      const pdfOutputPath = paths.getOutputPath(pdfFilename);
+      
       // Compile the Typst file to PDF
-      const pdfOutputPath = `${moduleOutputDir}/kusama_${args.month.toLowerCase()}_${args.year}_newspaper.pdf`;
+      const compileSuccess = await compileTypst(newspaperTypPath, pdfOutputPath);
       
-      // First, compile to check if we have multiple pages
-      const typstCheckCommand = new Deno.Command("typst", {
-        args: ["compile", newspaperTypPath, pdfOutputPath],
-        stdout: "piped",
-        stderr: "piped",
-      });
-      
-      const typstCheckProcess = typstCheckCommand.spawn();
-      const typstCheckStatus = await typstCheckProcess.status;
-      
-      if (!typstCheckStatus.success) {
-        const stderr = new TextDecoder().decode(await typstCheckProcess.stderr.getReader().read().then(r => r.value));
-        console.error(colors.red("\nFailed in initial compile:"), stderr);
+      if (!compileSuccess) {
         throw new Error("Typst compilation failed");
       }
       
-      // Use pdfinfo to check page count - if not available, continue with the PDF we have
-      try {
-        const pdfInfoCommand = new Deno.Command("pdfinfo", {
-          args: [pdfOutputPath],
-          stdout: "piped",
-        });
-        
-        const pdfInfoProcess = pdfInfoCommand.spawn();
-        const pdfInfoOutput = new TextDecoder().decode(await pdfInfoProcess.stdout.getReader().read().then(r => r.value));
-        
-        // Extract page count
-        const pageCountMatch = pdfInfoOutput.match(/Pages:\s+(\d+)/);
-        const pageCount = pageCountMatch ? parseInt(pageCountMatch[1]) : 1;
-        
-        if (pageCount > 1) {
-          console.log(colors.yellow(`\nPDF has ${pageCount} pages. Using pdftk to extract just the first page...`));
-          
-          // Use pdftk to extract just the first page
-          const pdftcCommand = new Deno.Command("pdftk", {
-            args: [pdfOutputPath, "cat", "1", "output", `${pdfOutputPath}.temp`],
-          });
-          
-          await pdftcCommand.spawn().status;
-          
-          // Replace the original PDF with the single-page version
-          await Deno.remove(pdfOutputPath);
-          await Deno.rename(`${pdfOutputPath}.temp`, pdfOutputPath);
-          
-          console.log(colors.green("Successfully created single-page PDF"));
-        }
-      } catch (pdfToolsError) {
-        // If pdfinfo or pdftk is not available, just use the PDF as is
-        console.log(colors.yellow("\nNote: PDF tools not available. Using PDF as generated."));
-      }
+      // Copy to root output directory
+      await paths.copyToRootOutput(pdfFilename);
       
-      // Final typst command for reporting purposes
-      const typstCommand = new Deno.Command("typst", {
-        args: ["compile", newspaperTypPath, pdfOutputPath],
-        stdout: "piped",
-        stderr: "piped",
-      });
-      
-      const typstProcess = typstCommand.spawn();
-      const typstStatus = await typstProcess.status;
-      
-      if (typstStatus.success) {
-        console.log(colors.green(`\nNewspaper PDF generated at ${pdfOutputPath}`));
-      } else {
-        const stderr = new TextDecoder().decode(await typstProcess.stderr.getReader().read().then(r => r.value));
-        console.error(colors.red("\nFailed to compile Typst file:"), stderr);
-      }
+      // PDF has been successfully created
+      console.log(colors.green(`\nNewspaper PDF generated at ${pdfOutputPath}`));
     } catch (typstErr) {
       console.error(colors.yellow("\nCould not generate PDF newspaper:"), typstErr);
       console.log(colors.yellow("Make sure Typst is installed with: cargo install typst-cli"));

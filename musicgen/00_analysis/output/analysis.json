@@ -1,5 +1,5 @@
 {
-  "totalTransactions": 7612539,
+  "totalTransactions": 7613490,
   "highestMonth": {
     "period": "November 2024",
     "count": 4347886
@@ -21,9 +21,9 @@
       "month": "December",
       "year": 2019,
       "count": 7699,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Chillout",
+      "musicDescription": "Relaxed electronic music",
+      "bpm": 100
     },
     {
       "month": "January",
@@ -31,463 +31,463 @@
       "count": 2164,
       "musicStyle": "Ambient",
       "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "bpm": 80
     },
     {
       "month": "February",
       "year": 2020,
       "count": 5119,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Chillout",
+      "musicDescription": "Relaxed electronic music",
+      "bpm": 95
     },
     {
       "month": "March",
       "year": 2020,
       "count": 4595,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Chillout",
+      "musicDescription": "Relaxed electronic music",
+      "bpm": 90
     },
     {
       "month": "April",
       "year": 2020,
       "count": 9344,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Downtempo",
+      "musicDescription": "Mellow electronic beats",
+      "bpm": 105
     },
     {
       "month": "May",
       "year": 2020,
       "count": 12777,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Downtempo",
+      "musicDescription": "Mellow electronic beats",
+      "bpm": 110
     },
     {
       "month": "June",
       "year": 2020,
       "count": 5028,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Chillout",
+      "musicDescription": "Relaxed electronic music",
+      "bpm": 95
     },
     {
       "month": "July",
       "year": 2020,
       "count": 9826,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Downtempo",
+      "musicDescription": "Mellow electronic beats",
+      "bpm": 105
     },
     {
       "month": "August",
       "year": 2020,
       "count": 12717,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Downtempo",
+      "musicDescription": "Mellow electronic beats",
+      "bpm": 110
     },
     {
       "month": "September",
       "year": 2020,
       "count": 25261,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 125
     },
     {
       "month": "October",
       "year": 2020,
       "count": 12452,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Downtempo",
+      "musicDescription": "Mellow electronic beats",
+      "bpm": 110
     },
     {
       "month": "November",
       "year": 2020,
       "count": 14772,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Folk",
+      "musicDescription": "Acoustic folk music",
+      "bpm": 115
     },
     {
       "month": "December",
       "year": 2020,
       "count": 18143,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 120
     },
     {
       "month": "January",
       "year": 2021,
       "count": 27734,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 125
     },
     {
       "month": "February",
       "year": 2021,
       "count": 29549,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 125
     },
     {
       "month": "March",
       "year": 2021,
       "count": 38736,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 130
     },
     {
       "month": "April",
       "year": 2021,
       "count": 45419,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 135
     },
     {
       "month": "May",
       "year": 2021,
       "count": 164074,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 61
+      "musicStyle": "Hardstyle",
+      "musicDescription": "Hard-hitting electronic music",
+      "bpm": 160
     },
     {
       "month": "June",
       "year": 2021,
       "count": 161762,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 61
+      "musicStyle": "Hardstyle",
+      "musicDescription": "Hard-hitting electronic music",
+      "bpm": 160
     },
     {
       "month": "July",
       "year": 2021,
       "count": 60710,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 140
     },
     {
       "month": "August",
       "year": 2021,
       "count": 98561,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Hardstyle",
+      "musicDescription": "Hard-hitting electronic music",
+      "bpm": 150
     },
     {
       "month": "September",
       "year": 2021,
       "count": 207735,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 61
+      "musicStyle": "Hardstyle",
+      "musicDescription": "Hard-hitting electronic music",
+      "bpm": 160
     },
     {
       "month": "October",
       "year": 2021,
       "count": 157306,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 61
+      "musicStyle": "Hardstyle",
+      "musicDescription": "Hard-hitting electronic music",
+      "bpm": 155
     },
     {
       "month": "November",
       "year": 2021,
       "count": 177266,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 61
+      "musicStyle": "Hardstyle",
+      "musicDescription": "Hard-hitting electronic music",
+      "bpm": 160
     },
     {
       "month": "December",
       "year": 2021,
       "count": 89430,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Rock",
+      "musicDescription": "Energetic rock music",
+      "bpm": 145
     },
     {
       "month": "January",
       "year": 2022,
       "count": 63683,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 140
     },
     {
       "month": "February",
       "year": 2022,
       "count": 48429,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 135
     },
     {
       "month": "March",
       "year": 2022,
       "count": 64376,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 140
     },
     {
       "month": "April",
       "year": 2022,
       "count": 48740,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 135
     },
     {
       "month": "May",
       "year": 2022,
       "count": 90630,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Rock",
+      "musicDescription": "Energetic rock music",
+      "bpm": 145
     },
     {
       "month": "June",
       "year": 2022,
       "count": 51987,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 135
     },
     {
       "month": "July",
       "year": 2022,
       "count": 48885,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 135
     },
     {
       "month": "August",
       "year": 2022,
       "count": 120717,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 61
+      "musicStyle": "Hardstyle",
+      "musicDescription": "Hard-hitting electronic music",
+      "bpm": 150
     },
     {
       "month": "September",
       "year": 2022,
       "count": 39301,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 130
     },
     {
       "month": "October",
       "year": 2022,
       "count": 96835,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Hardstyle",
+      "musicDescription": "Hard-hitting electronic music",
+      "bpm": 150
     },
     {
       "month": "November",
       "year": 2022,
       "count": 54954,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 140
     },
     {
       "month": "December",
       "year": 2022,
       "count": 60880,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 140
     },
     {
       "month": "January",
       "year": 2023,
       "count": 49080,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 135
     },
     {
       "month": "February",
       "year": 2023,
       "count": 42972,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 135
     },
     {
       "month": "March",
       "year": 2023,
       "count": 44409,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 135
     },
     {
       "month": "April",
       "year": 2023,
       "count": 45039,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 135
     },
     {
       "month": "May",
       "year": 2023,
       "count": 40647,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 130
     },
     {
       "month": "June",
       "year": 2023,
       "count": 36234,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 130
     },
     {
       "month": "July",
       "year": 2023,
       "count": 38414,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 130
     },
     {
       "month": "August",
       "year": 2023,
       "count": 35899,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 130
     },
     {
       "month": "September",
       "year": 2023,
       "count": 30606,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 125
     },
     {
       "month": "October",
       "year": 2023,
       "count": 36222,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 130
     },
     {
       "month": "November",
       "year": 2023,
       "count": 47402,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 135
     },
     {
       "month": "December",
       "year": 2023,
       "count": 74394,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Rock",
+      "musicDescription": "Energetic rock music",
+      "bpm": 145
     },
     {
       "month": "January",
       "year": 2024,
       "count": 52554,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 135
     },
     {
       "month": "February",
       "year": 2024,
       "count": 53352,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 135
     },
     {
       "month": "March",
       "year": 2024,
       "count": 66144,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 140
     },
     {
       "month": "April",
       "year": 2024,
       "count": 53049,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 135
     },
     {
       "month": "May",
       "year": 2024,
       "count": 49078,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 135
     },
     {
       "month": "June",
       "year": 2024,
       "count": 29937,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 125
     },
     {
       "month": "July",
       "year": 2024,
       "count": 32665,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 130
     },
     {
       "month": "August",
       "year": 2024,
       "count": 33678,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 130
     },
     {
       "month": "September",
       "year": 2024,
       "count": 30091,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 125
     },
     {
       "month": "October",
       "year": 2024,
       "count": 35258,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 130
     },
     {
       "month": "November",
@@ -495,31 +495,31 @@
       "count": 4347886,
       "musicStyle": "Speedcore",
       "musicDescription": "Extremely fast electronic music",
-      "bpm": 300
+      "bpm": 220
     },
     {
       "month": "December",
       "year": 2024,
       "count": 53078,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "Dance",
+      "musicDescription": "Upbeat dance music",
+      "bpm": 135
     },
     {
       "month": "January",
       "year": 2025,
       "count": 38052,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 130
     },
     {
       "month": "February",
       "year": 2025,
-      "count": 27885,
-      "musicStyle": "Ambient",
-      "musicDescription": "Slow, atmospheric ambient music",
-      "bpm": 60
+      "count": 28836,
+      "musicStyle": "House",
+      "musicDescription": "Electronic house music",
+      "bpm": 125
     }
   ]
 }

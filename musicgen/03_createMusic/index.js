@@ -16,39 +16,30 @@ const config = {
   callbackUrl: "https://api.example.com/callback", // Required by API but not used
   outputDir: "./output/",
   pollingInterval: 10000, // 10 seconds
-  maxAttempts: 60         // 10 minutes total polling time
+  maxAttempts: 60,        // 10 minutes total polling time
+  inputDir: "./input/"
 };
 
-// Default SpaceX lyrics about the launch on December 3, 2024
-const defaultLyrics = `[Verse 1]
-Countdown to history, December sky
-SpaceX rockets ready to fly
-Metal and fire, dreams taking flight
-Breaking barriers, reaching new heights
+// Load the default lyrics from the input file
+let defaultLyrics = "";
+try {
+  defaultLyrics = Deno.readTextFileSync(`${config.inputDir}kusama_january_2021_lyrics.md`);
+} catch (error) {
+  // Fallback lyrics if file is not found
+  defaultLyrics = `**Title: Boundless Skies of Kusama**
 
-[Chorus]
-December third, twenty-twenty-four
-Humanity's reaching for something more
-Stars are calling, we're answering back
-SpaceX leading the way on this cosmic track
+*(Verse 1)*  
+In the heart of innovation, where the wild ones roam,  
+January 2021, a network finds its home.  
+Digital pioneers, chasing dreams untamed,  
+In a world of endless futures, their spirits unrestrained.  
 
-[Verse 2]
-Engineers and dreamers working as one
-Building the future under the sun
-From Boca Chica to orbit above
-A testament to what humans can love
-
-[Bridge]
-The impossible becomes possible today
-New frontiers just a rocket away
-The stars our destination, the moon just a start
-SpaceX mission embedded in our heart
-
-[Outro]
-December third, mark the date
-SpaceX launch, we can't wait
-History written in the stars tonight
-As we witness this magnificent flight`;
+*(Chorus)*  
+Boundless skies of Kusama,  
+In January's dawn, we rise.  
+With chains unbroken, in a cryptic panorama,  
+Our hearts beat in sync with the digital skies.`;
+}
 
 // Ensure API key is available
 if (!config.apiKey) {
@@ -72,9 +63,9 @@ const args = parseArgs(Deno.args, {
     b: "bpm"
   },
   default: {
-    prompt: "A song about Kusama blockchain",
+    prompt: "A song about Kusama blockchain in January 2021",
     style: "Rock",
-    title: "Kusama Blockchain",
+    title: "Boundless Skies of Kusama",
     model: "V3_5",
     instrumental: false
   }
@@ -89,12 +80,12 @@ Usage:
   deno run -A index.js [options]
 
 Options:
-  -p, --prompt=TEXT     Music description (default: "A song about Kusama blockchain")
+  -p, --prompt=TEXT     Music description (default: "A song about Kusama blockchain in January 2021")
   -s, --style=TEXT      Music style (default: Rock)
-  -t, --title=TEXT      Music title (default: "Kusama Blockchain")
+  -t, --title=TEXT      Music title (default: "Boundless Skies of Kusama")
   -m, --model=TEXT      Model version: V3_5 or V4 (default: V3_5)
   -i, --task-id=ID      Use existing task ID instead of creating new
-  -l, --lyrics=TEXT     Custom lyrics (default: Kusama blockchain lyrics)
+  -l, --lyrics=TEXT     Custom lyrics (default: Kusama January 2021 lyrics from input folder)
   -b, --bpm=NUMBER      Beats per minute for the music
   -n, --instrumental    Generate instrumental music without lyrics (default: false)
   -h, --help            Show this help message
@@ -133,8 +124,32 @@ async function createMusicTask() {
   const bpmText = args.bpm ? ` with ${args.bpm} BPM` : "";
   const styleWithBpm = `${style}${bpmText}`;
   
+  // Truncate lyrics if they exceed the 2999 character limit
+  const maxLyricsLength = 2999;
+  let truncatedLyrics = customLyrics;
+  
+  if (!instrumental && customLyrics.length > maxLyricsLength) {
+    console.log(colors.yellow(`Warning: Lyrics exceed the maximum length of ${maxLyricsLength} characters. Truncating...`));
+    // Find the last complete verse/chorus/section that fits within the limit
+    const lines = customLyrics.split('\n');
+    let currentLength = 0;
+    let truncatedLines = [];
+    
+    for (const line of lines) {
+      if (currentLength + line.length + 1 <= maxLyricsLength) {
+        truncatedLines.push(line);
+        currentLength += line.length + 1; // +1 for newline
+      } else {
+        break;
+      }
+    }
+    
+    truncatedLyrics = truncatedLines.join('\n');
+    console.log(colors.dim(`Truncated lyrics from ${customLyrics.length} to ${truncatedLyrics.length} characters`));
+  }
+  
   const requestBody = {
-    prompt: instrumental ? `${prompt} in ${styleWithBpm} style` : `${prompt} in ${styleWithBpm} style\n\n${customLyrics}`,
+    prompt: instrumental ? `${prompt} in ${styleWithBpm} style` : `${prompt} in ${styleWithBpm} style\n\n${truncatedLyrics}`,
     style: style,
     title: title,
     customMode: true,

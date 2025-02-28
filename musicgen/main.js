@@ -93,14 +93,17 @@ if ((args.month && !args.year) || (!args.month && args.year)) {
 // Set up paths to the individual scripts
 const baseDir = Deno.cwd().endsWith("musicgen") ? Deno.cwd() : join(Deno.cwd(), "musicgen");
 const analysisScript = join(baseDir, "00_analysis", "index.js");
-const analysisOutputDir = join(baseDir, "00_analysis", "output");
-const analysisJsonPath = join(analysisOutputDir, "analysis.json");
-const typstReportAnalysisPath = join(baseDir, "00_analysis", "typst_report", "analysis.json");
-const typstReportPdfPath = join(baseDir, "00_analysis", "typst_report", "report.pdf");
 const getNewsScript = join(baseDir, "01_getNews", "index.js");
 const makeLyricsScript = join(baseDir, "02_makeLyrics", "index.js");
 const createMusicScript = join(baseDir, "03_createMusic", "index.js");
 const createThumbnailScript = join(baseDir, "04_createThumbnail", "index.js");
+
+// Update paths for the simplified folder structure
+const analysisOutputDir = join(baseDir, "00_analysis", "output");
+const analysisJsonPath = join(analysisOutputDir, "analysis.json");
+const analysisTypstDir = join(baseDir, "00_analysis", "typst");
+const analysisTypstJsonPath = join(analysisTypstDir, "analysis.json");
+const analysisPdfPath = join(analysisOutputDir, "report.pdf");
 
 /**
  * Run a command and capture its output
@@ -148,64 +151,82 @@ async function main() {
     // Step 1: Use existing analysis data
     let analysisData;
     
-    // Always skip the analysis step since we're using the typst_report data
     console.log(colors.dim("Step 1/4: Loading Kusama blockchain transaction data..."));
-    args["skip-analysis"] = true;
+    
+    // Check if analysis directory exists or if analysis.json doesn't exist
+    if (!await exists(analysisOutputDir) || !await exists(analysisJsonPath)) {
+      console.log(colors.dim("Analysis data not found, running analysis..."));
+      
+      // Ensure directories exist
+      await Deno.mkdir(analysisOutputDir, { recursive: true });
+      
+      // Run the analysis script
+      try {
+        console.log(colors.dim("Running analysis..."));
+        await runCommand(["deno", "run", "-A", analysisScript]);
+        console.log(colors.green("✅ Analysis completed successfully!"));
+      } catch (error) {
+        console.error(colors.red(`Error running analysis: ${error.message}`));
+        Deno.exit(1);
+      }
+    } else if (!args["skip-analysis"]) {
+      // If not skipping analysis and it exists, check if we should re-run
+      console.log(colors.dim("Analysis data found. Use --skip-analysis to skip re-running analysis."));
+      
+      try {
+        console.log(colors.dim("Running analysis to ensure up-to-date data..."));
+        await runCommand(["deno", "run", "-A", analysisScript]);
+        console.log(colors.green("✅ Analysis completed successfully!"));
+      } catch (error) {
+        console.error(colors.red(`Error running analysis: ${error.message}`));
+        Deno.exit(1);
+      }
+    } else {
+      console.log(colors.dim("Using existing analysis data (--skip-analysis)"));
+    }
     
     // Load the analysis data
     try {
-      // First try to load from typst_report folder
       let analysisJson;
       
-      if (await exists(typstReportAnalysisPath)) {
-        console.log(colors.dim("Using analysis data from typst_report folder"));
-        
-        // Read the file content
-        const fileContent = await Deno.readTextFile(typstReportAnalysisPath);
-        
-        // Check if the file contains multiple JSON objects (the file appears to have duplicated content)
-        if (fileContent.trim().endsWith("}}") && fileContent.indexOf("}}") !== fileContent.lastIndexOf("}}")) {
-          // Find the first complete JSON object
-          const firstJsonEnd = fileContent.indexOf("}}") + 2;
-          analysisJson = fileContent.substring(0, firstJsonEnd);
-        } else {
-          analysisJson = fileContent;
-        }
-        
-        // Copy the report.pdf to both the analysis output folder and the root output folder
-        if (await exists(typstReportPdfPath)) {
-          console.log(colors.dim(`Found report.pdf at ${typstReportPdfPath}`));
-          try {
-            // Create analysis output directory
-            await Deno.mkdir(analysisOutputDir, { recursive: true });
-            console.log(colors.dim(`Created analysis output directory: ${analysisOutputDir}`));
-            
-            // Copy to analysis output directory
-            const analysisReportPath = join(analysisOutputDir, "report.pdf");
-            await Deno.copyFile(typstReportPdfPath, analysisReportPath);
-            console.log(colors.dim(`Copied report.pdf to ${analysisReportPath}`));
-            
-            // Also copy to the root output directory
-            const rootOutputDir = join(baseDir, "output");
-            await Deno.mkdir(rootOutputDir, { recursive: true });
-            console.log(colors.dim(`Created root output directory: ${rootOutputDir}`));
-            
-            const rootReportPath = join(rootOutputDir, "kusama_analysis_report.pdf");
-            await Deno.copyFile(typstReportPdfPath, rootReportPath);
-            console.log(colors.dim(`Copied report.pdf to ${rootReportPath}`));
-            
-            console.log(colors.green("✅ Copied report.pdf to output folders"));
-          } catch (copyError) {
-            console.error(colors.red(`Error copying report.pdf: ${copyError.message}`));
-            console.error(colors.red(`Stack trace: ${copyError.stack}`));
-          }
-        } else {
-          console.log(colors.yellow(`Note: report.pdf not found at ${typstReportPdfPath}`));
-        }
-      } else {
-        // Fall back to the output folder
-        console.log(colors.dim("Using analysis data from output folder"));
+      // Check if data exists in the new typst directory
+      if (await exists(analysisTypstJsonPath)) {
+        console.log(colors.dim("Using analysis data from typst directory"));
+        analysisJson = await Deno.readTextFile(analysisTypstJsonPath);
+      } 
+      // Then try the data directory
+      else if (await exists(analysisJsonPath)) {
+        console.log(colors.dim("Using analysis data from output/data directory"));
         analysisJson = await Deno.readTextFile(analysisJsonPath);
+      } 
+      // Finally, try the old paths for compatibility
+      else if (await exists(join(baseDir, "00_analysis", "typst_report", "analysis.json"))) {
+        const oldPath = join(baseDir, "00_analysis", "typst_report", "analysis.json");
+        console.log(colors.dim(`Using analysis data from legacy location: ${oldPath}`));
+        analysisJson = await Deno.readTextFile(oldPath);
+      }
+      else {
+        throw new Error("Could not find analysis.json in any location");
+      }
+      
+      // Ensure the PDF is copied to output directories if it exists
+      const rootOutputDir = join(baseDir, "output");
+      
+      // Ensure output directory exists
+      await Deno.mkdir(rootOutputDir, { recursive: true });
+      
+      // Check for PDF in the output directory
+      if (await exists(analysisPdfPath)) {
+        console.log(colors.dim(`Found analysis report PDF at ${analysisPdfPath}`));
+        
+        // Copy to the root output directory
+        const rootReportPath = join(rootOutputDir, "kusama_analysis_report.pdf");
+        await Deno.copyFile(analysisPdfPath, rootReportPath);
+        console.log(colors.dim(`Copied analysis report to ${rootReportPath}`));
+        
+        console.log(colors.green("✅ Analysis report PDF copied to output folders"));
+      } else {
+        console.log(colors.yellow(`Note: Analysis PDF not found at ${analysisPdfPath}`));
       }
       
       analysisData = JSON.parse(analysisJson);
@@ -232,6 +253,25 @@ async function main() {
       // Use the first month in the data (usually the earliest)
       selectedMonth = analysisData.monthlyData[0];
       console.log(colors.blue(`No month specified, using first month in data: ${selectedMonth.month} ${selectedMonth.year}`));
+    }
+    
+    // Copy newspaper.pdf for the selected month if it exists
+    try {
+      const newspaperMonth = selectedMonth.month.toLowerCase();
+      const newspaperYear = selectedMonth.year;
+      const newspaperPdfPath = join(baseDir, "01_getNews", "output", `kusama_${newspaperMonth}_${newspaperYear}_newspaper.pdf`);
+      
+      // Use root output directory for PDFs
+      const rootOutputDir = join(baseDir, "output");
+      await Deno.mkdir(rootOutputDir, { recursive: true });
+      
+      if (await exists(newspaperPdfPath)) {
+        const rootNewspaperPath = join(rootOutputDir, `kusama_${newspaperMonth}_${newspaperYear}_newspaper.pdf`);
+        await Deno.copyFile(newspaperPdfPath, rootNewspaperPath);
+        console.log(colors.dim(`Copied newspaper.pdf (${newspaperMonth} ${newspaperYear}) to ${rootNewspaperPath}`));
+      }
+    } catch (copyNewspaperError) {
+      console.log(colors.yellow(`Note: Could not copy newspaper.pdf for ${selectedMonth.month} ${selectedMonth.year}: ${copyNewspaperError.message}`));
     }
     
     console.log(colors.dim(`Selected month: ${selectedMonth.month} ${selectedMonth.year}`));

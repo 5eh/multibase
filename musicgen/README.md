@@ -85,22 +85,36 @@ deno run -A musicgen/main.js --verbose
 ## 📁 Project Structure
 
 - `main.js` - Main pipeline script that orchestrates the entire process
-- `00_analysis/` - Module for analyzing blockchain transaction data
-- `01_getNews/` - Module for retrieving news content
-- `02_makeLyrics/` - Module for generating lyrics from news
-- `03_createMusic/` - Module for creating music from lyrics
-- `04_createThumbnail/` - Module for generating album cover art
+- `common/` - Shared utilities used across modules
+- Each module follows a simple standardized structure:
+  - `XX_moduleName/` - Module directory
+    - `index.js` - Module entry point
+    - `typst/` - Typst templates and data for document generation
+    - `input/` - Input files used by the module
+    - `output/` - All generated files (PDFs, JSON, MD, images, audio, etc.)
+
+### Modules
+- `00_analysis/` - Analyzes blockchain transaction data
+- `01_getNews/` - Retrieves news content about Kusama
+- `02_makeLyrics/` - Generates lyrics from news
+- `03_createMusic/` - Creates music from lyrics
+- `04_createThumbnail/` - Generates album cover art
 
 Each module can also be run independently. See their respective README files for details.
 
 ## 📤 Output
 
 The complete pipeline generates the following files in the `output` directory:
-- `kusama_analysis_report.pdf` - PDF report of blockchain transaction analysis (copied from 00_analysis/typst_report/report.pdf)
-- `kusama_[month]_[year]_news.md` - The retrieved news content
+
+- `kusama_analysis_report.pdf` - PDF report of blockchain transaction analysis
+- `kusama_[month]_[year]_newspaper.pdf` - PDF newspaper with historical news
+- `kusama_[month]_[year]_news.md` - The retrieved news content in markdown format
 - `kusama_[month]_[year]_lyrics.md` - The generated lyrics
-- `kusama_[month]_[year]_music.mp3` - The generated music tracks (usually two variations)
+- `kusama_[month]_[year]_lyrics.pdf` - PDF formatted version of the lyrics
+- `kusama_[month]_[year]_music_1.mp3` - The first generated music track
+- `kusama_[month]_[year]_music_2.mp3` - The second generated music track (variation)
 - `kusama_[month]_[year]_cover.png` - The album cover thumbnail
+- `analysis.json` - Blockchain transaction analysis data
 
 ## 🔄 Integration
 
