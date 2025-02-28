@@ -110,6 +110,12 @@ const Page = () => {
 
   // Handle selecting a song
   const handleSongSelect = (index) => {
+    if (currentIndex === index) {
+      // If clicking the same song, just toggle play/pause
+      togglePlayPause();
+      return;
+    }
+
     setIsPlaying(false);
     setIsAudioReady(false);
     setCurrentIndex(index);

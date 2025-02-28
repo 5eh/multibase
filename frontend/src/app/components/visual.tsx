@@ -14,6 +14,9 @@ interface VisualProps {
 }
 
 const Visual = ({ audioUrl, isPlaying, onAudioReady }: VisualProps) => {
+  // State to track component mounting
+  const [isMounted, setIsMounted] = useState(false);
+
   // Refs for Three.js elements
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
@@ -25,16 +28,12 @@ const Visual = ({ audioUrl, isPlaying, onAudioReady }: VisualProps) => {
   const animationFrameRef = useRef<number | null>(null);
 
   // Refs for audio analysis
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioElementRef = useRef<HTMLAudioElement | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const sourceRef = useRef<MediaElementAudioSourceNode | null>(null);
   const prevBassRef = useRef<number>(0);
   const currentBassRef = useRef<number>(0);
-  const audioSetupCompletedRef = useRef<boolean>(false);
-
-  // State to track if audio is ready
-  const [isAudioReady, setIsAudioReady] = useState<boolean>(false);
 
   // Visualization uniforms
   const uniformsRef = useRef({
@@ -58,174 +57,17 @@ const Visual = ({ audioUrl, isPlaying, onAudioReady }: VisualProps) => {
     smoothing: 0.1,
   });
 
-  // Setup audio context and analyzer
+  // Mark component as mounted
   useEffect(() => {
-    let audioContext = null;
-    let analyser = null;
-    let source = null;
-    const audioElementToUse = new Audio();
-
-    const setupAudio = async () => {
-      try {
-        // Clean up previous audio connections if they exist
-        if (sourceRef.current) {
-          try {
-            sourceRef.current.disconnect();
-          } catch (err) {
-            console.log("Error disconnecting source:", err);
-          }
-          sourceRef.current = null;
-        }
-
-        // Properly close previous audio context if it exists and is not already closed
-        if (audioContextRef.current) {
-          const state = audioContextRef.current.state;
-          if (state !== "closed") {
-            try {
-              await audioContextRef.current.close();
-              console.log("Successfully closed previous audio context");
-            } catch (error) {
-              console.error("Error closing previous audio context:", error);
-            }
-          } else {
-            console.log("Previous audio context was already closed");
-          }
-          audioContextRef.current = null;
-          analyserRef.current = null;
-        }
-
-        // Create new audio context
-        const AudioContextClass =
-          window.AudioContext || (window as any).webkitAudioContext;
-        audioContext = new AudioContextClass();
-        audioContextRef.current = audioContext;
-        console.log("Created new audio context, state:", audioContext.state);
-
-        // Create analyzer
-        analyser = audioContext.createAnalyser();
-        analyser.fftSize = 1024;
-        analyserRef.current = analyser;
-
-        // Set audio source
-        audioElementToUse.src = audioUrl;
-        audioElementToUse.crossOrigin = "anonymous";
-        audioRef.current = audioElementToUse;
-        audioElementToUse.load();
-
-        // Create source when audio is ready
-        const handleCanPlay = () => {
-          if (!audioContext) return;
-
-          try {
-            // Connect audio to analyzer
-            source = audioContext.createMediaElementSource(audioElementToUse);
-            source.connect(analyser);
-            analyser.connect(audioContext.destination);
-            sourceRef.current = source;
-
-            // Reset bass values
-            prevBassRef.current = 0;
-            currentBassRef.current = 0;
-
-            // Update state and notify parent
-            setIsAudioReady(true);
-            onAudioReady();
-            console.log("Audio setup complete");
-          } catch (error) {
-            console.error("Error connecting audio:", error);
-          }
-        };
-
-        audioElementToUse.addEventListener("canplaythrough", handleCanPlay);
-
-        // Handle errors
-        const handleError = (error) => {
-          console.error("Audio error:", error);
-          setIsAudioReady(false);
-        };
-
-        audioElementToUse.addEventListener("error", handleError);
-
-        return () => {
-          audioElementToUse.removeEventListener(
-            "canplaythrough",
-            handleCanPlay,
-          );
-          audioElementToUse.removeEventListener("error", handleError);
-        };
-      } catch (error) {
-        console.error("Error setting up audio analyzer:", error);
-      }
-    };
-
-    if (audioUrl) {
-      const cleanup = setupAudio();
-
-      return () => {
-        // Execute cleanup function if it was returned
-        if (cleanup && typeof cleanup === "function") {
-          cleanup();
-        }
-
-        // Clean up audio element
-        if (audioElementToUse) {
-          audioElementToUse.pause();
-          audioElementToUse.src = "";
-        }
-
-        // Clean up audio source
-        if (source) {
-          try {
-            source.disconnect();
-          } catch (error) {
-            console.log("Error disconnecting source during cleanup:", error);
-          }
-        }
-
-        // Clean up audio context only if not already closed
-        if (audioContext && audioContext.state !== "closed") {
-          try {
-            audioContext.close().catch((error) => {
-              console.log("Error closing audio context during cleanup:", error);
-            });
-          } catch (error) {
-            console.log("Error closing audio context:", error);
-          }
-        }
-      };
-    }
-  }, [audioUrl, onAudioReady]);
-
-  // Control audio playback based on isPlaying prop
-  useEffect(() => {
-    if (!audioRef.current || !isAudioReady) return;
-
-    if (isPlaying) {
-      // Resume audio context if suspended
-      if (
-        audioContextRef.current &&
-        audioContextRef.current.state === "suspended"
-      ) {
-        try {
-          audioContextRef.current.resume().catch((err) => {
-            console.error("Error resuming audio context:", err);
-          });
-        } catch (error) {
-          console.error("Error with audio context:", error);
-        }
-      }
-
-      audioRef.current.play().catch((err) => {
-        console.error("Error playing audio:", err);
-      });
-    } else {
-      audioRef.current.pause();
-    }
-  }, [isPlaying, isAudioReady]);
+    setIsMounted(true);
+    return () => setIsMounted(false);
+  }, []);
 
   // Setup Three.js scene
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || !isMounted) return;
+
+    console.log("Setting up Three.js scene");
 
     // Initialize Three.js components
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -408,7 +250,7 @@ const Visual = ({ audioUrl, isPlaying, onAudioReady }: VisualProps) => {
     });
 
     // Create mesh
-    const geometry = new THREE.IcosahedronGeometry(4, 12); // Lower complexity for better performance
+    const geometry = new THREE.IcosahedronGeometry(4, 12);
     const mesh = new THREE.Mesh(geometry, material);
     mesh.material.wireframe = true;
     scene.add(mesh);
@@ -492,7 +334,7 @@ const Visual = ({ audioUrl, isPlaying, onAudioReady }: VisualProps) => {
             console.error("Error processing audio data:", error);
           }
         } else {
-          // Gentle default animation when no audio is playing
+          // Default animation when no audio analyzer is available
           const time = clockRef.current.getElapsedTime();
           uniformsRef.current.u_frequency.value = 50 + Math.sin(time) * 20;
           uniformsRef.current.u_bass.value = 40 + Math.sin(time * 0.5) * 30;
@@ -528,7 +370,7 @@ const Visual = ({ audioUrl, isPlaying, onAudioReady }: VisualProps) => {
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup
+    // Cleanup function
     return () => {
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("mousemove", handleMouseMove);
@@ -544,10 +386,155 @@ const Visual = ({ audioUrl, isPlaying, onAudioReady }: VisualProps) => {
           console.error("Error removing renderer:", error);
         }
       }
-
-      // Audio cleanup happens in the audio effect
     };
-  }, []);
+  }, [isMounted]);
+
+  // Set up audio element and audio context
+  useEffect(() => {
+    if (!isMounted || !audioUrl) return;
+
+    console.log("Setting up audio for URL:", audioUrl);
+
+    // Clean up function to be returned
+    const cleanup = () => {
+      // Disconnect the audio source if it exists
+      if (sourceRef.current) {
+        try {
+          sourceRef.current.disconnect();
+        } catch (error) {
+          // Ignore errors during cleanup
+        }
+        sourceRef.current = null;
+      }
+
+      // Close the audio context if it exists and is not closed
+      if (
+        audioContextRef.current &&
+        audioContextRef.current.state !== "closed"
+      ) {
+        try {
+          audioContextRef.current.close();
+        } catch (error) {
+          // Ignore errors during cleanup
+        }
+        audioContextRef.current = null;
+        analyserRef.current = null;
+      }
+
+      // Clean up the audio element
+      if (audioElementRef.current) {
+        try {
+          audioElementRef.current.pause();
+          audioElementRef.current.src = "";
+          audioElementRef.current.load(); // Force reload to clear resources
+        } catch (error) {
+          // Ignore errors during cleanup
+        }
+      }
+    };
+
+    // Clean up existing audio resources
+    cleanup();
+
+    // Create new audio element
+    const audioElement = new Audio();
+    audioElement.crossOrigin = "anonymous";
+    audioElement.preload = "auto";
+    audioElementRef.current = audioElement;
+
+    // Set up event listeners
+    const canPlayHandler = () => {
+      try {
+        // Create new audio context
+        const AudioContextClass =
+          window.AudioContext || (window as any).webkitAudioContext;
+        if (!AudioContextClass) {
+          console.error("Web Audio API not supported");
+          return;
+        }
+
+        const newContext = new AudioContextClass();
+        audioContextRef.current = newContext;
+
+        // Create analyzer
+        const analyzer = newContext.createAnalyser();
+        analyzer.fftSize = 1024;
+        analyserRef.current = analyzer;
+
+        // Connect audio element to analyzer
+        const source = newContext.createMediaElementSource(audioElement);
+        source.connect(analyzer);
+        analyzer.connect(newContext.destination);
+        sourceRef.current = source;
+
+        // Reset bass values
+        prevBassRef.current = 0;
+        currentBassRef.current = 0;
+
+        // Notify parent component
+        onAudioReady();
+        console.log("Audio setup complete");
+      } catch (error) {
+        console.error("Error setting up audio context:", error);
+      }
+    };
+
+    const errorHandler = () => {
+      console.error("Error loading audio:", audioElement.error);
+    };
+
+    // Add event listeners
+    audioElement.addEventListener("canplaythrough", canPlayHandler, {
+      once: true,
+    });
+    audioElement.addEventListener("error", errorHandler);
+
+    // Set the source and start loading
+    audioElement.src = audioUrl;
+    audioElement.load();
+
+    // Return cleanup function
+    return () => {
+      audioElement.removeEventListener("canplaythrough", canPlayHandler);
+      audioElement.removeEventListener("error", errorHandler);
+      cleanup();
+    };
+  }, [audioUrl, isMounted, onAudioReady]);
+
+  // Handle play/pause
+  useEffect(() => {
+    if (!audioElementRef.current) return;
+
+    if (isPlaying) {
+      // Try to resume audio context if suspended
+      if (
+        audioContextRef.current &&
+        audioContextRef.current.state === "suspended"
+      ) {
+        try {
+          audioContextRef.current.resume();
+        } catch (error) {
+          console.error("Error resuming audio context:", error);
+        }
+      }
+
+      // Play audio
+      try {
+        audioElementRef.current
+          .play()
+          .catch((error) => console.error("Error playing audio:", error));
+      } catch (error) {
+        console.error("Error playing audio:", error);
+      }
+    } else {
+      // Pause audio
+      try {
+        audioElementRef.current.pause();
+      } catch (error) {
+        console.error("Error pausing audio:", error);
+      }
+    }
+  }, [isPlaying]);
 
   return (
     <div
