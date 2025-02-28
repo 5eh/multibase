@@ -1,43 +1,58 @@
-**(Verse 1)**  
-In the haze of November, twenty-nineteen,  
-A canary took flight in a digital dream,  
-Through the wires of the world, a whispering net,  
-Kusama's bold journey just starting to set.  
-Validators gathered, a hundred strong,  
-Weaving a tapestry where they belong.  
-Decentralized voices, a chorus of code,  
-Building a future where dreams can unfold.  
+**Verse 1:**
 
-**(Chorus)**  
-Oh, November 2019, when Kusama soared,  
-An experimental realm where ideas poured.  
-In the heart of the blockchain, a revolution woke,  
-Kusama, your spirit, in every heartbeat spoke.  
+In the dawn of a digital frontier,  
+November 2019 carved its name,   
+Kusama rose, a canary so bold,  
+In this blockchain tale, her story's told.  
 
-**(Verse 2)**  
-Governance awoke, from slumber arose,  
-Referenda and proposals, the path we chose.  
-Changes in the air, like autumn leaves,  
-Adjusting rewards, with belief, it breathes.  
-Parachains began their first design,  
-Connecting worlds in a network so fine.  
-Staking the future on the wings of KSM,  
-Every transaction a note in this anthem.  
+From proof-of-authority, a shift so wise,  
+To a proof-of-stake world, where voices rise.  
+The Web3 Foundation let the reins fall,  
+And governance bloomed for one and all.  
 
-**(Chorus)**  
-Oh, November 2019, when Kusama soared,  
-An experimental realm where ideas poured.  
-In the heart of the blockchain, a revolution woke,  
-Kusama, your spirit, in every heartbeat spoke.  
+**Chorus:**
 
-**(Bridge)**  
-As Gavin Wood said, we move toward the dawn,  
-Where Polkadot waits with the curtains drawn.  
-A vital testing ground, where the brave explore,  
-In this digital symphony, we are forevermore.  
+Oh, Kusama, in the blockchain's embrace,  
+November 2019 set the pace.  
+With parachains and KSM's might,  
+We venture into the endless night.  
 
-**(Outro)**  
-In the echoes of November, memories remain,  
-A network of dreams with nothing to restrain.  
-The rhythm of progress, steady and true,  
-Kusama, we'll follow the journey with you.  
+**Verse 2:**
+
+Parachain auctions, arenas of dreams,  
+Karura and Moonriver light up the streams.  
+400,000 blocks, a testament true,  
+In the heart of Kusama, we see the future’s hue.  
+
+A bustling community grows here in time,  
+With councils and discourse, a rhythm and rhyme.  
+Kusama's spirit in Rococo's light,  
+In innovation's name, we take flight.  
+
+**Chorus:**
+
+Oh, Kusama, in the blockchain's embrace,  
+November 2019 set the pace.  
+With parachains and KSM's might,  
+We venture into the endless night.  
+
+**Bridge:**
+
+Gavin whispers, with hope in his eyes,  
+"A scalable world, beyond the skies."  
+Cross-chain messaging, a promise so bright,  
+In Kusama's hands, we find the light.  
+
+**Outro:**
+
+As 2019 fades into tomorrow's view,  
+Kusama stands, bold and true.  
+A canary leading the charge ahead,  
+In blockchain's sea, where dreams are spread.  
+
+**Chorus:**
+
+Oh, Kusama, in the blockchain's embrace,  
+November 2019 set the pace.  
+With parachains and KSM's might,  
+We venture into the endless night.  
