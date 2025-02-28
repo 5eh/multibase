@@ -1,18 +1,17 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import Visual from "./visual";
 
 const Page = () => {
-  // State for music files
+  // Music player state
   const [musicFiles, setMusicFiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentSong, setCurrentSong] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
-
-  // Audio reference
-  const audioRef = useRef(null);
+  const [isAudioReady, setIsAudioReady] = useState(false);
 
   // Fetch music files on component mount
   useEffect(() => {
@@ -51,6 +50,11 @@ const Page = () => {
 
     fetchMusicFiles();
   }, []);
+
+  // Handle audio being ready
+  const handleAudioReady = () => {
+    setIsAudioReady(true);
+  };
 
   // Helper function to extract date from filename
   const extractDateFromFilename = (filename) => {
@@ -97,36 +101,31 @@ const Page = () => {
     return { title: filename, date: "Unknown", detailsUrl: "/" };
   };
 
-  // Handle play/pause
+  // Toggle play/pause
   const togglePlayPause = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current
-          .play()
-          .catch((err) => console.error("Playback error:", err));
-      }
+    if (isAudioReady) {
       setIsPlaying(!isPlaying);
     }
   };
 
   // Handle selecting a song
   const handleSongSelect = (index) => {
+    setIsPlaying(false);
+    setIsAudioReady(false);
     setCurrentIndex(index);
     setCurrentSong(musicFiles[index]);
-    setIsPlaying(false);
-
-    // Reset audio player
-    if (audioRef.current) {
-      audioRef.current.load();
-    }
   };
 
   // Handle slider change
   const handleSliderChange = (e) => {
     const index = parseInt(e.target.value, 10);
     handleSongSelect(index);
+  };
+
+  // Get current song URL
+  const getCurrentSongUrl = () => {
+    if (!currentSong) return "";
+    return `/music/${currentSong.filename}`;
   };
 
   return (
@@ -141,7 +140,16 @@ const Page = () => {
         <div className="text-center text-2xl py-12">No music files found</div>
       ) : (
         <>
-          {/* Simple List of All Music Files */}
+          {/* Three.js Visualization Component */}
+          <div className="mb-8">
+            {currentSong && (
+              <Visual
+                audioUrl={getCurrentSongUrl()}
+                isPlaying={isPlaying}
+                onAudioReady={handleAudioReady}
+              />
+            )}
+          </div>
 
           {/* Current Player */}
           {currentSong && (
@@ -155,24 +163,16 @@ const Page = () => {
                 </span>
               </div>
 
-              <audio
-                ref={audioRef}
-                className="w-full mb-6"
-                controls={false}
-                onEnded={() => setIsPlaying(false)}
-              >
-                <source
-                  src={`/music/${currentSong.filename}`}
-                  type="audio/mpeg"
-                />
-                Your browser does not support the audio element.
-              </audio>
-
               {/* Custom Player Controls */}
               <div className="flex items-center justify-center mb-6">
                 <button
                   onClick={togglePlayPause}
-                  className="bg-white text-black p-4 rounded-full hover:bg-gray-200 transition-colors"
+                  disabled={!isAudioReady}
+                  className={`${
+                    isAudioReady
+                      ? "bg-white text-black hover:bg-gray-200"
+                      : "bg-gray-600 text-gray-400"
+                  } p-4 rounded-full transition-colors`}
                 >
                   {isPlaying ? (
                     <svg
@@ -206,6 +206,12 @@ const Page = () => {
                   )}
                 </button>
               </div>
+
+              {!isAudioReady && (
+                <div className="text-center text-gray-400 mb-4">
+                  Loading audio...
+                </div>
+              )}
             </div>
           )}
 
@@ -258,6 +264,7 @@ const Page = () => {
             </div>
           )}
 
+          {/* All Music Files List */}
           <div className="mb-8 border border-gray-700 p-4 bg-black bg-opacity-30 rounded-lg">
             <h2 className="font-bold mb-4 text-xl">All Available Music:</h2>
             <div className="max-h-60 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-black">
@@ -265,7 +272,11 @@ const Page = () => {
                 {musicFiles.map((file, index) => (
                   <li
                     key={index}
-                    className={`p-3 cursor-pointer border-b border-gray-700 hover:bg-gray-800 transition-colors ${currentIndex === index ? "bg-gray-800 border-l-4 border-l-white pl-2" : ""}`}
+                    className={`p-3 cursor-pointer border-b border-gray-700 hover:bg-gray-800 transition-colors ${
+                      currentIndex === index
+                        ? "bg-gray-800 border-l-4 border-l-white pl-2"
+                        : ""
+                    }`}
                     onClick={() => handleSongSelect(index)}
                   >
                     {parseFilename(file.filename).title} -{" "}
