@@ -38,7 +38,7 @@ const openai = new OpenAI({
 });
 
 // Prepare prompt for song lyrics generation
-const prompt = `Create meaningful song lyrics based on the following content:
+const prompt = `Create meaningful but concise song lyrics based on the following content:
 
 ${context}
 
@@ -48,9 +48,11 @@ ${
     : ""
 }
 
+IMPORTANT: The lyrics MUST be under 2500 characters total length including formatting.
+
 The lyrics should:
 - Capture the essence and emotional core of the content about Kusama blockchain
-- Include a chorus and at least two verses
+- Include a chorus and 2 verses (no more than 2 verses)
 - Be creative, original, and emotionally resonant
 - ${
   month && year
@@ -58,6 +60,7 @@ The lyrics should:
     : ""
 }
 - Include blockchain terminology and Kusama-specific references
+- Use concise wording and shorter lines to stay within the 2500 character limit
 - Be suitable for a musical composition`;
 
 try {
@@ -67,7 +70,7 @@ try {
       {
         role: "system",
         content:
-          "You are an expert songwriter skilled at creating lyrics based on recent events and news. You can transform factual content into emotional, artistic song lyrics. You understand how to capture the essence of a story or event and transform it into meaningful musical poetry.",
+          "You are an expert songwriter skilled at creating concise, impactful lyrics based on recent events and news. You can transform factual content into emotional, artistic song lyrics while maintaining brevity. You understand how to capture the essence of a story or event and transform it into meaningful musical poetry without excess verbosity. You must keep the total output under 2500 characters.",
       },
       {
         role: "user",
@@ -75,7 +78,7 @@ try {
       },
     ],
     temperature: 0.9,
-    max_tokens: 800,
+    max_tokens: 600,
   });
 
   const lyrics = chatCompletion.choices[0].message.content;

@@ -1,55 +1,39 @@
-**Verse 1**\
-In the shadows, a spark ignites,\
-Kusama takes flight in the dark of night.\
-A canary in the coal mine, paving the way,\
-Testing dreams before the light of day.\
-Dr. Wood dreamed of a world so grand,\
-Where chains could dance, hand in hand.\
-November 2019, a moment defined,\
-Proof-of-stake released, decentralized mind.
+**Verse 1**  
+In November 2019, the chaos canary sings,  
+Kusama's daring leap, testing future winds.  
+A sandbox for the brave, where the boundaries fade,  
+With tricameral insights, new governance is made.  
 
-**Chorus**\
-Oh, Kusama, canary bold,\
-In November 2019, stories untold.\
-Blazing trails in blockchain skies,\
-With every heart and every rise.\
-Oh, Kusama, where dreams align,\
-In that month, we saw the signs.
+Referendums echo through chambers of change,  
+Balancing fast decisions, with checks in range.  
+Projects rise like sun, parachains ignite,  
+Acala, Robonomics, Moonbeam take flight.  
 
-**Verse 2**\
-Governance painted in colors anew,\
-Staking claims for a vision so true.\
-Parachains waiting, a promise near,\
-A future of auctions and innovation here.\
-KSM token, a market surprise,\
-Volatile like the sunrise.\
-Acala whispers in the breeze,\
-Lending life to DeFi dreams with ease.
+**Chorus**  
+Oh, Kusama's song, in blockchain's new dawn,  
+Where innovation and chaos dance on.  
+A thriving network, a beacon's light,  
+Forging the future, in November's bright night.  
 
-**Chorus**\
-Oh, Kusama, canary bold,\
-In November 2019, stories untold.\
-Blazing trails in blockchain skies,\
-With every heart and every rise.\
-Oh, Kusama, where dreams align,\
-In that month, we saw the signs.
+**Verse 2**  
+Parachain auctions hum a tune of growth,  
+Crowdloans pulling dreams from whispered oaths.  
+KSM's swift rise, a crypto tidal wave,  
+From $1.50 to $3, the market's rave.  
 
-**Bridge**\
-Dynamic projects come to play,\
-In this world where tech holds sway.\
-Cross-chain whispers, connecting all,\
-Building bridges where barriers fall.
+Nominated Proof sees its grip unfold,  
+Runtime that evolves, no forks take hold.  
+The community speaks, their voices loud,  
+In Kusama's heart, the future is vowed.  
 
-**Chorus**\
-Oh, Kusama, canary bold,\
-In November 2019, stories untold.\
-Blazing trails in blockchain skies,\
-With every heart and every rise.\
-Oh, Kusama, where dreams align,\
-In that month, we saw the signs.
+**Chorus**  
+Oh, Kusama's song, in blockchain's new dawn,  
+Where innovation and chaos dance on.  
+A thriving network, a beacon's light,  
+Forging the future, in November's bright night.  
 
-**Outro**\
-November fades but the journey stays,\
-In Kusama’s realm, where future lays.\
-A stage for dreams, bold and free,\
-Kusama’s song, eternity.
+**Outro**  
+Dr. Gavin's dream, more than a net,  
+Crafting tomorrow, where chaos is met.  
+In the echo of November 2019's call,  
+Kusama's creation, a new era for all.  

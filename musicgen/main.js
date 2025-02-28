@@ -568,7 +568,31 @@ async function main() {
     if (args.instrumental) {
       musicArgs.push("--instrumental");
     } else if (lyrics) {
-      musicArgs.push("--lyrics", lyrics);
+      // Check if lyrics exceed API limit and truncate if necessary
+      const maxLyricsLength = 2900; // Slightly below the 2999 limit for safety
+      let truncatedLyrics = lyrics;
+      
+      if (lyrics.length > maxLyricsLength) {
+        console.log(colors.yellow(`Lyrics exceed the API limit, truncating...`));
+        // Find the last complete verse/chorus that fits
+        const lines = lyrics.split('\n');
+        let currentLength = 0;
+        let truncatedLines = [];
+        
+        for (const line of lines) {
+          if (currentLength + line.length + 1 <= maxLyricsLength) {
+            truncatedLines.push(line);
+            currentLength += line.length + 1; // +1 for newline
+          } else {
+            break;
+          }
+        }
+        
+        truncatedLyrics = truncatedLines.join('\n');
+        console.log(colors.dim(`Truncated lyrics from ${lyrics.length} to ${truncatedLyrics.length} characters`));
+      }
+      
+      musicArgs.push("--lyrics", truncatedLyrics);
     }
 
     const musicResult = await runCommand(musicArgs);

@@ -1,4 +1,4 @@
-#let totalTransactions = 7613490
+#let totalTransactions = 7613505
 #let highestMonth = (
   period: "November 2024",
   count: 4347886
@@ -336,7 +336,7 @@
   (
     month: "February",
     year: 2025,
-    count: 28836
+    count: 28851
   ),
 )
 
@@ -347,5 +347,5 @@
   (year: 2022, count: 789417),
   (year: 2023, count: 521318),
   (year: 2024, count: 4836770),
-  (year: 2025, count: 66888),
+  (year: 2025, count: 66903),
 )

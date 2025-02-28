@@ -8,79 +8,55 @@
     type: "verse",
     number: 1,
     content: [
-            In the shadows, a spark ignites, #linebreak()
-            Kusama takes flight in the dark of night. #linebreak()
-            A canary in the coal mine, paving the way, #linebreak()
-            Testing dreams before the light of day. #linebreak()
-            Dr. Wood dreamed of a world so grand, #linebreak()
-            Where chains could dance, hand in hand. #linebreak()
-            November 2019, a moment defined, #linebreak()
-            Proof-of-stake released, decentralized mind.
+            In November 2019, the chaos canary sings, #linebreak()
+            Kusama's daring leap, testing future winds. #linebreak()
+            A sandbox for the brave, where the boundaries fade, #linebreak()
+            With tricameral insights, new governance is made. #linebreak()
+            Referendums echo through chambers of change, #linebreak()
+            Balancing fast decisions, with checks in range. #linebreak()
+            Projects rise like sun, parachains ignite, #linebreak()
+            Acala, Robonomics, Moonbeam take flight.
     ]
   ),
   (
     type: "chorus",
     content: [
-            Oh, Kusama, canary bold, #linebreak()
-            In November 2019, stories untold. #linebreak()
-            Blazing trails in blockchain skies, #linebreak()
-            With every heart and every rise. #linebreak()
-            Oh, Kusama, where dreams align, #linebreak()
-            In that month, we saw the signs.
+            Oh, Kusama's song, in blockchain's new dawn, #linebreak()
+            Where innovation and chaos dance on. #linebreak()
+            A thriving network, a beacon's light, #linebreak()
+            Forging the future, in November's bright night.
     ]
   ),
   (
     type: "verse",
     number: 2,
     content: [
-            Governance painted in colors anew, #linebreak()
-            Staking claims for a vision so true. #linebreak()
-            Parachains waiting, a promise near, #linebreak()
-            A future of auctions and innovation here. #linebreak()
-            KSM token, a market surprise, #linebreak()
-            Volatile like the sunrise. #linebreak()
-            Acala whispers in the breeze, #linebreak()
-            Lending life to DeFi dreams with ease.
+            Parachain auctions hum a tune of growth, #linebreak()
+            Crowdloans pulling dreams from whispered oaths. #linebreak()
+            KSM's swift rise, a crypto tidal wave, #linebreak()
+            From $1.50 to $3, the market's rave. #linebreak()
+            Nominated Proof sees its grip unfold, #linebreak()
+            Runtime that evolves, no forks take hold. #linebreak()
+            The community speaks, their voices loud, #linebreak()
+            In Kusama's heart, the future is vowed.
     ]
   ),
   (
     type: "chorus",
     content: [
-            Oh, Kusama, canary bold, #linebreak()
-            In November 2019, stories untold. #linebreak()
-            Blazing trails in blockchain skies, #linebreak()
-            With every heart and every rise. #linebreak()
-            Oh, Kusama, where dreams align, #linebreak()
-            In that month, we saw the signs.
-    ]
-  ),
-  (
-    type: "bridge",
-    content: [
-            Dynamic projects come to play, #linebreak()
-            In this world where tech holds sway. #linebreak()
-            Cross-chain whispers, connecting all, #linebreak()
-            Building bridges where barriers fall.
-    ]
-  ),
-  (
-    type: "chorus",
-    content: [
-            Oh, Kusama, canary bold, #linebreak()
-            In November 2019, stories untold. #linebreak()
-            Blazing trails in blockchain skies, #linebreak()
-            With every heart and every rise. #linebreak()
-            Oh, Kusama, where dreams align, #linebreak()
-            In that month, we saw the signs.
+            Oh, Kusama's song, in blockchain's new dawn, #linebreak()
+            Where innovation and chaos dance on. #linebreak()
+            A thriving network, a beacon's light, #linebreak()
+            Forging the future, in November's bright night.
     ]
   ),
   (
     type: "outro",
     content: [
-            November fades but the journey stays, #linebreak()
-            In Kusama’s realm, where future lays. #linebreak()
-            A stage for dreams, bold and free, #linebreak()
-            Kusama’s song, eternity.
+            Dr. Gavin's dream, more than a net, #linebreak()
+            Crafting tomorrow, where chaos is met. #linebreak()
+            In the echo of November 2019's call, #linebreak()
+            Kusama's creation, a new era for all.
     ]
   ),
 )

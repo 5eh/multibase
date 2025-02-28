@@ -547,10 +547,6 @@ async function main() {
       }
     }
 
-    // Save to a file for reference
-    await Deno.writeTextFile("last_task_id.txt", id);
-    console.log(colors.dim(`Task ID saved to last_task_id.txt`));
-
     // Wait for task to complete and download music
     const success = await waitForTaskCompletion(id);
 
