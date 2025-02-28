@@ -7,21 +7,30 @@ A Deno script that fetches historical news and information about the Kusama bloc
 - Searches for Kusama blockchain news by month and year
 - Generates comprehensive news articles for historical Kusama events
 - Uses Perplexity's Sonar Pro model for high-quality responses
+- Optional OpenAI integration to optimize content for newspaper layout
 - Returns structured articles with references and citations
+- Creates professional newspaper-style PDF using Typst
 - Colorized output for better readability
 - Designed to work both independently and as part of the MusicGen pipeline
 
 ## 🔧 Prerequisites
 
 - [Deno](https://deno.land/) installed
-- Perplexity AI API key
+- Perplexity AI API key (required)
+- OpenAI API key (optional, for enhanced content structuring)
+- [Typst](https://typst.app/) installed (for PDF newspaper generation) - can be installed with `cargo install typst-cli`
+- pdfinfo and pdftk (optional, for PDF post-processing to ensure single-page output)
 
 ## 🔑 Environment Setup
 
-Set your Perplexity API key as an environment variable:
+Set your API keys as environment variables:
 
 ```bash
+# Required
 export PERPLEXITY_API_KEY="your-perplexity-key-here"
+
+# Optional - for enhanced newspaper content structuring
+export OPENAI_API_KEY="your-openai-key-here"
 ```
 
 ## 📋 Usage
@@ -66,6 +75,7 @@ The script outputs:
 - A colorized display of the search query or month/year
 - The retrieved news content with a "Result:" header
 - A Markdown file with the news content saved to the output directory
+- A beautifully formatted PDF newspaper generated from the content (requires Typst)
 
 For month/year searches, the output is structured as a comprehensive news article about Kusama for that time period, including:
 - Headlines and key events
@@ -73,6 +83,12 @@ For month/year searches, the output is structured as a comprehensive news articl
 - Market performance
 - Governance activities
 - References and citations
+
+The newspaper-style PDF includes:
+- Professional newspaper layout with masthead
+- Two-column article format
+- Section headers for different news topics
+- Styled conclusion section
 
 ## 🔄 Integration
 
