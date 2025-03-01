@@ -1,4 +1,4 @@
-#let totalTransactions = 7614141
+#let totalTransactions = 7614165
 #let highestMonth = (
   period: "November 2024",
   count: 4347886
@@ -6,7 +6,7 @@
 
 #let lowestMonth = (
   period: "March 2025",
-  count: 627
+  count: 651
 )
 
 #let usedRealData = true
@@ -341,7 +341,7 @@
   (
     month: "March",
     year: 2025,
-    count: 627
+    count: 651
   ),
 )
 
@@ -352,5 +352,5 @@
   (year: 2022, count: 789417),
   (year: 2023, count: 521318),
   (year: 2024, count: 4836770),
-  (year: 2025, count: 67539),
+  (year: 2025, count: 67563),
 )

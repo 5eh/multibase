@@ -1,4 +1,4 @@
-#let title = "'25 Kusama's"
+#let title = "**Chorus:** Kusama"
 #let subtitle = ""
 #let date = "March 2025"
 #let artist = "Multibase Musical Project"
@@ -8,67 +8,55 @@
     type: "verse",
     number: 1,
     content: [
-            In the heart of March '25, #linebreak()
-            Kusama's star began to rise, #linebreak()
-            Governance shifted, a bold new way, #linebreak()
-            HyperScale's power led the dance, #linebreak()
-            Transactions flew, a tenfold chance, #linebreak()
-            Dr. Wood's vision lights the day.
+            March 2025, in a canary's flight, #linebreak()
+            Through the blockchain skies, we see the light, #linebreak()
+            KIP-2025-03 stands tall, #linebreak()
+            Privacy and governance, answering the call. #linebreak()
+            Velocity races with a heartbeat's pace, #linebreak()
+            Fifteen thousand strong, in digital space, #linebreak()
+            A thriving network, weaving dreams, #linebreak()
+            In a chain of blocks, endless streams.
     ]
   ),
   (
     type: "chorus",
     content: [
-            Building bridges, blockchain dreams, #linebreak()
-            Kusama's fire in the seams, #linebreak()
-            Innovate, elevate, future untold, #linebreak()
-            In a digital world, new stories unfold.
+            Oh Kusama, breaking chains and setting free, #linebreak()
+            In the heart of March 2025's melody, #linebreak()
+            Building bridges, where tech dreams glide, #linebreak()
+            Future-bound, our worlds collide.
     ]
   ),
   (
     type: "verse",
     number: 2,
     content: [
-            Parachains bid for a place to grow, #linebreak()
-            DecentAI leads, with bright eyes aglow, #linebreak()
-            KSM rides the market's sea, #linebreak()
-            Amidst the highs, amidst the lows, #linebreak()
-            ZeroTrace whispers secrets unknown, #linebreak()
-            Kusama weaves its destiny.
+            Quantum leaps in auctions' embrace, #linebreak()
+            With KSM tokens, taking the race, #linebreak()
+            Newcomers rise, NeoFinance, MetaKusama's realm, #linebreak()
+            In an ocean of codes, they take the helm. #linebreak()
+            Karura flows, with seamless ties, #linebreak()
+            Shiden’s rapid roads, under open skies, #linebreak()
+            Khala whispers secrets untold, #linebreak()
+            In confidential coding, futures unfold.
     ]
   ),
   (
     type: "chorus",
     content: [
-            Building bridges, blockchain dreams, #linebreak()
-            Kusama's fire in the seams, #linebreak()
-            Innovate, elevate, future untold, #linebreak()
-            In a digital world, new stories unfold.
-    ]
-  ),
-  (
-    type: "bridge",
-    content: [
-            Cross-chain paths, Kusama's call, #linebreak()
-            A stablecoin dream to end it all, #linebreak()
-            Decentralized future, roadmaps to see, #linebreak()
-            Crafting a world where we're all free.
-    ]
-  ),
-  (
-    type: "chorus",
-    content: [
-            Building bridges, blockchain dreams, #linebreak()
-            Kusama's fire in the seams, #linebreak()
-            Innovate, elevate, future untold, #linebreak()
-            In a digital world, new stories unfold.
+            Oh Kusama, breaking chains and setting free, #linebreak()
+            In the heart of March 2025's melody, #linebreak()
+            Building bridges, where tech dreams glide, #linebreak()
+            Future-bound, our worlds collide.
     ]
   ),
   (
     type: "outro",
     content: [
-            In the heart of March '25, #linebreak()
-            Kusama's journey comes alive.
+            Resilient KSM, amidst the stormy seas, #linebreak()
+            Trade winds blow with courage and ease, #linebreak()
+            With innovation’s dawn on every shore, #linebreak()
+            Kusama sails, forevermore.
     ]
   ),
 )
