@@ -1,22 +1,33 @@
 # Kusama News - January 2021
 
-# Kusama Charges into 2021: Evolutions, Expansion, and Excitement
-Kusama, often referred to as Polkadot's "wild cousin," kicked off 2021 witnessing substantial advancements, increased investor interest, and an expanding ecosystem. This year is poised to be a crucial one for the experimental playground of Polkadot as it gears up to attract more developers, projects, and investors.
+# Kusama Rockets Into 2021 With Dynamic Developments
 
-## Kusama's Governance Directs toward Transparent Future
-During January, Kusama's "OpenGov" governance model - known for its experimental character compared to Polkadot - continued to evolve. The community actively shaped the direction of the network through discussions and voting on proposals. A key initiative, the "CHAOS 2021 - Kusama Virtual Conference," was mooted for the first time. The proposal aimed to host a two-day conference for community members, developers, and enthusiasts worldwide, exemplifying the network's growing emphasis on shared knowledge and community-driven collaborations. 
+## Kusama Unleashes a New Era of Growth 
 
-## Kusama's Parachain Auctions Fuelling Blockchain Expansion
-As anticipation built around Kusama's upcoming 'parachain auctions', the network witnessed significant project development. Project teams prepared to compete for the limited slots on the Kusama Relay chain, thus diversifying the blockchain universe. A precursor to Polkadot's auctions, this move paved the way for low-entry barrier networks facilitating rapid experimentation gaining traction with blockchain developers seeking to push the boundaries of decentralized tech.
+As Polkadot's playpen for substantial experimentation, Kusama came into 2021 on a strong wave of gains. The Kusama blockchain, designed as a testing ground for developers to perfect their projects before launching on Polkadot, witnessed substantial growth in its technical ecosystem and market performance as it welcomed the new year.
 
-## Technical Developments Enhancing Kusama Network
-January saw Kusama technologically advancing, chiefly benefitting from the experimental launches made in the Polkadot ecosystem. A funded project by Swisscom Blockchain AG, the 'Kubernetes Operator for sentry nodes and validators', majorly contributed to these developments. This tech aimed to strengthen both Kusama and Polkadot networks against potential threats, marking a significant step towards network resiliency.
+### Embracing Open Governance and Empowerment
 
-## Spectacular Spike in KSM Token Activity
-Early 2021 saw the KSM token, Kusama's native cryptocurrency, witnessing a striking price increase. Starting the year at around $70, the token continued its upward trajectory into January, landing Kusama amongst the top 50 cryptocurrencies by market cap. The bullish trend underscored growing investor trust in Kusama and its roles within the larger Polkadot ecosystem, offering tantalizing glimpses into a promising future.
+Kusama exhibits a decentralized approach that embraces open governance, fully involving its community in the decision-making processes. Initiatives that facilitate a value-added growth of the Kusama ecosystem found support from its community-driven treasury during January 2021. This perspective of open governance manifested as an ideal source of community enrichment, contributing to a democratized landscape that Kusama aims to nurture.
 
-## Kusama Hooks Big Fish: Tether's USDT Integration
-In a significant and strategic move, Tether, the largest and most used stablecoin, announced the integration of its USDT coin on the Kusama network. The move brought enhanced liquidity and the potential for more extensive financial applications within Kusama, marking a significant growth milestone for the ecosystem.
+### Parachain Auctions Fuel the Network's Expansion
 
-## Looking into the Future 
-As January concluded, Kusama was perched on the brink of substantial growth and innovation. The KSM's successful price performance, along with a burgeoning ecosystem and technological enhancements, primed Kusama's future prospects. With upcoming parachain auctions and a wave of innovative projects, Kusama is set to play a key role in shaping the future of interoperable blockchains.
+The excitement around Kusama's vision for a scalable, interoperable blockchain ecosystem continued to rise in January, largely credited to the upcoming parachain auctions. The introduction of these auctions is a game-changing opportunity for projects hunting to secure slots on the Kusama relay chain. The anticipation for the auctions, a step anticipated to unfold a plethora of functionalities, has played a significant role in promoting the positive wave around Kusama.
+
+### Tech Developments Amplify Kusama's Growth 
+
+January 2021 also saw vast improvement in Kusama's technology front as the blockchain lowered entry barriers, enhancing its attractiveness to new, innovative projects that might be perceived as risky. Consequently, Kusama ranked high among the leading blockchains in terms of development activity. This underlying engagement from developers signaled the stable and growing condition of the ecosystem. 
+
+### KSM Leads Robust Market Performance 
+
+Kusama's native token, KSM, showed a dramatic price jump across 2020 and continued to surge in January 2021. From a mere $1.50 in the early stages of 2020 to soaring beyond $70 by the end of the year, KSM's market cap crossed the $590 million mark by mid-January. The Bitcoin Suisse from the Web3 Foundation recognized Kusama as "one of the biggest crypto winners of 2020", enhancing investor interest in the immense potential that Kusama carries in the broader blockchain ecosystem.
+
+### Blooming Developer Ecosystem 
+
+The developer ecosystem of Kusama blossomed, with innovative applications being constantly tested and refined on the network throughout January. Seeing Kusama's potential as a testing ground before launching on Polkadot, several major blockchain projects showed interest, thereby expanding the reach and utility of the Kusama network.
+
+## Onward and Upward, Kusama! 
+
+As January 2021 wrapped up, the Kusama community was filled with excitement for the long-awaited parachain slot auctions. The promise of the upcoming auctions, the new level of functionality, network diversity, and the number of substantial projects in line for launch further fueled the growing interest in Kusama during this period. 
+
+Launching into 2021, Kusama demonstrated its resiliency and capacity for continuous growth. With the promise of parachain auctions and a larger wave of momentum from positive market performance and treasured developer activity, Kusama firmly established itself as a key player in the creation of an inter-linked, decentralized future.

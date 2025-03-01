@@ -1,93 +1,23 @@
-Start processing year 2021 - 2025-02-28T23:49:42.126Z
-2025-02-28T23:49:42.126Z - Processing all months for year 2021...
-Total months to process: 12
+Start processing year 2025 - 2025-03-01T15:16:27.640Z
+2025-03-01T15:16:27.641Z - Processing all months for year 2025...
+Total months to process: 3
 
-2025-02-28T23:49:42.126Z - Processing month 1 of 12: January 2021
+2025-03-01T15:16:27.641Z - Processing month 1 of 3: January 2025
 
-2025-02-28T23:49:42.127Z - 🎵 Processing: January 2021 🎵
-2025-02-28T23:54:00.926Z - ✅ Month processed successfully! Your Kusama January 2021 music and thumbnail have been created.
-2025-02-28T23:54:00.926Z - Style: House (125 BPM), based on 27734 transactions
+2025-03-01T15:16:27.641Z - 🎵 Processing: January 2025 🎵
+2025-03-01T15:26:53.729Z - ✅ Month processed successfully! Your Kusama January 2025 music and thumbnail have been created.
+2025-03-01T15:26:53.729Z - Style: Rock (130 BPM), based on 38052 transactions
 
-2025-02-28T23:54:00.926Z - Processing month 2 of 12: February 2021
+2025-03-01T15:26:53.729Z - Processing month 2 of 3: February 2025
 
-2025-02-28T23:54:00.926Z - 🎵 Processing: February 2021 🎵
-2025-02-28T23:57:54.419Z - ✅ Month processed successfully! Your Kusama February 2021 music and thumbnail have been created.
-2025-02-28T23:57:54.419Z - Style: House (125 BPM), based on 29549 transactions
+2025-03-01T15:26:53.729Z - 🎵 Processing: February 2025 🎵
+2025-03-01T15:31:12.289Z - ✅ Month processed successfully! Your Kusama February 2025 music and thumbnail have been created.
+2025-03-01T15:31:12.289Z - Style: Hip-Hop (100 BPM), based on 28860 transactions
 
-2025-02-28T23:57:54.419Z - Processing month 3 of 12: March 2021
+2025-03-01T15:31:12.289Z - Processing month 3 of 3: March 2025
 
-2025-02-28T23:57:54.419Z - 🎵 Processing: March 2021 🎵
-2025-03-01T00:02:39.073Z - ✅ Month processed successfully! Your Kusama March 2021 music and thumbnail have been created.
-2025-03-01T00:02:39.073Z - Style: House (130 BPM), based on 38736 transactions
+2025-03-01T15:31:12.289Z - 🎵 Processing: March 2025 🎵
+2025-03-01T15:42:31.064Z - ✅ Month processed successfully! Your Kusama March 2025 music and thumbnail have been created.
+2025-03-01T15:42:31.064Z - Style: Drone Ambient (30 BPM), based on 627 transactions
 
-2025-03-01T00:02:39.073Z - Processing month 4 of 12: April 2021
-
-2025-03-01T00:02:39.073Z - 🎵 Processing: April 2021 🎵
-2025-03-01T00:06:34.001Z - ✅ Month processed successfully! Your Kusama April 2021 music and thumbnail have been created.
-2025-03-01T00:06:34.001Z - Style: Dance (135 BPM), based on 45419 transactions
-
-2025-03-01T00:06:34.001Z - Processing month 5 of 12: May 2021
-
-2025-03-01T00:06:34.001Z - 🎵 Processing: May 2021 🎵
-2025-03-01T00:10:56.285Z - ✅ Month processed successfully! Your Kusama May 2021 music and thumbnail have been created.
-2025-03-01T00:10:56.285Z - Style: Hardstyle (160 BPM), based on 164074 transactions
-
-2025-03-01T00:10:56.285Z - Processing month 6 of 12: June 2021
-
-2025-03-01T00:10:56.285Z - 🎵 Processing: June 2021 🎵
-2025-03-01T00:15:29.446Z - ✅ Month processed successfully! Your Kusama June 2021 music and thumbnail have been created.
-2025-03-01T00:15:29.446Z - Style: Hardstyle (160 BPM), based on 161762 transactions
-
-2025-03-01T00:15:29.446Z - Processing month 7 of 12: July 2021
-
-2025-03-01T00:15:29.446Z - 🎵 Processing: July 2021 🎵
-2025-03-01T00:20:01.730Z - ✅ Month processed successfully! Your Kusama July 2021 music and thumbnail have been created.
-2025-03-01T00:20:01.730Z - Style: Dance (140 BPM), based on 60710 transactions
-
-2025-03-01T00:20:01.730Z - Processing month 8 of 12: August 2021
-
-2025-03-01T00:20:01.730Z - 🎵 Processing: August 2021 🎵
-2025-03-01T00:20:31.248Z - ❌ Error processing August 2021: Command failed with exit code 1
-[31mERROR OCCURRED:[39m
-429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
-Tip: Make sure your OPENAI_API_KEY is correctly set and valid
-
-
-2025-03-01T00:20:31.248Z - Processing month 9 of 12: September 2021
-
-2025-03-01T00:20:31.248Z - 🎵 Processing: September 2021 🎵
-2025-03-01T00:21:05.746Z - ❌ Error processing September 2021: Command failed with exit code 1
-[31mERROR OCCURRED:[39m
-429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
-Tip: Make sure your OPENAI_API_KEY is correctly set and valid
-
-
-2025-03-01T00:21:05.746Z - Processing month 10 of 12: October 2021
-
-2025-03-01T00:21:05.746Z - 🎵 Processing: October 2021 🎵
-2025-03-01T00:21:42.437Z - ❌ Error processing October 2021: Command failed with exit code 1
-[31mERROR OCCURRED:[39m
-429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
-Tip: Make sure your OPENAI_API_KEY is correctly set and valid
-
-
-2025-03-01T00:21:42.437Z - Processing month 11 of 12: November 2021
-
-2025-03-01T00:21:42.437Z - 🎵 Processing: November 2021 🎵
-2025-03-01T00:22:19.163Z - ❌ Error processing November 2021: Command failed with exit code 1
-[31mERROR OCCURRED:[39m
-429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
-Tip: Make sure your OPENAI_API_KEY is correctly set and valid
-
-
-2025-03-01T00:22:19.163Z - Processing month 12 of 12: December 2021
-
-2025-03-01T00:22:19.163Z - 🎵 Processing: December 2021 🎵
-2025-03-01T00:22:58.956Z - ❌ Error processing December 2021: Command failed with exit code 1
-[31mERROR OCCURRED:[39m
-429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
-Tip: Make sure your OPENAI_API_KEY is correctly set and valid
-
-
-2025-03-01T00:22:58.956Z - ✅ Completed processing 7 out of 12 months for year 2021
-2025-03-01T00:22:58.956Z - ⚠️ Some months (5) failed to process completely
+2025-03-01T15:42:31.064Z - ✅ Completed processing 3 out of 3 months for year 2025

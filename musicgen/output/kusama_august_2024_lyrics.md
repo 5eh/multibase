@@ -1,51 +1,39 @@
-**Verse 1:**  
-In the heart of August 2024,  
-Kusama rises, ready to soar.  
-Governance reimagined, V3 new,  
-Power to the people, a vision pursued.  
-Parachains grow, thirty strong,  
-In DeFi's hands, the future belongs.  
-Karura and Moonriver, stars in the night,  
-Cross-chain dreams take flight.
+**Verse 1**  
+In August '24, the frontier of dreams,  
+Kusama reigns where the blockchain gleams.  
+OpenGov rises, new voices take flight,  
+Weighted voting, a beacon of light.  
 
-**Chorus:**  
-Oh, Kusama, a network set afire,  
-Decentralized dreams we all aspire.  
-August winds bring change,  
-In your code, we find our range.  
-Oh, Kusama, blazing bright,  
-In blockchain's dawn, you ignite.
+Nebula shines, the code breaks through,  
+Parachains grow, like seeds in the dew.  
+DeFi Hub and QuantumLeap's call,  
+A future unfolds at Kusama's hall.  
 
-**Verse 2:**  
-Asynchronous steps, in time we find,  
-Faster, stronger, a paradigm.  
-Builders from the world unite,  
-In innovation's embrace, we write.  
-KSM's dance in market’s sway,  
-From seventy-five to a hundred, play.  
-A roadmap bold, futures to weave,  
-Chains of fifty, dreams we'll achieve.
+**Chorus**  
+In the heart of revolution, where the wild ones play,  
+Kusama's dreamers light the way.  
+Governance, freedom in the air,  
+A blockchain dance, we dare, we dare.  
 
-**Chorus:**  
-Oh, Kusama, a network set afire,  
-Decentralized dreams we all aspire.  
-August winds bring change,  
-In your code, we find our range.  
-Oh, Kusama, blazing bright,  
-In blockchain's dawn, you ignite.
+**Verse 2**  
+Tokens hold steady through turbulent seas,  
+€17.95, a tale of beliefs.  
+In the pulse of auctions, a million staked strong,  
+Community builds as we march on.  
 
-**Bridge:**  
-Tokens traded, confidence swells,  
-In Kusama's realm, where magic dwells.  
-A digital frontier, bold and free,  
-You shape a future for all to see.
+Cross-chain threads weave the web,  
+Developer hands shape what's ahead.  
+Karura and Moonriver's bright spark,  
+Kusama guides through innovation's dark.  
 
-**Chorus:**  
-Oh, Kusama, a network set afire,  
-Decentralized dreams we all aspire.  
-August winds bring change,  
-In your code, we find our range.  
-Oh, Kusama, blazing bright,  
-In blockchain's dawn, you ignite.  
+**Chorus**  
+In the heart of revolution, where the wild ones play,  
+Kusama's dreamers light the way.  
+Governance, freedom in the air,  
+A blockchain dance, we dare, we dare.  
 
-In blockchain's dawn, you ignite.
+**Outro**  
+The future's edge, with tech in its hand,  
+Kusama stands, where we understand.  
+A launchpad of hope, a proving ground,  
+In August '24, we hear the sound.  

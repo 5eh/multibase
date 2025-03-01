@@ -1,51 +1,35 @@
-**Verse 1**  
-In November twenty-twenty-four,  
-Kusama rose and opened new doors.  
-Governance shifting with OpenGov might,  
-Scaling up, shining through the night.  
-Cross-chain messages whispering through,  
-A seamless path the parachains pursue.  
+```plaintext
+(Verse 1)  
+In November twenty twenty-four,  
+Kusama roars with might once more.  
+A canary sings in blockchain skies,  
+Crashing through the growth's surprise.  
 
-**Chorus**  
-Kusama's meteoric rise,  
-In the Web3 skies,  
-Ecosystem thriving,  
-Under starlit eyes.  
-Innovation soaring high,  
-Kusama, don't say goodbye.  
+Asynchronous dreams, scaling wide,  
+Parachains rise, align with pride.  
+DecentraHealth, EcoChain too,  
+QuantumLeap secures the view.  
 
-**Verse 2**  
-Parachain auction, twenty-three,  
-Five new dreams join the tapestry.  
-KusamaSwap leads with tokens bold,  
-Investors' faith, a story unfolds.  
-Validator slots expand to the brim,  
-Decentralization, a community hymn.  
+(Chorus)  
+Oh Kusama, where the future lies,  
+Pushing limits, reaching for the skies.  
+Innovation flows, you pave the way,  
+In November, let your colors sway.  
 
-**Chorus**  
-Kusama's meteoric rise,  
-In the Web3 skies,  
-Ecosystem thriving,  
-Under starlit eyes.  
-Innovation soaring high,  
-Kusama, don't say goodbye.  
+(Verse 2)  
+Community votes in KIP dreams,  
+Strength in numbers, breaking seams.  
+A vibrant pulse where changes bleed,  
+The heart of blockchain's daring creed.  
 
-**Bridge**  
-KSM dancing in the market's light,  
-From $480 to $550, a dazzling sight.  
-KusamaAI and metaverse dreams,  
-The future breathes in tech extremes.   
+Acala, Karura, networks blend,  
+Wormhole links as barriers bend.  
+SubQuery's voice, Parallel's strive,  
+In Kusama, the future thrives.  
 
-**Chorus**  
-Kusama's meteoric rise,  
-In the Web3 skies,  
-Ecosystem thriving,  
-Under starlit eyes.  
-Innovation soaring high,  
-Kusama, don't say goodbye.  
-
-**Outro**  
-November’s tale of bold ambitions,  
-A blockchain world without partitions.  
-Kusama leads the revolution’s fire,  
-In the Web3 we aspire.  
+(Chorus)  
+Oh Kusama, where the future lies,  
+Pushing limits, reaching for the skies.  
+Innovation flows, you pave the way,  
+In November, let your colors sway.  
+```

@@ -1,29 +1,29 @@
 # Kusama News - November 2019
 
-# "Kusama: A Key Player in Blockchain Innovation"
+# Kusama Network Thrives; Polkadot's Wild Cousin Shines 
 
-Bolstered by a flurry of activity in November, Kusama network, dubbed the "wild cousin" of Polkadot, firmly establishes itself as an essential force in the realm of blockchain. Kusama offers a robust playground for developers and projects to face their trials and perfect their strategies before their final plunge into Polkadot. The swift pace at which Kusama innovates and evolves speaks volumes about its potential to revolutionize blockchain development and governance.
+In the world of blockchain technology, the Kusama network rapidly gained traction in its second month of operation, establishing itself as the premier testing field for Polkadot's future network. Launched by Polkadot founder Gavin Wood, Kusama is the playground where developers can safely test their applications before running them on the main platform.
 
-## OpenGov Implementation: Kusama Embodies Agile Governance
+## Kusama Unveils Upgraded OpenGov Infrastructure 
 
-This month witnessed Kusama's governance model's robustness, accommodating rapid decision-making and network upgrades with several crucial proposals. The network on November 12th brilliantly demonstrated its on-chain governance system's nimbleness, successfully implementing its first forkless runtime upgrade. "Being capable of upgrading the network without a hard fork revolutionizes protocol improvement pace unheard of in traditional blockchain networks," opined Dr. Gavin Wood, founder of Polkadot and Kusama.
+On the 4th of November, Kusama reached a crucial governance milestone, achieving its first successful validator set rotation. This step signifies a prominent overhaul in Kusama's transition to a fully decentralized proof-of-stake network. Kusama Council, the network's governance body, has also seen a persistent increase in activity, with numerous governance proposals submitted, voted, and implemented.
 
-## Parachain Auctions: Epicenter of Blockchain Growth
+## Parachain Auctions Spearhead Blockchain Expansion 
 
-The competitive nature of Kusama's parachain slot auction witnessed an upswing in interest, with several prestigious projects competing for slots. "The parachain model is transfiguring how blockchain projects can proliferate and interoperate," explained Ruitao Su, co-founder of Acala, a decentralized finance (DeFi) hub planning to bid for a slot.
+As November rolled on, Kusama geared up for the launch of parachains, specialized blockchains that will tether to Kusama's main relay chain. This saw teams like Acala Network, a DeFi protocol planning to deploy their parachain on Kusama under the name "Karura." The Web3 Foundation's David Hawig had positive comments regarding this, noting the high interest from teams a solid endorsement of Kusama's chaotic yet productive testnet environment.
 
-## Technical Developments: Kusama's Rapid Evolution 
+## Technical Developments Level Up Network Performance 
 
-In response to swiftly evolving blockchain requirements, Kusama demonstrated its ability to evolve rapidly, completing the upgrade in a mere 4 hours, thereby not disrupting network operations. This dynamism sets it apart, offering a living laboratory for projects to test and fine-tune their ideas.
+In terms of technical improvements, Kusama unleashed several upgrades improving the network's runtime, significantly boosting its performance and broadening its scope. New modifications included the democracy module's updations and important refinements to the nomination and validation process. 
 
-## KSM Token's Market Performance: A Staggering Increase
+## KSM Token Activity Gains Steam 
 
-Despite being experimental, Kusama's native token, KSM, exhibited impressive resilience in the crypto markets. As of November 30th, KSM traded at roughly $28, marking a remarkable 1,766% surge since its launch. "Kusama's price performance, particularly in context to the broader market conditions, is noteworthy," observed Crypto analyst Maria Rodriguez.
+The active validator set and broader Kusama community experienced significant growth in November. With over 130 active validators and hundreds more ready to join in, the network's security and decentralization promise gains potency. Kusama's native KSM token also saw surging interest from traders and investors due to increasing liquidity across different exchanges.
 
-## Projects Building on Kusama: Developer Ecosystem Flourishes
+## Developer Ecosystem Expands with Innovative Projects 
 
-November saw numerous innovative projects plan to build on Kusama. Robonomics, a platform for integrating robots and smart devices into decentralized networks, announced its intentions, generating significant buzz. Moreover, the Substrate Builder's Program welcomed several new members, a testament to Kusama's burgeoning ecosystem.
+Kusama's fast-paced progress didn't end there. Numerous unusual projects, such as Robonomics Network and Crust Network, announced their plans to integrate with Kusama, positioning the network as a launchpad for groundbreaking blockchain applications. Moreover, the Kusama Treasury funded various community initiatives, emphasizing the network's commitment to promote productivity.
 
-## Looking Forward: Bold Ambitions 
+## Looking Forward: What's Hanging in the Balance? 
 
-Exiting 2019 on a high note, Kusama presents an ambitious roadmap for the coming year, with significant milestones, including the full activation of parachains and more refined network governance. Kusama's significant progress and thriving ecosystem set the stage for a paradigm shift in blockchain technology in the forthcoming year.
+As Kusama enters its third month of operation, all eyes are locked in for the impending parachain deployments. The Web3 Foundation suggests that the first parachain slot auctions could unfold as early as Q1 2020. Other items on Kusama's agenda include additional refinements to the validation mechanisms, an expansion of on-chain governance capabilities, and the implementation of cross-chain messaging protocols. Gavin Wood's concluding words give us a glimpse into Kusama's skyrocketing momentum, "Kusama is exceeding our expectations in terms of both technical performance and community engagement. It's providing invaluable insights that will directly benefit Polkadot's development and launch strategy."

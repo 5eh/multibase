@@ -1,47 +1,42 @@
-**Verse 1:**  
-In the heart of May 2021,  
-Kusama soared beneath the sun,  
-A canary's flight in blockchain skies,  
-Parachain dreams, bids arise.  
+**Verse 1**  
+In May 2021, the tide began to turn,  
+Kusama's wings spread wide, ready to learn.  
+Governance blossomed, proposals in bloom,  
+CHAOS called out, igniting the room.  
+Parachains on the horizon, the next frontier,  
+In agile strides, the future draws near.
 
-Governance reformed with OpenGov,  
-Community votes, progress moves,  
-Validator, treasury—their hands mold,  
-"Chaos 2021," the future unfolds.
+**Chorus**  
+Unstoppable force, Kusama flies,  
+Through turbulent markets, reaching new skies.  
+A beacon of change in a world unknown,  
+Kusama's heart beats, carving its own.  
 
-**Chorus:**  
-Skyrocketing high, Kusama's dawn,  
-Breaking chains, where dreams are drawn.  
-In a world of tokens, tech, and trust,  
-May 2021, we rise from dust.
+**Verse 2**  
+Tech visions soared, as upgrades rolled,  
+Scalability dreams that never grew old.  
+Amid the fray, KSM took flight,  
+Record highs broke the market's night.  
+Community strong, with eyes on the prize,  
+In this brave new world, the potential lies.
 
-**Verse 2:**  
-Parachain auctions, a hopeful race,  
-Karura, Moonriver, a passionate chase.  
-XCMP channels, voices entwine,  
-zk-SNARKs whisper in privacy's shrine.  
+**Chorus**  
+Unstoppable force, Kusama flies,  
+Through turbulent markets, reaching new skies.  
+A beacon of change in a world unknown,  
+Kusama's heart beats, carving its own.
 
-KSM climbs, the market sings,  
-In the realm of billions, Kusama's wings.  
-Developers flock, their visions ignite,  
-Innovation's beacon, a guiding light.
+**Bridge**  
+Anticipation builds, a collective dream,  
+Innovative paths, where none have been.  
+June looms ahead, the auctions await,  
+For Kusama's journey to greatness, we celebrate.
 
-**Chorus:**  
-Skyrocketing high, Kusama's dawn,  
-Breaking chains, where dreams are drawn.  
-In a world of tokens, tech, and trust,  
-May 2021, we rise from dust.
+**Chorus**  
+Unstoppable force, Kusama flies,  
+Through turbulent markets, reaching new skies.  
+A beacon of change in a world unknown,  
+Kusama's heart beats, carving its own.  
 
-*(Bridge - instrumental)*
-
-**Chorus:**  
-Skyrocketing high, Kusama's dawn,  
-Breaking chains, where dreams are drawn.  
-In a world of tokens, tech, and trust,  
-May 2021, we rise from dust.  
-
-*(Outro)*  
-For this is just the beginning, a tale untold,  
-As the parachains weave, futures unfold.  
-Kusama's heartbeat, a rhythm divine,  
-In the summer's embrace, our dreams align.
+May 2021, a moment that shone,  
+The dawn of Kusama, forever known.  

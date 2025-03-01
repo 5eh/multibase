@@ -1,29 +1,39 @@
 # Kusama News - March 2021
 
-"Groundbreaking Advancements Rocket Kusama to New Heights"
+# Kusama March Makeover: Surging Token, Auction Preparations, and Ecosystem Developments
 
-The experimental protocol Kusama made significant strides in March 2021, setting sights on its anticipated launch of parachain auctions. Known as the "canary network" of its more established sibling, Polkadot, Kusama has carved a unique path in the realm of cryptocurrency by serving as a testing platform for new features and futuristic blockchain projects.
+In a month pulsing with promises and delivery, the Kusama network, Polkadot's canary network, marked March 2021 with outstanding developments in multiple fronts, leveraging its unique technology for network-wide growth and evolution.
 
-"Kusama’s Governance Embarks on Transformation"
+## OpenGov Metamorphosis Amplifies Kusama's Vigour
 
-Governance changes on the Kusama network were the talk of March. Proposed enhancements to the validator election parameters and treasury mechanism underwent vigorous debates and voting by community members. The Kusama Council, the elected body leading the network development, welcomed new members following a round of elections.
+A new chapter in the Kusama story evolved this past March, catalyzed by significant governance changes. The proposals up for discussion addressed some considerable adjustments to the Kusama’s validator landscape.
 
-The council aims to shape the network’s unfolding path with fresh outlooks, promoting unexpected ideas and invigorating energy. Events organized to further community engagement skyrocketed, with the “Build on Kusama” hackathon ranking as a high point, witnessing hundreds of developers engage in ground-breaking projects.
+One ground-breaking proposal argued for expanding the present 900 validators on the network to 1000. A suggestion clearly anticipating the fast-paced growth of Kusama, designed to bolster decentralization and solidity of the network.
 
-"Parachain Excitement Fuels Growth of Kusama Blockchain"
+Kusama community, stakeholders actively engaged in luminary debates to finalize the structure for the upcoming parachain auctions deliberated upon auction durations and slot distributions.
 
-Broad preparations for the impending launch of the parachain auctions highlighted activities on the network in March. Parachains are specialized blockchains designed to operate in connection with Kusama’s main relay chain, promoting scalability and interoperability among networks. March witnessed promising projects including Acala Network, Karura, Moonriver, and Shiden Network refine their models and stir up community support for the upcoming crowdloan campaigns.
+## Parachain Auctions Turning Heads
 
-"KSM Token Soars Amidst Parachain Auction Buzz"
+Attention steered towards Kusama network with the swiftly advancing preparations for the long-awaited parachain slot auctions, a conduit for projects aiming to secure a spot to build on this ever-evolving network. 
 
-The exhilarating anticipation surrounding the parachain auctions spilled over to the market, triggered skyrocketing performance for Kusama's native token, KSM. In March alone, KSM rose spectacularly from trading at $226 to a stunning all-time high of $547.91. This leaping market performance and rising trading volumes attracted investments, raising Kusama's total market cap to over $4 billion.
+Gavin Wood, the genius behind Polkadot and Kusama, teased the possibility of parachain auctions launching by April or May, contingent upon audits and governance approval. The clarion was taken up with intensity by Acala Network's Karura, Moonbeam's Moonriver, and Plasm Network, who declared their bid for a slot and strategized their initiatives for crowdloans.
 
-"Continuous Innovation Marks Kusama’s Developer Ecosystem"
+## Innovation Triumphs with Technical Triumphs 
 
-Despite the excitement around the parachain auctions, the Kusama ecosystem continued to foster more innovations showcasing its increasing versatility. Organizations launched new projects centered around decentralized finance (DeFi), while protocols like SubSocial and KILT Protocol emerged with plans to integrate with the Kusama blockchain. 
+Keeping the momentum high were the upgrades achieved this March. The successful launch of runtime upgrade v0.8.29, equipped with critical improvements supporting the parachain functionality, manifested Kusama's agility in adopting updates through its on-chain governance.
 
-"Looking Ahead: The Parachain Auctions on the Horizon"
+Further cementing the anticipation of parachain launch, the Kusama community greenlighted the Shell parachain, planned to assess cross-chain messaging and verify the stability of the relay chain.
 
-Surveying the frenetic activity of last month, the focus remains firmly on the fast-approaching parachain auctions. Cryptocurrency enthusiasts and industry insiders alike eagerly await the auctions believing them to be a monumental step towards realizing the full potential of a unified, interoperable blockchain platform.
+## Bumper-Period for KSM Market Performance
 
-The coming months are a defining period for Kusama. With the commencement of the parachain auctions, Kusama is poised to transition from a standalone network to a diverse ecosystem of specialized blockchains. This groundbreaking shift, though promising to bring new challenges and opportunities in its wake, might single-handedly redefine the entire blockchain landscape. As Kusama embarks on this transformative journey, the world watches on, hopeful for the revolutionary promise the canary network holds.
+March set record-highs for Kusama's native token, KSM, with prices soaring over 140% within the month. Beginning with a modest value of around $225, KSM touched an all-time high of $547.91 on March 29. The trading volume for KSM also showed a significant upturn, with a daily average often exceeding $400 million. Analysts attributed this dramatic escalation to speculation around the upcoming parachain auctions and the heightened perception of Kusama's potential in the Polkadot ecosystem.
+
+## Developer Ecosystem Thrives Amid Standing-Out Projects
+
+Kusama's rapid expansion and lower entry barriers compared to Polkadot continued to attract projects, leading to significant ecosystem growth in March. The identity project, KILT Protocol, announced plans to use the Kusama network as their development playground. Unique Network and the NFT project, RMRK also joined Kusama, planning to create unique NFT experiences utilizing its fast finality and low transaction costs.
+
+## Vision Forward: Kusama's March to Bookmark 
+
+Given the audacious advances in March, Kusama’s future holds the promise of monumental strides. The culmination of the eager anticipation will be the official commencement of the parachain slot auctions, followed by the deployment of the first fully functional parachains on Kusama and the introduction of cross-chain messaging and interoperability feature. 
+
+And as the Kusama ecosystem expands with the influx of more projects, Kusama’s foresight of its canary network as an innovation engine-and-testing ground places it in a commanding position as a significant contributor to the decentralized future.

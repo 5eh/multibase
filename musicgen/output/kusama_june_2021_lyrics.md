@@ -1,41 +1,39 @@
-**Title: Innovation's Dawn**
-
 **Verse 1:**  
-In June 2021, a new path was laid,  
-Kusama's spirit, where blockchain dreams are made.  
-OpenGov rises, voices cast in light,  
-Token holders guiding through the night.  
+In June 2021, the dawn of a new age,  
+Kusama broke the chains, on the blockchain stage.  
+Parachains ignited, blazing through the night,  
+Scalable dreams took flight, in the digital light.  
 
-Parachains unlocked, a stellar sight to see,  
-Karura and Moonriver, paths to set us free.  
-In the cradle of change, innovation blooms,  
-Scalable visions, filling empty rooms.  
+Council's vision soared, Shell transformed to Statemine,  
+Fungible, non-fungible, all dreams intertwined.  
+Gavin Wood's echo, in the realm of blockchain dreams,  
+A world of innovation, where the future gleams.  
 
 **Chorus:**  
-Oh, Kusama, where governance flows,  
-In a world of crypto, where the future glows.  
-Resilient in the storm, standing tall and free,  
-Innovation's dawn on a digital sea.  
+Oh, Kusama, carve the path anew,  
+Parachain auctions, the world turns to you.  
+In June’s fiery glow, the ecosystem soared,  
+Scalable futures, dreams explored.  
 
 **Verse 2:**  
-Statemine awakens, from Shell it was born,  
-Robust upgrades carried through the storm.  
-KSM stands strong, weathered by the skies,  
-In a volatile world, it rises and flies.  
+Bidding wars raged, Karura, Moonriver in the mix,  
+Projects racing forward, with customized tricks.  
+Tokens climbed the ladder, KSM's rise was steep,  
+Visionaries united, as blockchain’s heartbeats leap.  
 
-Projects emerging, a developer's theme,  
-KILT with digital dreams, on identity's beam.  
-As markets waver, Kusama holds its ground,  
-A relentless pulse, where progress is found.  
+The OpenGov thundered, the horizon expanded,  
+A canary's song, with innovation branded.  
+As the auctions quiet, futures are in view,  
+Polkadot waits steady, for paths forged anew.  
 
 **Chorus:**  
-Oh, Kusama, where governance flows,  
-In a world of crypto, where the future glows.  
-Resilient in the storm, standing tall and free,  
-Innovation's dawn on a digital sea.  
+Oh, Kusama, carve the path anew,  
+Parachain auctions, the world turns to you.  
+In June’s fiery glow, the ecosystem soared,  
+Scalable futures, dreams explored.  
 
 **Outro:**  
-June 2021, memories etched in chains,  
-The journey's just begun, where the spirit reigns.  
-Kusama, your name, in whispers it roams,  
-In the heart of crypto, you’ve made a home.  
+June 2021, the legacy we weave,  
+In the blockchain’s rhythm, we believe.  
+Kusama’s anthem, a song of the brave,  
+The digital frontier, the new path we pave.  

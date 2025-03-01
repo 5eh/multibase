@@ -1,39 +1,34 @@
-**Chorus:**
-In October 2024, we rise,  
-Kusama spreads its wings,  
-With every node, a dream flies,  
-In the chaos, a new world sings.  
+**Verse 1**  
+In October 2024, a canary in flight,  
+Kusama's wings stretch wide, soaring into the light.  
+Governance evolves, 1,500 strong,  
+Transparent and bold, where we all belong.  
+Heated debates on DeFi and NFTs,  
+A network alive, with new possibilities.  
 
-**Verse 1:**
-A canary in the mine, we lead the way,  
-In the heart of innovation, we sway.  
-From a thousand to fifteen-hundred strong,  
-Decentralized power, where we belong.  
+**Chorus**  
+Kusama's heartbeat, innovation's call,  
+A beacon of change, built by us all.  
+With a spirit unyielding, and a vision so bright,  
+The early bird's song, echoes through the night.  
 
-Auction victories, Turing's triumph,  
-Tokens gathered, dreams to ignite.  
-Building bridges with adaptive might,  
-Quantum leaps in blockchain light.  
+**Verse 2**  
+Parachains auction slots, dreams take their stand,  
+Turing Network rises, a future unplanned.  
+Asynchronous backing, version 2.0,  
+Scalability leaps, as transactions flow.  
+KSM soars high on market waves,  
+A token of progress, no one could enslave.  
 
-**Chorus:**
-In October 2024, we rise,  
-Kusama spreads its wings,  
-With every node, a dream flies,  
-In the chaos, a new world sings.  
+**Chorus**  
+Kusama's heartbeat, innovation's call,  
+A beacon of change, built by us all.  
+With a spirit unyielding, and a vision so bright,  
+The early bird's song, echoes through the night.  
 
-**Verse 2:**
-A token's value, fiery ascent,  
-Investors drawn by the event.  
-Builders program, nurturing ground,  
-Innovation's heart, where new paths are found.  
-
-Cross-chain dreams and zero-knowledge quests,  
-We cultivate what's truly best.  
-Dr. Wood's vision, a future bright,  
-In organized chaos, we take flight.  
-
-**Chorus:**
-In October 2024, we rise,  
-Kusama spreads its wings,  
-With every node, a dream flies,  
-In the chaos, a new world sings.  
+**Outro**  
+Towards 2025, we set our course true,  
+Scalability, growth, in a vibrant hue.  
+Kusama leads on, with courage and might,  
+The early bird's song, still soaring high.  
+In October 2024, our future took flight.  

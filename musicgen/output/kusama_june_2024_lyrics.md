@@ -1,37 +1,51 @@
-**Verse 1:**  
-In June 2024, the canary takes its flight,  
-Kusama stretches wings, in the dark seeks the light.  
-OpenGov staking dreams, in the chain’s embrace,  
-NPoS securing hearts, decentralizing grace.  
+**Verse 1:**
 
-Hot-swappable veins, no hard forks to mend,  
-A whisper of change where the future bends.  
-Parachains rise, building bridges wide,  
-While Moonriver and Karura ride the tide.  
+In June 2024, the story unfolds,  
+Kusama stands tall, where the brave be bold.  
+In the world of chains, a canary flies,  
+Pioneering dreams in the open skies.  
+Governance reforms and minds awake,  
+With OpenGov’s dawn, the future we make.  
 
-**Chorus:**  
-Kusama in the sky, painting futures bright,  
-June 2024, where stars ignite the night.  
-Through the chains of time, KSM stands tall,  
-Resilient in the storm, answering the call.  
+**Chorus:**
 
-**Verse 2:**  
-ParaFi claims its space, in auctions it stands,  
-Finance decentralized, lending future plans.  
-KusamaVerse unfolds, dreams in virtual lines,  
-NFTs and IDs, crossing metaverse signs.  
+Oh, Kusama, blazing trails of light,  
+In the blockchain night, you soar to new heights.  
+Breaking barriers, on the winds of change,  
+In the cryptosphere, your name they’ll chant and range.  
+Oh, Kusama, lead us through the storm,  
+In June 2024, a new world is born.  
 
-Chainlink whispers, bringing oracles true,  
-Binance and Kraken expanding the view.  
-zk-SNARKs weave stories of privacy and scale,  
-Kusama 2.0, the horizon we sail.  
+**Verse 2:**
 
-**Chorus:**  
-Kusama in the sky, painting futures bright,  
-June 2024, where stars ignite the night.  
-Through the chains of time, KSM stands tall,  
-Resilient in the storm, answering the call.  
+Parachain glory, auctions ignite,  
+DeFi dreams in Kusama's light.  
+KSM rises, a market’s embrace,  
+Technology evolves at a rapid pace.  
+Asynchronous whispers, speed to unfold,  
+In the realm of chains, where stories are told.  
 
-**Outro:**  
-Blockchain dreams unfurl, as we watch them soar,  
-In the echo of June, forevermore.
+**Chorus:**
+
+Oh, Kusama, blazing trails of light,  
+In the blockchain night, you soar to new heights.  
+Breaking barriers, on the winds of change,  
+In the cryptosphere, your name they’ll chant and range.  
+Oh, Kusama, lead us through the storm,  
+In June 2024, a new world is born.  
+
+**Bridge:**
+
+In the heart of code and dreams,  
+Builders weave their future schemes.  
+Kusama’s pulse, a rhythmic beat,  
+Where innovation and courage meet.  
+
+**Chorus:**
+
+Oh, Kusama, blazing trails of light,  
+In the blockchain night, you soar to new heights.  
+Breaking barriers, on the winds of change,  
+In the cryptosphere, your name they’ll chant and range.  
+Oh, Kusama, lead us through the storm,  
+In June 2024, a new world is born.

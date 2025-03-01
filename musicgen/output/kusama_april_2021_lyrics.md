@@ -1,39 +1,45 @@
 **Verse 1**  
-April 2021, skies opened wide,  
-Kusama soared on a blockchain ride.  
-Parachains in a race, pushing to the fray,  
-A thousand voices voting, paving a new way.  
+April 2021, we watched the dawn,  
+Kusama's wings spread wide and strong,  
+Canary in the coal mine, testing ground,  
+Parachains rising, where dreams are found.  
 
-Gavin said, "We're almost there,"  
-Feature complete, the future's fair.  
-Projects lined in the parachain queue,  
-Karura, Moonriver, dreaming anew.  
+OpenGov calls, chaos in the air,  
+Virtual gathering, we all share.  
+Governance morphs, a community reborn,  
+Workshops and whispers, a brave new form.  
 
 **Chorus**  
-April winds of change,  
-Kusama's dreams in range.  
-With every KSM, the tide will rise,  
-Governance by chain, where freedom lies.  
+Kusama, lead us to the edge,  
+Innovate, defy, we pledge.  
+Price climbs high, take the stage,  
+Blockchain dreams, turn the page.  
 
 **Verse 2**  
-Treasury opens, funds for the brave,  
-Communities build, and pathways pave.  
-Workshops buzz, and networks hum,  
-Preparing for battles yet to come.  
+Parachain auctions, the future's forge,  
+Moonriver and Karura, communities charge.  
+XCMP crossing, seamless talks,  
+Interconnected blockchains, Kusama walks.  
 
-A million tokens, the hands of time,  
-KSM values climb like a chime.  
-In this canary network's flight,  
-The dawn of blockchain's new daylight.  
+Tokens soar, KSM in flight,  
+April's promise shining bright.  
+From Statemine's spark to a DAO's green plan,  
+Kusama's heartbeat, where dreams began.  
 
 **Chorus**  
-April winds of change,  
-Kusama's dreams in range.  
-With every KSM, the tide will rise,  
-Governance by chain, where freedom lies.  
+Kusama, lead us to the edge,  
+Innovate, defy, we pledge.  
+Price climbs high, take the stage,  
+Blockchain dreams, turn the page.  
 
-**Outro**  
-Parachains ready, excitement in the air,  
-April was just the start, future fair.  
-In Kusama's code, we trust and believe,  
-A blockchain quest, in April we weave.  
+**Bridge**  
+April's end, the auctions loom,  
+A new era whispers in the room.  
+Scalable networks, dreams align,  
+In Kusama's rhythm, the future shines.  
+
+**Chorus**  
+Kusama, lead us to the edge,  
+Innovate, defy, we pledge.  
+Price climbs high, take the stage,  
+Blockchain dreams, turn the page.  

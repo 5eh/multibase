@@ -1,39 +1,44 @@
-**Verse 1**  
-In December 2019, a spark took flight,  
-Kusama’s rhythm in the blockchain night.  
-A 'canary network,' daring and free,  
-Testing limits, a wild symphony.  
+**Verse 1:**
 
-From proof of authority to staking wide,  
-Decentralized dreams that we can't hide.  
-Parachain auctions, a game of pride,  
-Projects compete, futures decide.  
+In December 2019, a canary takes its flight,  
+Born from chaos, a beacon in the night,  
+Kusama calls with wings open wide,  
+Pioneers gather, on this wild ride.
 
-**Chorus**  
-Kusama, on the edge of dawn,  
-Where innovation's flame is drawn.  
-In December's winter chill,  
-Blockchain dreams climb the hill.  
+Proof-of-stake, the way is clear,  
+In the hands of rebels, we fight the fear,  
+Validators join, our numbers grow,  
+Rising tides, in the blockchain’s flow.
 
-**Verse 2**  
-Kiwi codes and a vibrant pace,  
-Boundless growth in blockchain's space.  
-Governance open, creators thrive,  
-In Kusama’s realm, visions arrive.  
+**Chorus:**
 
-KSM shifts in market light,  
-From Polkadot’s depths, it takes its flight.  
-Developer hearts on fire and bold,  
-In Kusama's world, new tales unfold.  
+In the heart of the storm, we find our grace,  
+Kusama leads us through this space,  
+Where chaos reigns, innovation breathes,  
+In December's shadow, we sow the seeds.
 
-**Chorus**  
-Kusama, on the edge of dawn,  
-Where innovation's flame is drawn.  
-In December's winter chill,  
-Blockchain dreams climb the hill.  
+**Verse 2:**
 
-**Outro**  
-Oh, Kusama, a journey true,  
-In December’s haze, futures new.  
-The playground where dreams are spun,  
-In the blockchain dawn, a rising sun.  
+Parachains await, the auctions ignite,  
+Dreamers bid, in the fading light,  
+Acala and Chainlink, cast their nets,  
+Lower barriers, no regrets.
+
+Governance in every hand,  
+A symphony of change, so boldly planned,  
+December remembers the first step we made,  
+Kusama’s promise in the futures we trade.
+
+**Chorus:**
+
+In the heart of the storm, we find our grace,  
+Kusama leads us through this space,  
+Where chaos reigns, innovation breathes,  
+In December's shadow, we sow the seeds.
+
+**Outro:**
+
+A whispered tale, of brave new days,  
+Kusama's path, a guiding blaze,  
+With wings of courage, we write our fate,  
+As the world watches, we elevate.

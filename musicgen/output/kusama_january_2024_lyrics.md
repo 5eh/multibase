@@ -1,39 +1,37 @@
-**Verse 1:**  
-In the heart of a digital storm,  
-Kusama rises, a new dawn born,  
-Governance and voices unite,  
-In January 2024, they ignite.  
+**Chorus:**  
+In January 2024, we stand,  
+Kusama's revolution in our hands.  
+Parachains grow, the tech evolves,  
+A blockchain dream that's being solved.
 
-Referendum falls, democracy sings,  
-Community empowered, change it brings.  
-The canary spreads its wings,  
-As innovation to the forefront clings.  
+**Verse 1:**  
+On the wings of change, a canary sings,  
+In governance halls, the future rings.  
+Community voices, strong and free,  
+Shaping the course so daringly.  
+Treasuries aligned for growth to span,  
+Bridging dreams with Kintsugi's plan.  
+With zero-knowledge as our guide,  
+Privacy and progress stride side by side.
 
 **Chorus:**  
-Kusama, beacon in the night,  
-Leading with courage, reaching heights.  
-Bringing visions to life,  
-In a web of blockchain's light.  
+In January 2024, we stand,  
+Kusama's revolution in our hands.  
+Parachains grow, the tech evolves,  
+A blockchain dream that's being solved.
 
 **Verse 2:**  
-Parachains grow, adding their code,  
-Kintsugi wins, Bitcoin flows.  
-SubQuery brings the pulse anew,  
-Advancing dreams in the tech crew.  
-
-Market whispers of KSM's rise,  
-With every beat, a new surprise.  
-Developers craft in the Kusama fold,  
-Their stories of the blockchain told.  
+High-performance maps in Dapps' domain,  
+Asynchronous powers lead the chain.  
+Where developers dream, new worlds arise,  
+A thriving network under starry skies.  
+Through storm and surge, KSM holds tight,  
+Resilience in every investor’s sight.  
+Boundless potential, a future we weave,  
+In Kusama's song, we dare to believe.
 
 **Chorus:**  
-Kusama, beacon in the night,  
-Leading with courage, reaching heights.  
-Bringing visions to life,  
-In a web of blockchain's light.  
-
-**Outro:**  
-January 2024 begins,  
-Kusama's journey, as history spins.  
-A path of promise, bold and bright,  
-In the heart of blockchain's flight.  
+In January 2024, we stand,  
+Kusama's revolution in our hands.  
+Parachains grow, the tech evolves,  
+A blockchain dream that's being solved.

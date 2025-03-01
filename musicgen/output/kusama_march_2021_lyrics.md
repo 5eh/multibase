@@ -1,45 +1,47 @@
-**Verse 1**  
-In March 2021, under crypto skies,  
-Kusama reached new heights with its daring eyes.  
-Canary network, testing dreams,  
-Guiding to the future, where blockchain gleams.  
+**Title: March of Kusama**
 
-Governance shifts, a council anew,  
-Elections and debates, bold ideas grew.  
-Hackathons echo, devs take the stage,  
-Building the future, page by page.  
+**Verse 1:**  
+In the dawn of March twenty-one,  
+Kusama rises with the sun,  
+A thousand voices, validators strong,  
+Decentralized dreams moving along.  
 
-**Chorus**  
-Kusama, in the spring of twenty-one,  
-Parachain dreams where innovation runs.  
-A cosmos of blockchains, like stars aligned,  
-In this brave new world, a path we find.  
+Auctions whisper through the chain,  
+Parachain slots, a bold campaign.  
+Projects gather, crowdloans ignite,  
+Building futures, reaching new heights.  
 
-**Verse 2**  
-Parachains rise, the auctions loom,  
-Acala, Karura, in the room.  
-Moonriver flows, Shiden sparks,  
-Crowdloans pulse, igniting the dark.  
+**Chorus:**  
+Oh March 2021, where visions soar,  
+In Kusama's heart, we explore.  
+Breaking chains and pushing bounds,  
+In this canary, innovation resounds.  
 
-KSM soared, a token’s flight,  
-From dusk to dawn, a vibrant night.  
-DeFi blooms, as networks entwine,  
-Kusama's pulse in rhythmic time.  
+**Verse 2:**  
+Runtime upgrades, v0.8.29,  
+Technical triumphs, stars align.  
+Shell parachain, the message sends,  
+Relay chain tested, strength transcends.  
 
-**Chorus**  
-Kusama, in the spring of twenty-one,  
-Parachain dreams where innovation runs.  
-A cosmos of blockchains, like stars aligned,  
-In this brave new world, a path we find.  
+KSM's soaring, market ablaze,  
+From modest start to meteoric praise.  
+Tokens fly on speculation's wings,  
+In Kusama's realm, the future sings.  
 
-**Bridge**  
-Watch as we transform, in the crypto dawn,  
-With each step, brighter futures spawned.  
-Challenges await, but hope’s flame burns,  
-Kusama’s promise, the world turns.  
+**Chorus:**  
+Oh March 2021, where visions soar,  
+In Kusama's heart, we explore.  
+Breaking chains and pushing bounds,  
+In this canary, innovation resounds.  
 
-**Outro**  
-March 2021, we remember the day,  
-Kusama’s leap, a visionary way.  
-In the blockchain sky, a thousand suns,  
-All lights shining, as the future comes.  
+**Bridge:**  
+Kusama stands, a testing ground,  
+For Polkadot's future, profoundly renowned.  
+March left its mark, the world could see,  
+A decentralized dream, set free.  
+
+**Chorus:**  
+Oh March 2021, where visions soar,  
+In Kusama's heart, we explore.  
+Breaking chains and pushing bounds,  
+In this canary, innovation resounds.  

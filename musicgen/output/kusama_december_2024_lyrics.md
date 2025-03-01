@@ -1,39 +1,43 @@
-**Verse 1:**  
-In December '24, we hear the call,  
-Kusama's light shines, bright for all.  
-Bridges built where worlds unite,  
-Snowbridge rides the ether’s flight.  
+**Chorus:**
+Kusama rising, breaking every chain,  
+In December ‘24, it’s making its name.  
+OpenGov sparks the egalitarian dream,  
+In the crypto skies, Kusama’s gleam.
 
-Parachains soar, Moonbeam's rise,  
-Evrloot plays where the future lies.  
-140,000 beats a second, a tech ballet,  
-Agile hands mold the clay.  
+**Verse 1:**
+Transaction speeds that light up the night,  
+Parachains dancing in the vibrant light.  
+A playground of dreams, a technicolor track,  
+With bridges built, there’s no turning back.
 
-**Chorus:**  
-Oh, Kusama, with wings so wide,  
-Canary sings where the bold abide.  
-In a world of chains, you break the mold,  
-With dreams and whispers of the untold.  
+Hierarchies fall, decision hands extend,  
+The OpenGov wave, where all voices blend.  
+KSM soaring, with stars in its eyes,  
+Boundless potential in these blockchain skies.
 
-**Verse 2:**  
-Governance shapes in community's hands,  
-A rewrite of futures, of uncharted lands.  
-Tokens surge, a fiery dance,  
-A crypto tide, a second chance.  
+**Chorus:**
+Kusama rising, breaking every chain,  
+In December ‘24, it’s making its name.  
+OpenGov sparks the egalitarian dream,  
+In the crypto skies, Kusama’s gleam.
 
-Developers weave, crafting dreams,  
-Polkadot's canvas, painted schemes.  
-Treasures vast, the tales unfold,  
-In Kusama's arms, the future bold.  
+**Verse 2:**
+Developers gather, crafting futures untold,  
+A Canvas for creation, fearless and bold.  
+Scalability and vision, in harmony they play,  
+Pioneering the paths where tomorrow lays.
 
-**Chorus:**  
-Oh, Kusama, with wings so wide,  
-Canary sings where the bold abide.  
-In a world of chains, you break the mold,  
-With dreams and whispers of the untold.  
+In finance and gaming, the boundaries they nudge,  
+Innovation is echoing with every judge.  
+Cross-network echoes, technology's embrace,  
+Kusama's spirit, a limitless space.
 
-**Outro:**  
-December's end, a new dawn in sight,  
-Kusama rises, a beacon of light.  
-In blockchain realms, where legends lie,  
-A future unfolds, reaching for the sky.  
+**Chorus:**
+Kusama rising, breaking every chain,  
+In December ‘24, it’s making its name.  
+OpenGov sparks the egalitarian dream,  
+In the crypto skies, Kusama’s gleam.
+
+**Outro:**
+The promise of tomorrow is writing its lore,  
+Kusama, a beacon, forevermore.

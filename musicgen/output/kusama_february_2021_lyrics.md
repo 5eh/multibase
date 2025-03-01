@@ -1,39 +1,39 @@
 **Verse 1**  
-In February 2021, a new dawn breaks,  
-Kusama roars, a future it shapes.  
-With wings of change, it charts its flight,  
-In the canary's song, new dreams ignite.
+February 2021, a new dawn breaks,  
+Kusama's leap like a wild heart shakes.  
+700 strong, validators rise,  
+In the realm of blockchain skies.  
 
-Governance alive, the community in tune,  
-Sculpting tomorrows in this blockchain cocoon.  
-Beyond the chains, it's a world redefined,  
-The heartbeat of progress, a visionary find.
+Governance shifts, a collective's voice,  
+NPoS leads the way, we've made our choice.  
+KSM climbing, bullish light,  
+From humble roots, we take flight.
 
 **Chorus**  
-Parachains are coming, horizons wide,  
-Kusama's dreams on a fearless ride.  
-Scalability whispers in the winds of change,  
-Interoperability sings, a new era's range.
+Kusama's heart beats, in a world unknown,  
+A wild cousin where dreams are sown.  
+Parachain whispers, auctions call,  
+A multi-chain future in February's thrall.
 
 **Verse 2**  
-Technical advances, the groundwork laid,  
-In February's glow, innovations parade.  
-Acala and Moonriver, the stage is set,  
-With each upgrade, a future met.
+Slots open wide, innovation flows,  
+Projects converge where the wild wind blows.  
+Lower barriers, a welcoming hand,  
+Building new worlds, where visions expand.
 
-KSM tokens rise with the market’s beat,  
-In this digital symphony, new goals we greet.  
-A window to Polkadot's grander scheme,  
-Kusama's journey, a dreamer's dream.
+Technical strides, the foundation laid,  
+Decentralized dreams, from which we're made.  
+In the pulse of change, developers bloom,  
+Kusama's future, dispelling gloom.
 
 **Chorus**  
-Parachains are coming, horizons wide,  
-Kusama's dreams on a fearless ride.  
-Scalability whispers in the winds of change,  
-Interoperability sings, a new era's range.
+Kusama's heart beats, in a world unknown,  
+A wild cousin where dreams are sown.  
+Parachain whispers, auctions call,  
+A multi-chain future in February's thrall.  
 
 **Outro**  
-In the echoes of February, stories are spun,  
-Kusama’s ascent, a race just begun.  
-With each innovation, boundaries fall,  
-In this blockchain journey, we heed the call.
+February 2021, a turning point clear,  
+Kusama's journey, we hold dear.  
+Together we rise, we boldly run,  
+In the endless race towards the sun.  

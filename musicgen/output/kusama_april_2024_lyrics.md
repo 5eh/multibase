@@ -1,51 +1,39 @@
-**Verse 1**  
-April 2024, in a world on the chain,  
-Kusama breaks the mold, evolving again.  
-Governance whispers change, echoes through the night,  
-Accelerator blazing, new privacy in sight.  
+**Verse 1:**
+In April '24, Kusama soared,  
+Breaking chains, rewriting lore,  
+Agile Coretime, a vision's flight,  
+Sold out the cores, igniting the night.  
 
-Transactions ignite, ten thousand a breeze,  
-Building the dream with every new release.  
-Privacy wrapped tight, shadows in the light,  
-Kusama’s heart beats in the digital fight.  
+Dynamic change, no slots to bind,  
+Opens doors for the agile mind,  
+Turing's dreams of DeFi rise,  
+Cross-chain bridges reach new skies.  
 
-**Chorus**  
-Rise, rise, Kusama soar,  
-Through the blockchain heavens, forever more.  
-With every block, with every line,  
-In this cryptic dance, we find our time.  
+**Chorus:**  
+Oh, Kusama, canary's call,  
+In the blockchain, you're standing tall.  
+Guide us through the night once more,  
+April '24, we hear your roar.  
 
-**Verse 2**  
-Parachains unlocked, the auctions unfold,  
-DecentraHealth wins, the future in bold.  
-Forty-percent surge, as value takes flight,  
-Kusama's spirit glowing, in the crypto night.  
+**Verse 2:**  
+Asynchronous Backing on the brink,  
+Faster blocks, with one thought, we sync.  
+KSM's journey, climbing high,  
+Bullish trends with wings to fly.  
 
-KSM soars, from dreams it was born,  
-From $150 to $275 sworn.  
-With Karura’s yield, Moonriver’s embrace,  
-Kilt Protocol’s pride, leading the race.  
+Community's voice, a governance tale,  
+Assets cross the Polkadot trail.  
+In this realm of code and dreams,  
+Kusama leads where the future beams.  
 
-**Chorus**  
-Rise, rise, Kusama soar,  
-Through the blockchain heavens, forever more.  
-With every block, with every line,  
-In this cryptic dance, we find our time.  
+**Chorus:**  
+Oh, Kusama, canary's call,  
+In the blockchain, you're standing tall.  
+Guide us through the night once more,  
+April '24, we hear your roar.  
 
-**Bridge**  
-Roadmaps drawn, with stars in their gaze,  
-A hundred chains dancing, in their cosmic phase.  
-Stablecoins near, cross-chain in the waves,  
-Kusama's promise, the path that it paves.  
-
-**Chorus**  
-Rise, rise, Kusama soar,  
-Through the blockchain heavens, forever more.  
-With every block, with every line,  
-In this cryptic dance, we find our time.  
-
-**Outro**  
-April 2024, the journey's just begun,  
-In Kusama's world, the future is won.  
-Rise, rise, Kusama soar,  
-Through the blockchain heavens, forever more.  
+**Outro:**  
+Forging paths with every stride,  
+In your hands, we choose to glide.  
+Kusama's echo, the world will know,  
+On this journey, forever we'll go.  

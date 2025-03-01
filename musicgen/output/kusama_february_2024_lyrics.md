@@ -1,43 +1,45 @@
-**Verse 1:**
+**Verse 1**  
+In February '24, a new dawn's rise,  
+Kusama's dream, a fire in the skies.  
+BEEFY bridges building pathways wide,  
+Connecting chains, a seamless ride.  
 
-In February '24, we watched dreams take flight,  
-Kusama blazing trails, a beacon in the night.  
-BEEFY bridges built, weaving chains so wide,  
-A dance with Ethereum, worlds now collide.  
-Through Snowbridge whispers, Hyperbridge calls,  
-Connecting hearts and minds as the barrier falls.  
+Parachains auction, time to realign,  
+Agile Coretime, four weeks to find.  
+Resources shift, like tides they flow,  
+In this digital sea, let our vision grow.  
 
-**Chorus:**
+**Chorus**  
+Revolution's calling, echoes in the air,  
+Kusama's spirit, a world to share.  
+Pioneers of change, under the stars,  
+Blockchain's future, written in our hearts.  
 
-Kusama, rise above, reach beyond the skies,  
-A world of endless links where innovation lies.  
-In the heart of blockchain, your spirit shines so bright,  
-February '24, rewriting dawn's light.  
+**Verse 2**  
+Snowbridge and Hyperbridge, secure and strong,  
+EVM chains where they belong.  
+Polkadot’s canary, leading the flight,  
+Through innovative days and vibrant nights.  
 
-**Verse 2:**
+Communities gather, Crypto Nights ignite,  
+Sharing knowledge, with open sight.  
+The heartbeat of Web 3.0,  
+In Kusama's world, we boldly go.  
 
-Community voices strong, echo in the halls,  
-Zug Crypto Nights where the restless hearts enthrall.  
-Parachains evolving, pushing boundaries near,  
-With Agile Coretime’s grace, developers draw near.  
-Governance in motion, every vote a key,  
-In the hands of dreamers, shaping destiny.  
+**Chorus**  
+Revolution's calling, echoes in the air,  
+Kusama's spirit, a world to share.  
+Pioneers of change, under the stars,  
+Blockchain's future, written in our hearts.  
 
-**Chorus:**
+**Bridge**  
+Interlinked pathways, crossing time and space,  
+Kusama's vision, an embraced embrace.  
+Innovation whispers, in the winds of change,  
+In February '24, nothing stays the same.  
 
-Kusama, rise above, reach beyond the skies,  
-A world of endless links where innovation lies.  
-In the heart of blockchain, your spirit shines so bright,  
-February '24, rewriting dawn's light.  
-
-**Bridge:**  
-
-Though markets may falter, your resilience stands,  
-Interwoven dreams crafted by gifted hands.  
-
-**Chorus:**
-
-Kusama, rise above, reach beyond the skies,  
-A world of endless links where innovation lies.  
-In the heart of blockchain, your spirit shines so bright,  
-February '24, rewriting dawn's light.  
+**Chorus**  
+Revolution's calling, echoes in the air,  
+Kusama's spirit, a world to share.  
+Pioneers of change, under the stars,  
+Blockchain's future, written in our hearts.  

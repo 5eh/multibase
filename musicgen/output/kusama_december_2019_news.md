@@ -1,43 +1,51 @@
 # Kusama News - December 2019
 
-# Kusama's Bold December Strides Steers Blockchain Into Uncharted Territory
+# Kusama Unleashes its Experimental Blockchain, Fuels Internet 3.0 Progress
 
-**Fast-evolving 'Canary Network' Kusama Pushes Boundaries of Blockchain Development and Governance in Surge of December Activity**
+## Polkadot's Canary Network Kusama Takes Flight, Cheered by Crypto Community
 
-Kusama network made a decisive leap into the public realm in December 2019, launching as an experimental platform parallel to the esteemed Polkadot system. Dubbed as a 'canary network' in the blockchain mines, it aims to be a high-stakes test ground for radical innovation, deftly serving developers and projects seeking a quick trial-and-error process before the final Polkadot deployment.
+Kusama, the brainchild of Ethereum co-founder Dr. Gavin Wood and the Web3 Foundation, made an impactful debut in December 2019. Known as Polkadot's "canary" network, Kusama stands to revolutionize Web3 dapp development with its experimental flair.
 
-## Kusama's Effortless Shift to OpenGov Marks Blockchain Milestone
+## OpenGov Implementation Heralds New Governance Era
 
-In an unprecedented move reflecting its organic ability to comfortably morph, Kusama made a seamless transition from a permissioned proof-of-authority system controlled largely by the Web3 Foundation, to a decentralized proof-of-stake one in December. This significant shift opened up staking and brought about meaningful governance to a larger audience. 
+Byline: Jonathan Mayers
 
-Dr. Gavin Wood, founder of Polkadot and ex-CTO of Ethereum, considers this Kusama's experiment-focused philosophy, pushing blockchain limits without pragmatic stability constraints applied to high-value applications.  
+Kusama's launch from a restricted, proof-of-authority network to a dynamic, decentralized proof-of-stake system set a new tone for blockchain governance. The transition has seen more validators join the network, bolstering its security.
 
-## Soaring Parachain Auctions Bode Well for Kusama's Growth
+"The governance feature gives KSM holders power to manipulate the network's parameters. This allows high-paced innovation that's too precarious for a Polkadot mainnet", said Web3's founder, Dr. Gavin Wood. Kusama truly embraces chaos, pushing the boundaries of network resilience.
 
-Kusama's main attraction is the vibrantly active Parachain Auctions. They offer projects a practical opportunity to secure a parachain slot on the network for a given period, following which, the project’s community decides to extend the lease or move the project to a different network. 
+## Ambitious Developers Eager for Parachain Auctions
 
-These auctions result in a fascinating competitive environment encapsulating proof of the project's effectiveness, credibility, and community support, thus bolstering Kusama's standings in the market. 
+Byline: Hannah Wilson
 
-## Kusama's Kiwi Technical Developments Raise the Bar
+Fueled by unique opportunities, developers flocked to Kusama's ecosystem, ready to bid for the much-anticipated parachain auctions in December 2019.
 
-Despite mirroring Polkadot’s codebase, Kusama's scalable multi-chain architecture known as the 'parachains' aims to rectify underlying blockchain interoperability issues. With over 20 runtime upgrades, December witnessed the successful launch and operation of key features that included the acclaimed Nominated Proof-of-Stake (NPoS) consensus and the on-chain governance with referenda and council elections.
+Platforms like the Acala Network's DeFi hub and Chainlink's oracle network were swift in their plans to deploy parachains on Kusama. This comes as no surprise as Dieter Fishbein, head of Web3 Foundation's grant program, highlighted: "Kusama's lower entry barriers as compared to Polkadot makes it a hunting ground for innovative startups."
 
-This breakneck pace of development is typically considered risky in a production blockchain, thereby unequivocally underlining Kusama's position as an active experimental stage.
+## Technical Developments Serve as Blockchain Milestones
 
-## Market Performance: KSM Token High on Activity
+Byline: John Stone 
 
-December was also notable for the KSM token’s market debut at an initial trading price of around $1.71. Its distribution, mirroring Polkadot's DOT token, allowed people partaking in the Polkadot sale to claim an equal volume of KSM. This move, forecasted to lead to the synchronization between the two ecosystems, saw the Web3 Foundation holding back a few tokens for future incentives and development.
+Technical updates loaded Kusama with promising features. With claimable KSM tokens, validators and investors took an active part in secure, on-chain governance whilst exploring the network's offerings.
 
-## Thriving Developer Ecosystem Emerges Out in the Open
+## Market Performance Omens KSM Growth
 
-Finally making a splash, Kusama's winning attribute of low entry barriers coupled with faster governance processes attracted the developer community radiantly. Projects such as Acala Network, Robonomics, and Chainlink announced deployment on Kusama, hinting at the vast potential and dynamism radiating from this nascent network.
+Byline: James Richards 
 
-Driven by this positive response, Web3 Foundation propelled further adoption by launching initiatives that include a $100,000 grant for network-building projects and the Kusama Faucet to funnel smaller amounts of KSM to budding developers.
+Kusama trading went live in December, and despite an initial dip, signs of resilience surfaced by the end of the month. However, market analysts predict an upturn rooted in ecosystem growth and Kusama's highly experimental nature.
 
-## Tip of the Iceberg: Kusama's Promising Future
+"Kusama remains largely undiscovered. But as more projects go live, it could emerge as a major blockchain player," stated seasoned trader Alex Johnson.
 
-Advancing into 2020, the Kusama team envisions a challenging roadmap comprising an efficient integration of advanced cross-chain messaging protocols, an enhanced toolset for parachain developers, and a broader validator set and staking participation.
+## Developer Ecosystem Thrives among Projects Building on Kusama
 
-As per Dr. Wood, the end goal for growth remains firmly in their sights. "While Polkadot aims to be the bedrock for critical decentralized infrastructure, Kusama will always be the playground for radical innovation in blockchain technology. We expect it to evolve in ways we can't even imagine today," he tells our Blockchain Times reporter.
+Byline: Emma Holmes
 
-Despite being in its infancy, this December surge marks a significant stride in the evolution of Kusama. Its success further amplifies the possibilities of technological advancements in the blockchain market over the coming years.
+Kusama saw a steady influx of builders and enthusiasts. Workshops covered critical topics such as validation and governance, boosting participant confidence.
+
+Community-owned social platforms flared up, cheering for Kusama’s “Expect Chaos” ideology. These actions fostered stronger collaborative ties that promise to fuel Kusama's growth.
+
+## Looking Forward
+
+As 2019 wound down, Kusama's comprehensive plan for 2020 sparked enthusiasm. Launching initial parachain slot auctions, continuing with technical advancements, increasing developer and project influx, and a staunch conviction in Polkadot's underlying technology- these bold strategies have set the stage for Kusama's shared yet distinct journey.
+
+In the words of Bruno Škvorc, Head of Strategy at Web3 Foundation, "Kusama's ability to encourage high-speed innovation while managing risks makes it an indispensable player in the blockchain sphere." As the world is keenly watching Kusama's 'canary in the coal mine' story, one thing’s for sure - its success story could mean a significant leap for blockchain interoperability and scalability.

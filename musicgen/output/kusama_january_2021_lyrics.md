@@ -1,39 +1,45 @@
-**Verse 1:**  
-In January 2021, a wild dance began,  
-Kusama's song played across the cyber land.  
-Governance ignites with voices bold,  
-A virtual chaos where futures unfold.  
+**Chorus:**  
+In the year of dreams, January '21,  
+Kusama rose like a blazing sun.  
+Parachains and visions align,  
+Open governance, the stars did shine.
 
-Parachains align, auctions on the rise,  
-Developers dream beneath digital skies.  
-Low barriers break, a tech frontier,  
-Pushing limits, innovation's near.  
+**Verse 1:**  
+Playground for the bold, a testing ground,  
+In the web of chains, new paths are found.  
+Democracy reigns in digital streams,  
+Community voices, building bold dreams.
+
+Riding high on the wings of change,  
+Technological growth, breaking the cage.  
+From a token's humble start, it soared,  
+A crypto winner, it was adored.
 
 **Chorus:**  
-Oh, Kusama, on the edge of dreams,  
-Where the blockchain flows like spectral streams.  
-In the heartbeat of chaos, futures ignite,  
-A restless spirit, in the digital night.  
+In the year of dreams, January '21,  
+Kusama rose like a blazing sun.  
+Parachains and visions align,  
+Open governance, the stars did shine.
 
 **Verse 2:**  
-KSM soars, in trust we invest,  
-Riding the waves, a tumultuous quest.  
-Swisscom's touch crafts resilient chains,  
-Guardians of nodes amid digital rains.  
+Auctions sparked the fire, hearts ablaze,  
+Projects racing to the relay chain's embrace.  
+Developers gather, daring to try,  
+Innovations blooming, reaching the sky.
 
-Tether binds with an anchored force,  
-Liquidity's grace sets a vibrant course.  
-Community's voice, a guiding star,  
-Together we rise, no dream too far.  
+Bridging worlds, a scalable dream,  
+Kusama's growth, an unstoppable stream.  
+As tech and minds intertwined,  
+A decentralized future, realigned.
 
 **Chorus:**  
-Oh, Kusama, on the edge of dreams,  
-Where the blockchain flows like spectral streams.  
-In the heartbeat of chaos, futures ignite,  
-A restless spirit, in the digital night.  
+In the year of dreams, January '21,  
+Kusama rose like a blazing sun.  
+Parachains and visions align,  
+Open governance, the stars did shine.  
 
 **Outro:**  
-January's dawn, a promise was sown,  
-In electric fields, our future's grown.  
-Innovative beats in a boundless race,  
-Kusama leads, in this vast digital space.
+Onward, ever upward, spirits free,  
+Kusama's legacy, forever we see.  
+January's echoes, a powerful tune,  
+Into the future, beneath the moon.

@@ -1,53 +1,51 @@
-**Title: July 2021 - Rise of Kusama**
+**Chorus:**
 
-**Verse 1:**  
-In the dawn of digital skies,  
-July's fire lit the night,  
-Parachains breaking free,  
-In the blockchain's endless flight.  
+In July 2021, a new dawn rose,  
+Kusama's spirit unchained and bold.  
+Parachains were won, dreams interlace,  
+A blockchain journey to a vast, new space.
 
-Auction dreams take their stand,  
-Karura paves the way,  
-Moonriver, Shiden join the dance,  
-For a new, bold day.  
+**Verse 1:**
 
-**Chorus:**  
-July 2021, where revolution's begun,  
-Kusama's heart, beating like the sun.  
-Decentralized dreams, a network of stars,  
-Building tomorrow, beyond all bars.  
+Canary's song echoes through the night,  
+OpenGov's hand, grasping the light.  
+Statemine set free, NFTs in flow,  
+Kusama's beating heart starts to glow.
 
-**Verse 2:**  
-Governance flames ignite the scene,  
-Community voices rise,  
-Statemine’s freedom, a token stream,  
-In Kusama's wise new eyes.  
+Karura takes the first prized crown,  
+Blocks emerge as systems unbound.  
+Moonriver, Shiden, in vibrant chase,  
+New paths carved in this digital race.
 
-Cross-chain dreams, a symphony,  
-XCMP near its start,  
-As KSM soars in destiny,  
-A beating token heart.  
+**Chorus:**
 
-**Chorus:**  
-July 2021, where revolution's begun,  
-Kusama's heart, beating like the sun.  
-Decentralized dreams, a network of stars,  
-Building tomorrow, beyond all bars.  
+In July 2021, a new dawn rose,  
+Kusama's spirit unchained and bold.  
+Parachains were won, dreams interlace,  
+A blockchain journey to a vast, new space.
 
-**Bridge:**  
-IoT whispers, Zeitgeist's call,  
-A dance of code and light,  
-In Kusama’s arms, we rise,  
-Toward an interoperable height.  
+**Verse 2:**
 
-**Chorus:**  
-July 2021, where revolution's begun,  
-Kusama's heart, beating like the sun.  
-Decentralized dreams, a network of stars,  
-Building tomorrow, beyond all bars.  
+Cross-chain whispers, bridges of code,  
+Kusama's promise, stories unfold.  
+KSM rises, fervor ignites,  
+In this web of chains, the future writes.
 
-**Outro:**  
-Voices of hope in digital streams,  
-Kusama leads where no one’s been,  
-July sparked a future bright,  
-In the endless blockchain night.  
+Developers dream on this fertile land,  
+Interoperable visions, a guiding hand.  
+Self-sovereign shadows stretch ahead,  
+In Kusama's realm, pioneers tread.
+
+**Chorus:**
+
+In July 2021, a new dawn rose,  
+Kusama's spirit unchained and bold.  
+Parachains were won, dreams interlace,  
+A blockchain journey to a vast, new space.  
+
+**Outro:**
+
+A revolution sung in codes and dreams,  
+Kusama's legacy, a widening stream.  
+In the echoes of chains, the dance of the free,  
+Kusama's tale shapes our destiny.

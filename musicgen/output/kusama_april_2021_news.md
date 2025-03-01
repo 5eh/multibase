@@ -1,33 +1,31 @@
 # Kusama News - April 2021
 
-# "Kusama Skyrockets: Parachain Auctions & Market Rise"
-      
-April marked a key point in Kusama's growth, a platform often referred to as Polkadot's experimental "canary network." As the highly anticipated launch of parachain auctions approached, the network saw a surge in development and heightened interest in KSM, Kusama's native token.
+# Headline: Kusama Soars on Blockchain Innovations: An April Recap
 
-## "OpenGov Adopts More Democratic Approach on Kusama"
-In April, Kusama's on-chain governance made notable strides. Important proposals came under discussion and were decided upon by KSM token holders. Validators on the network were increased from 900 to 1000 following a whopping 99.8% approval. 
+Kusama, Polkadot's experimental "canary network," showcased diverse ecosystem development and dramatic price appreciation in April 2021. As an edgier counterpart, Kusama's trial maneuvers continued to set the stage for Polkadot's operations, especially with the eagerly anticipated parachain functionality and imminent auctions.
 
-The community showed further support for development by voting to allocate one million KSM from the treasury reserved for parachain development teams. However, a debated proposal for changing the auction format did not receive the same support.
+## OpenGov Implementation: Kusama's Governance Morphs
 
-Alice Johnson, a participant in Kusama's governance, remarked, "We're seeing firsthand how on-chain governance can shape a network's evolution. The lessons learned here will be invaluable for Polkadot."
+April saw Kusama's governance mechanisms further mature, with the proposal of organization for the first-ever Kusama Conference, "CHAOS 2021." The proposed two-day virtual event aimed to unify the community and enlighten participants about the flourishing Kusama ecosystem. Planned for the conference were workshops, presentations, and networking opportunities to further integrate the Kusaman network community members.
 
-## "Kusama Parachain Auctions: Projects Battling for Blockchain Slots "
-April demonstrated a surge of activity with numerous projects preparing for Kusama parachains. Key among the aspirants were Karura and Moonriver, looking to introduce a full suite of financial primitives and a fully Ethereum-compatible smart contract parachain respectively. This anticipation resulted in a staggering 200% increase in daily active addresses compared to the previous month.
+## Kusama Parachain Auctions: Blockchain Growth Steams Ahead
 
-## "Kusama Tech Devs Push Positive Updates"
-Preparing for the parachain auctions, the Kusama development team worked tirelessly during April to ensure the network was ready. They performed extensive testing of key upgrades, auction mechanisms, and the crowdloan feature. 
+As anticipation mounts for the onset of Kusama's parachain slot auctions, the preparations in April advanced considerably. Moves towards enabling the auctions came with tests to verify stability and performance on the network. The evolving parachain functionality forms the backbone for a scalable, interconnected network of specialized blockchains.
 
-Founder Gavin Wood announced that “The core parachain logic is now feature complete. We are in the final stages of testing and auditing before we can confidently launch parachains on Kusama."
+Candidates for Kusama parachains rallied their communities, with some launching crowdloan campaigns. Notable cases encompassed Karura, an Acala Network deployment, and Moonriver, paralleling Moonbeam.
 
-## "KSM Token: Boom in Market Performance"
-April also witnessed incessant growth in KSM's value, reaching an all-time high of $621.71, translating to a staggering 107% gain within just two weeks. The trading volume soared, too, with 24-hour volume exceeding $1 billion on multiple occasions.
+## Technical Development Milestones on Kusama
 
-Alex Saunders, a cryptocurrency analyst, commented, "The prospect of locking up KSM tokens to support parachain bids is creating a supply squeeze. Combined with the influx of new projects and users, we're seeing a perfect storm for KSM price appreciation."
+The tech machinery of Kusama operated at full tilt in April. Kusama augmented its nominated proof-of-stake (NPoS) consensus mechanism while testing key features intended for future deployment on Polkadot. A central focus lay in ironing out cross-chain message passing (XCMP) for seamless and efficient blockchain exchange.
 
-## "Parachain Readiness Workshops Aid Developer Ecosystem"
-As Kusama prepared for parachain auctions, workshops ran throughout April to help projects brace for the upcoming auctions. Additionally, the Kusama Builders Program launched, providing grants and mentorship to promising teams building in the ecosystem.
+## KSM Token Market Performance: Upward Trajectory
 
-## "Looking Forward"
-With the anticipation around the parachain auctions persisting, the Kusama team hinted at a possible commencement between May and June. Parachains going live will be an exciting new phase for Kusama, especially given the level of interest in KSM token and the influx of new projects.
+The KSM token, Kusama's native asset, experienced a price leap in April, almost doubling from $300 to an all-time high of $623.75 on May 18th. The auction excitement and ecosystem expansion drove investor interest and trading volumes for KSM, spurring the price surge across major exchanges.
 
-Sarah Chen, Kusama community manager, encapsulated the sentiment, saying, "April was just the beginning. The real excitement starts when those first parachains go live. That's when we'll truly see what Kusama is capable of."
+## Developer Ecosystem: Kusama's Thriving Landscape
+
+Several projects launched or announced significant updates on Kusama, marking a buoyant expansion of the network's ecosystem. A prime instance, Statemine became the inaugural functional Kusama parachain processing permissionless transactions following an on-chain upgrade. Environmental-focused DAO IPCI project declared plans to introduce services for compensating carbon footprints and issuing digital passports for environmental products on Kusama in Q2 2021.
+
+## Looking Forward: Parachain Auctions Loom
+
+As April concluded, the parachain slot auctions marked the hot topics within the community. These auctions, signaling the dawn of a new era for scalable, interoperable networks, symbolize a landmark in Kusama's evolution. Kusama's dynamic progress in conjunction with experimental features adoption sets it as an innovative digital asset to watch in the forthcoming months.
