@@ -29,12 +29,28 @@ function createTimeline() {
   
   const totalMonths = (endYear - startYear) * 12 + (endMonth - startMonth) + 1;
   
+  // Set timeline to have a position relative for absolute positioning of markers
+  timeline.style.position = 'relative';
+  // Clear any existing content
+  timeline.innerHTML = '';
+  
+  // Calculate initial vertical spacing
+  const timelineHeight = timeline.clientHeight || window.innerHeight; // Full height
+  const markerHeight = 30; // Approximate height with padding
+  const verticalSpaceBetweenMarkers = Math.max(30, (timelineHeight - 120) / totalMonths); // Adjust spacing based on available height
+  
   for (let i = 0; i < totalMonths; i++) {
     const date = new Date(startYear, startMonth + i, 1);
     const marker = document.createElement('div');
     marker.classList.add('timeline-marker');
     marker.dataset.month = i;
     marker.dataset.date = date.toISOString();
+    
+    // Set absolute positioning
+    marker.style.position = 'absolute';
+    marker.style.left = '0';
+    // Initial position - will be adjusted later
+    marker.style.top = `${i * verticalSpaceBetweenMarkers}px`;
     
     // Add month/year label to every marker
     const label = document.createElement('div');
@@ -45,10 +61,188 @@ function createTimeline() {
     });
     marker.appendChild(label);
     
-    marker.addEventListener('click', () => selectMonth(i, marker));
+    // Make each marker larger and more visible for better clickability
+    marker.style.cursor = 'pointer';
+    marker.style.zIndex = '20';
+    
+    // Add click event with a built-in timeout to prevent accidental double-clicks
+    let clickTimeout;
+    marker.addEventListener('click', () => {
+      // Prevent multiple rapid clicks
+      if (clickTimeout) return;
+      
+      // Show the loading indicator immediately
+      showLoading();
+      
+      // Select the month after a short delay to allow the UI to update
+      clickTimeout = setTimeout(() => {
+        selectMonth(i, marker);
+        clickTimeout = null;
+      }, 50);
+    });
+    
     timeline.appendChild(marker);
   }
+  
+  // Make timeline overflow hidden and set a fixed height
+  timeline.style.overflow = 'hidden';
+  
+  // Add next/previous navigation buttons at the top and bottom of the timeline
+  addNavigationButtons();
+  
+  // Initial center positioning - center the first marker
+  const markers = timeline.querySelectorAll('.timeline-marker');
+  if (markers.length > 0) {
+    // Position the first month in the center initially
+    centerSelectedMarker(markers[0]);
+  }
 }
+
+// Add navigation buttons for easier month switching
+function addNavigationButtons() {
+  const timeline = document.getElementById('timeline');
+  
+  // Create container for navigation buttons (only at the bottom now)
+  const navContainer = document.createElement('div');
+  navContainer.className = 'timeline-nav-buttons';
+  navContainer.style.position = 'absolute';
+  navContainer.style.left = '70px'; // Aligned with updated timeline position
+  navContainer.style.bottom = '30px'; // Lower position
+  navContainer.style.zIndex = '30';
+  navContainer.style.display = 'flex';
+  navContainer.style.flexDirection = 'row'; // Horizontal layout 
+  navContainer.style.gap = '15px';
+  navContainer.style.backgroundColor = 'rgba(0,0,0,0.5)';
+  navContainer.style.backdropFilter = 'blur(5px)';
+  navContainer.style.borderRadius = '30px'; // Fully rounded
+  navContainer.style.padding = '8px 15px';
+  navContainer.style.boxShadow = '0 0 15px rgba(0,0,0,0.7)';
+  navContainer.style.border = '1px solid rgba(255,38,112,0.3)'; // Subtle pink border
+  
+  // Previous month button
+  const prevButton = document.createElement('button');
+  prevButton.innerHTML = '&larr;'; // Left arrow for horizontal layout
+  prevButton.className = 'timeline-nav-button';
+  prevButton.style.width = '36px';
+  prevButton.style.height = '36px';
+  prevButton.style.borderRadius = '50%';
+  prevButton.style.border = 'none';
+  prevButton.style.background = 'transparent'; // No background by default
+  prevButton.style.color = 'white';
+  prevButton.style.fontSize = '18px';
+  prevButton.style.cursor = 'pointer';
+  prevButton.style.display = 'flex';
+  prevButton.style.alignItems = 'center';
+  prevButton.style.justifyContent = 'center';
+  prevButton.style.boxShadow = '0 0 10px rgba(255,38,112,0.3)';
+  prevButton.title = 'Previous month';
+  
+  // Add hover effect
+  prevButton.addEventListener('mouseover', () => {
+    prevButton.style.backgroundColor = 'rgba(255,38,112,0.3)';
+    prevButton.style.boxShadow = '0 0 15px rgba(255,38,112,0.5)';
+  });
+  
+  prevButton.addEventListener('mouseout', () => {
+    prevButton.style.backgroundColor = 'transparent';
+    prevButton.style.boxShadow = '0 0 10px rgba(255,38,112,0.3)';
+  });
+  
+  // Next month button
+  const nextButton = document.createElement('button');
+  nextButton.innerHTML = '&rarr;'; // Right arrow for horizontal layout
+  nextButton.className = 'timeline-nav-button';
+  nextButton.style.width = '36px';
+  nextButton.style.height = '36px';
+  nextButton.style.borderRadius = '50%';
+  nextButton.style.border = 'none';
+  nextButton.style.background = 'transparent'; // No background by default
+  nextButton.style.color = 'white';
+  nextButton.style.fontSize = '18px';
+  nextButton.style.cursor = 'pointer';
+  nextButton.style.display = 'flex';
+  nextButton.style.alignItems = 'center';
+  nextButton.style.justifyContent = 'center';
+  nextButton.style.boxShadow = '0 0 10px rgba(255,38,112,0.3)';
+  nextButton.title = 'Next month';
+  
+  // Add hover effect
+  nextButton.addEventListener('mouseover', () => {
+    nextButton.style.backgroundColor = 'rgba(255,38,112,0.3)';
+    nextButton.style.boxShadow = '0 0 15px rgba(255,38,112,0.5)';
+  });
+  
+  nextButton.addEventListener('mouseout', () => {
+    nextButton.style.backgroundColor = 'transparent';
+    nextButton.style.boxShadow = '0 0 10px rgba(255,38,112,0.3)';
+  });
+  
+  // Add click events with throttling
+  let navClickTimeout;
+  
+  prevButton.addEventListener('click', () => {
+    if (navClickTimeout) return;
+    
+    navClickTimeout = setTimeout(() => {
+      navigateToPreviousMonth();
+      navClickTimeout = null;
+    }, 300);
+  });
+  
+  nextButton.addEventListener('click', () => {
+    if (navClickTimeout) return;
+    
+    navClickTimeout = setTimeout(() => {
+      navigateToNextMonth();
+      navClickTimeout = null;
+    }, 300);
+  });
+  
+  // Add buttons to container
+  navContainer.appendChild(prevButton);
+  navContainer.appendChild(nextButton);
+  
+  // Add to document
+  document.body.appendChild(navContainer);
+  
+  // We've removed the visible range indicator as it's not needed
+}
+
+// Navigate to previous month
+function navigateToPreviousMonth() {
+  if (timelineConfig.currentMonth === null) return;
+  
+  const timeline = document.getElementById('timeline');
+  const markers = timeline.querySelectorAll('.timeline-marker');
+  const prevIndex = timelineConfig.currentMonth - 1;
+  
+  if (prevIndex >= 0) {
+    showLoading();
+    setTimeout(() => {
+      selectMonth(prevIndex, markers[prevIndex]);
+      // No need to update the visible range label as it's been removed
+    }, 50);
+  }
+}
+
+// Navigate to next month
+function navigateToNextMonth() {
+  if (timelineConfig.currentMonth === null) return;
+  
+  const timeline = document.getElementById('timeline');
+  const markers = timeline.querySelectorAll('.timeline-marker');
+  const nextIndex = timelineConfig.currentMonth + 1;
+  
+  if (nextIndex < markers.length) {
+    showLoading();
+    setTimeout(() => {
+      selectMonth(nextIndex, markers[nextIndex]);
+      // No need to update the visible range label as it's been removed
+    }, 50);
+  }
+}
+
+// This function has been removed as the visible range label is no longer needed
 
 // Preload resources for nearby months to improve performance when scrolling
 function preloadNearbyMonths(currentIndex) {
@@ -111,6 +305,65 @@ function hideLoading() {
   }
 }
 
+// Center the selected marker vertically in the timeline
+function centerSelectedMarker(marker) {
+  const timeline = document.getElementById('timeline');
+  const timelineHeight = timeline.clientHeight;
+  const markerHeight = marker.offsetHeight;
+  const allMarkers = timeline.querySelectorAll('.timeline-marker');
+  
+  // Get the index of the marker
+  let markerIndex = -1;
+  allMarkers.forEach((m, index) => {
+    if (m === marker) markerIndex = index;
+  });
+  
+  // Calculate how much the marker should be scrolled to be centered
+  const markerRect = marker.getBoundingClientRect();
+  const timelineRect = timeline.getBoundingClientRect();
+  const markerTopRelativeToTimeline = markerRect.top - timelineRect.top;
+  
+  // The position we want the marker to be at (center of timeline)
+  const targetPosition = timelineHeight / 2 - markerHeight / 2;
+  
+  // The amount we need to scroll
+  let scrollAmount = markerTopRelativeToTimeline - targetPosition;
+  
+  // Calculate the top position of the first marker after adjustment
+  const firstMarkerCurrentTop = parseInt(allMarkers[0].style.top || '0', 10);
+  const firstMarkerNewTop = firstMarkerCurrentTop - scrollAmount;
+  
+  // Calculate the bottom position of the last marker after adjustment
+  const lastMarker = allMarkers[allMarkers.length - 1];
+  const lastMarkerCurrentTop = parseInt(lastMarker.style.top || '0', 10);
+  const lastMarkerNewTop = lastMarkerCurrentTop - scrollAmount;
+  const lastMarkerBottom = lastMarkerNewTop + markerHeight;
+  
+  // Handle edge cases - don't center if it would create empty space
+  
+  // If first few months, don't allow space at the top
+  if (firstMarkerNewTop > 0) {
+    scrollAmount = firstMarkerCurrentTop; // Just move enough to put first marker at top
+  }
+  
+  // If last few months, don't allow space at the bottom
+  if (lastMarkerBottom < timelineHeight && lastMarkerNewTop > targetPosition) {
+    // Calculate how much we need to adjust to make the last marker touch the bottom
+    const bottomAdjustment = (timelineHeight - lastMarkerBottom);
+    scrollAmount -= bottomAdjustment;
+  }
+  
+  // Adjust all markers' positions
+  allMarkers.forEach(m => {
+    // Get current top position
+    const currentTop = parseInt(m.style.top || '0', 10);
+    // Adjust position
+    m.style.top = `${currentTop - scrollAmount}px`;
+    // Make sure it has absolute positioning
+    m.style.position = 'absolute';
+  });
+}
+
 // Select a month in the timeline with loading indicator
 function selectMonth(monthIndex, marker) {
   // Show loading indicator
@@ -124,6 +377,9 @@ function selectMonth(monthIndex, marker) {
   timelineConfig.activePoint = marker;
   timelineConfig.currentMonth = monthIndex;
   
+  // Center the selected marker in the timeline
+  centerSelectedMarker(marker);
+  
   const dateString = marker.dataset.date;
   
   // Update month display
@@ -131,6 +387,8 @@ function selectMonth(monthIndex, marker) {
   
   // Update download links
   updateDownloadLinks(dateString);
+  
+  // No need to update the visible range label as it's been removed
   
   // Use Promise to track when audio is ready
   const audioPromise = new Promise(resolve => {
@@ -670,52 +928,7 @@ document.addEventListener('mousemove', function (e) {
   mouseY = (e.clientY - windowHalfY) / 100;
 });
 
-// Add debounce function to limit how often a function can be called
-function debounce(func, wait) {
-  let timeout;
-  return function(...args) {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(this, args), wait);
-  };
-}
-
-// Track scroll direction and amount
-let scrollAccumulator = 0;
-const SCROLL_THRESHOLD = 50; // Adjust this value to control sensitivity
-
-// Handle scroll to change timeline - with debounce and accumulation
-document.addEventListener('wheel', function(e) {
-  // Add to accumulator
-  scrollAccumulator += e.deltaY;
-  
-  // Only process scroll after threshold is reached
-  if (Math.abs(scrollAccumulator) < SCROLL_THRESHOLD) return;
-  
-  const direction = scrollAccumulator > 0 ? 1 : -1;
-  scrollAccumulator = 0; // Reset accumulator
-  
-  // Call the debounced handler
-  debouncedChangeMonth(direction);
-}, { passive: true });
-
-// Debounced function to change months
-const debouncedChangeMonth = debounce(function(direction) {
-  const timeline = document.getElementById('timeline');
-  const markers = timeline.querySelectorAll('.timeline-marker');
-  
-  if (!markers.length) return;
-  
-  let currentIndex = timelineConfig.currentMonth !== null ? 
-    timelineConfig.currentMonth : 0;
-    
-  // Scroll down = next month, scroll up = previous month
-  if (direction > 0 && currentIndex < markers.length - 1) {
-    currentIndex++;
-  } else if (direction < 0 && currentIndex > 0) {
-    currentIndex--;
-  }
-  
-  selectMonth(currentIndex, markers[currentIndex]);
-}, 250); // 250ms delay between scroll events
+// Disable scroll-based navigation completely
+// Instead, rely solely on click events for navigation
 
 // This animation code was moved to the initScene function

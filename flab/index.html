@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23FF2670%22><animate attributeName=%22r%22 values=%2235;40;35%22 dur=%222s%22 repeatCount=%22indefinite%22 /></circle><circle cx=%2250%22 cy=%2250%22 r=%2220%22 fill=%22%23FF2670%22 opacity=%220.7%22><animate attributeName=%22r%22 values=%2215;20;15%22 dur=%222s%22 repeatCount=%22indefinite%22 /></circle></svg>"  type="image/svg+xml">
     <style>
         :root {
             --polkadot-pink: #FF2670;
@@ -24,42 +25,39 @@
         }
         .timeline {
             position: absolute;
-            left: 30px;
+            left: 70px;
             top: 0;
             bottom: 0;
-            width: 4px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 20px 0;
+            width: 8px; /* Increased width for the timeline line */
+            height: 100vh; /* Full height as requested */
+            padding: 60px 0; /* Add padding for nav buttons */
             z-index: 10;
             color: var(--white);
             font-family: 'Unbounded', sans-serif;
             font-weight: 300;
-        }
-        
-        .timeline::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            overflow: hidden; /* Hide markers outside the visible area */
+            
+            /* Timeline is just the glowing line now, no background */
             background: linear-gradient(to bottom, 
                 rgba(255,255,255,0.1), 
                 rgba(255,38,112,0.4), 
                 rgba(255,255,255,0.1));
-            border-radius: 2px;
-            filter: blur(1px);
+            border-radius: 4px; /* Increased radius to match width */
+            box-shadow: 0 0 15px rgba(255,38,112,0.3); /* Pink glow */
         }
         
-        /* Animated bubbles in the timeline */
+        /* Remove the before pseudo element since we're using the timeline element itself */
+        .timeline::before {
+            display: none;
+        }
+        
+        /* Animated bubbles in the timeline - directly on the timeline */
         .timeline::after {
             content: "";
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 100%; /* Full width of the timeline (now 8px) */
             height: 100%;
             background: linear-gradient(to bottom,
                 var(--polkadot-pink) 0%,
@@ -75,10 +73,11 @@
                 transparent 100%
             );
             background-size: 100% 300%;
-            border-radius: 2px;
-            opacity: 0.5;
+            border-radius: 4px; /* Match the timeline radius */
+            opacity: 0.7; /* Increased opacity for better visibility */
             animation: timelineFlow 15s linear infinite;
             filter: blur(1px);
+            pointer-events: none; /* Allow clicks to pass through */
         }
         
         @keyframes timelineFlow {
@@ -87,40 +86,51 @@
         }
         
         .timeline-marker {
-            position: relative;
-            height: 12px;
-            width: 12px;
+            position: absolute;
+            height: 16px; /* Increased marker size */
+            width: 16px;
             background-color: var(--white);
-            border-radius: 50%;
+            border-radius: 50%; /* Keep them perfect circles */
             cursor: pointer;
             transition: all 0.3s ease;
-            opacity: 0.5;
-            margin-left: 10px;
-            z-index: 1;
-            box-shadow: 0 0 5px rgba(255,255,255,0.5);
-            /* Liquid drop shape */
-            clip-path: polygon(
-                50% 0%, 
-                80% 25%, 
-                100% 50%, 
-                80% 75%, 
-                50% 100%, 
-                20% 75%, 
-                0% 50%, 
-                20% 25%
-            );
-            transform: rotate(45deg);
+            opacity: 0.8; /* Increased opacity for better visibility */
+            z-index: 2; /* Above the timeline */
+            box-shadow: 0 0 10px rgba(255,255,255,0.8); /* Stronger glow */
+            /* Position relative to timeline - centered on the line */
+            left: 50%;
+            transform: translateX(-50%);
+            /* Add touch target padding */
+            padding: 8px; /* Larger touch target */
+            margin: 8px 0;
+            
+            /* Using standard CSS for wider compatibility */
+        }
+        
+        /* Create a black background circle around each marker */
+        .timeline-marker::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px; /* Larger background */
+            height: 30px;
+            background-color: rgba(0,0,0,0.6); /* Darker for better contrast */
+            border-radius: 50%;
+            z-index: -1;
+            backdrop-filter: blur(3px);
+            border: 1px solid rgba(255,38,112,0.3); /* Subtle pink border */
         }
         
         .timeline-marker:hover {
-            transform: scale(1.5) rotate(45deg);
-            opacity: 0.8;
+            transform: translateX(-50%) scale(1.3);
+            opacity: 1;
             background-color: var(--white);
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.8));
+            filter: drop-shadow(0 0 12px rgba(255,255,255,0.9));
         }
         
         .timeline-marker.active {
-            transform: scale(2) rotate(45deg);
+            transform: translateX(-50%) scale(1.6); /* Bigger active marker */
             opacity: 1;
             background-color: var(--polkadot-pink);
             box-shadow: 0 0 15px var(--polkadot-pink), 
@@ -129,13 +139,23 @@
             animation: pulse 2s infinite;
         }
         
+        /* Make active marker's background circle larger and more pronounced */
+        .timeline-marker.active::before {
+            width: 36px;
+            height: 36px;
+            background-color: rgba(0,0,0,0.7);
+            border: 1px solid var(--polkadot-pink);
+            box-shadow: 0 0 10px rgba(255,38,112,0.4);
+        }
+        
         @keyframes pulse {
             0% { box-shadow: 0 0 15px var(--polkadot-pink), 0 0 30px var(--polkadot-pink); }
             50% { box-shadow: 0 0 20px var(--polkadot-pink), 0 0 40px var(--polkadot-pink); }
             100% { box-shadow: 0 0 15px var(--polkadot-pink), 0 0 30px var(--polkadot-pink); }
         }
         .timeline-label {
-            display: none; /* Hide the labels next to the markers */
+            display: none; /* Hide labels completely */
+            pointer-events: none; /* Don't block clicks */
         }
         
         .month-display {
@@ -330,6 +350,13 @@
         <a href="#" class="nav-icon" id="music-link" download>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M12,3v10.55c-0.59-0.34-1.27-0.55-2-0.55c-2.21,0-4,1.79-4,4s1.79,4,4,4s4-1.79,4-4V7h4V3H12z"/>
+            </svg>
+        </a>
+        
+        <!-- Report -->
+        <a href="./output/kusama_analysis_report.pdf" class="nav-icon" id="report-link" download>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M19,3H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2V5C21,3.9,20.1,3,19,3z M9,17H7v-7h2V17z M13,17h-2v-4h2V17z M13,11h-2V9h2V11z M17,17h-2V7h2V17z"/>
             </svg>
         </a>
     </div>
