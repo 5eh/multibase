@@ -2,24 +2,53 @@
 
 import React, { useState } from "react";
 
+interface Transfer {
+  amount: string;
+  from: { id: string };
+  to: { id: string };
+  blockNumber: number;
+  timestamp: number;
+}
+
+interface TransferStats {
+  totalCount: number;
+  frequencyMetric: number;
+  topAmounts: { amount: number; count: number }[];
+  totalDOT: number;
+}
+
+interface MusicParams {
+  bpm: number;
+  drumIntensity: number;
+  specialMoments: {
+    timestamp: number;
+    intensity: number;
+    amount: number;
+    count: number;
+  }[];
+  baseFrequency: number;
+  scale: string;
+}
+
 const TransfersPage = () => {
-  const [blockNumber, setBlockNumber] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [transfers, setTransfers] = useState(null);
-  const [transferStats, setTransferStats] = useState({
+  const [blockNumber, setBlockNumber] = useState<number>(0); // Using number
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [transfers, setTransfers] = useState<Transfer[] | null>(null);
+  const [transferStats, setTransferStats] = useState<TransferStats>({
     totalCount: 0,
     frequencyMetric: 0,
     topAmounts: [],
     totalDOT: 0,
   });
-  const [musicParams, setMusicParams] = useState({
-    bpm: 120, // Default BPM
-    drumIntensity: 0.5, // 0-1 range
-    specialMoments: [], // Timestamps for special instrument triggers
-    baseFrequency: 440, // Base frequency for tones
-    scale: "minor", // Musical scale
+  const [musicParams, setMusicParams] = useState<MusicParams>({
+    bpm: 120,
+    drumIntensity: 0.5,
+    specialMoments: [],
+    baseFrequency: 440,
+    scale: "minor",
   });
+  const [musicResults, setMusicResults] = useState<string | null>(null);
 
   const fetchTransfers = async () => {
     setLoading(true);
@@ -46,9 +75,8 @@ const TransfersPage = () => {
       }
     `;
 
-    // Variables for the query
     const variables = {
-      blockNumber: parseInt(blockNumber),
+      blockNumber: blockNumber, // Pass number directly
       limit: 5000,
     };
 
@@ -80,31 +108,35 @@ const TransfersPage = () => {
 
       setLoading(false);
       return data;
-    } catch (err) {
+    } catch (err: any) {
       console.error("Fetch Error:", err);
-      setError(err.message);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error occurred.");
+      }
       setLoading(false);
     }
   };
 
-  const handleInputChange = (e) => {
-    setBlockNumber(e.target.value);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBlockNumber(Number(e.target.value));
   };
 
-  const formatAmount = (amount) => {
+  const formatAmount = (amount: string) => {
     return parseFloat(amount) / 1000000000000 + " DOT";
   };
 
-  const formatTimestamp = (timestamp) => {
+  const formatTimestamp = (timestamp: number) => {
     return new Date(timestamp).toLocaleString();
   };
 
-  const truncateAddress = (address) => {
+  const truncateAddress = (address: { id: string }) => {
     if (!address || !address.id) return "";
     return `${address.id.substring(0, 8)}...${address.id.substring(address.id.length - 8)}`;
   };
 
-  const calculateTransferStatistics = (transfers) => {
+  const calculateTransferStatistics = (transfers: Transfer[]) => {
     if (!transfers || transfers.length === 0) {
       setTransferStats({
         totalCount: 0,
@@ -124,7 +156,7 @@ const TransfersPage = () => {
 
     const totalCount = transfers.length;
 
-    const recipientFrequency = {};
+    const recipientFrequency: { [key: string]: number } = {};
     transfers.forEach((transfer) => {
       const toAddress = transfer.to.id;
       recipientFrequency[toAddress] = (recipientFrequency[toAddress] || 0) + 1;
@@ -135,7 +167,7 @@ const TransfersPage = () => {
       frequencies.length > 0
         ? frequencies[Math.floor(frequencies.length / 2)]
         : 0;
-    const amountFrequency = {};
+    const amountFrequency: { [key: string]: number } = {};
     let totalDOT = 0;
 
     transfers.forEach((transfer) => {
@@ -160,21 +192,14 @@ const TransfersPage = () => {
       totalDOT: parseFloat(totalDOT.toFixed(6)),
     });
 
-    calculateMusicParameters(
-      totalCount,
-      frequencyMetric,
-      totalDOT,
-      topAmounts,
-      transfers,
-    );
+    calculateMusicParameters(totalCount, frequencyMetric, totalDOT, topAmounts);
   };
 
   const calculateMusicParameters = (
-    totalCount,
-    frequencyMetric,
-    totalDOT,
-    topAmounts,
-    transfers,
+    totalCount: number,
+    frequencyMetric: number,
+    totalDOT: number,
+    topAmounts: { amount: number; count: number }[],
   ) => {
     const rawBPM = Math.min(180, Math.max(80, (totalCount / 60) * 60));
     const bpm = Math.round(rawBPM);
@@ -185,7 +210,12 @@ const TransfersPage = () => {
       Math.log(totalDOT + 1) / Math.log(maxExpectedDOT + 1),
     );
 
-    const specialMoments = [];
+    const specialMoments: {
+      timestamp: number;
+      intensity: number;
+      amount: number;
+      count: number;
+    }[] = [];
     const songDuration = 60;
 
     if (topAmounts.length > 0) {
@@ -225,8 +255,6 @@ const TransfersPage = () => {
       scale,
     });
   };
-
-  const [musicResults, setMusicResults] = useState(null);
 
   const generateMusic = async () => {
     if (!transfers || transfers.length === 0) {
@@ -274,9 +302,13 @@ const TransfersPage = () => {
       setMusicResults(data.result);
 
       console.log("Results received:", data.result);
-    } catch (err) {
+    } catch (err: any) {
       console.error("Error generating music:", err);
-      setError(`Error generating music: ${err.message}`);
+      if (err instanceof Error) {
+        setError(`Error generating music: ${err.message}`);
+      } else {
+        setError("An unexpected error occurred.");
+      }
     } finally {
       setLoading(false);
     }
@@ -300,7 +332,6 @@ const TransfersPage = () => {
               />
             </label>
           </div>
-
           <button
             onClick={fetchTransfers}
             disabled={loading}
@@ -385,7 +416,7 @@ const TransfersPage = () => {
                       {transferStats.topAmounts.length === 0 && (
                         <tr>
                           <td
-                            colSpan="2"
+                            colSpan={2}
                             className="py-1 text-center text-gray-500"
                           >
                             No data
@@ -472,74 +503,99 @@ const TransfersPage = () => {
                       ))}
                     </div>
                     <p className="text-xs text-gray-500 mt-1">
-                      Based on top transaction amounts, height indicates
-                      intensity
+                      Based on top transaction amounts; higher spikes indicate
+                      larger transactions.
                     </p>
                   </div>
                 )}
-
-                <div className="mt-6 text-center">
-                  <button
-                    onClick={generateMusic}
-                    disabled={loading || !transfers || transfers.length === 0}
-                    className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-700 disabled:text-gray-300 transition-colors"
-                  >
-                    {loading ? "Generating..." : "Generate Music"}
-                  </button>
-                </div>
               </div>
             </div>
 
-            <div className="mb-4 flex justify-between items-center">
-              <h2 className="text-xl font-semibold">Transfer List</h2>
-              <span className="text-gray-400">
-                {transfers.length} transfers found
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
-                <thead>
-                  <tr className="bg-gray-900 text-left">
-                    <th className="p-3 border-b border-gray-800">Block #</th>
-                    <th className="p-3 border-b border-gray-800">Timestamp</th>
-                    <th className="p-3 border-b border-gray-800">Amount</th>
-                    <th className="p-3 border-b border-gray-800">From</th>
-                    <th className="p-3 border-b border-gray-800">To</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {transfers.map((transfer, index) => (
-                    <tr
-                      key={`${transfer.blockNumber}-${index}`}
-                      className="hover:bg-gray-900/50 transition-colors"
-                    >
-                      <td className="p-3 border-b border-gray-800">
-                        {transfer.blockNumber}
-                      </td>
-                      <td className="p-3 border-b border-gray-800">
-                        {formatTimestamp(transfer.timestamp)}
-                      </td>
-                      <td className="p-3 border-b border-gray-800 font-mono">
-                        {formatAmount(transfer.amount)}
-                      </td>
-                      <td className="p-3 border-b border-gray-800 font-mono">
-                        {truncateAddress(transfer.from)}
-                      </td>
-                      <td className="p-3 border-b border-gray-800 font-mono">
-                        {truncateAddress(transfer.to)}
-                      </td>
+            {/* Transfers Table */}
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">
+                Transfers
+              </h2>
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-800 bg-gray-900/20 rounded-lg">
+                  <thead className="bg-gray-900/50">
+                    <tr>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                      >
+                        Block
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                      >
+                        From
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                      >
+                        To
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                      >
+                        Amount
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                      >
+                        Timestamp
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-gray-800">
+                    {transfers.map((transfer) => (
+                      <tr key={transfer.blockNumber}>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                          {transfer.blockNumber}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                          {truncateAddress(transfer.from)}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                          {truncateAddress(transfer.to)}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                          {formatAmount(transfer.amount)}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                          {formatTimestamp(transfer.timestamp)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
-            {transfers.length === 0 && (
-              <div className="text-center py-10 text-gray-500">
-                No transfers found for the specified block number
-              </div>
-            )}
+            {/* Music Generation Button and Results */}
+            <div className="mt-8">
+              <button
+                onClick={generateMusic}
+                disabled={loading || !transfers}
+                className="px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:bg-gray-700 disabled:text-gray-300 transition-colors"
+              >
+                Generate Music
+              </button>
+
+              {musicResults && (
+                <div className="mt-6 p-4 bg-gray-900/50 border border-gray-700 rounded-md">
+                  <h3 className="text-lg font-medium mb-2">Music Output:</h3>
+                  <p className="text-gray-300 whitespace-pre-line">
+                    {musicResults}
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>

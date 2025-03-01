@@ -1,17 +1,30 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import Visual from "./components/visual";
 
+// Define types for music file objects
+interface MusicFile {
+  filename: string;
+  // Add other potential properties returned from API
+}
+
+// Define parsed information from filename
+interface ParsedFileInfo {
+  title: string;
+  date: string;
+  detailsUrl: string;
+}
+
 const Page = () => {
-  // Music player state
-  const [musicFiles, setMusicFiles] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentSong, setCurrentSong] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isAudioReady, setIsAudioReady] = useState(false);
+  // Music player state with proper typing
+  const [musicFiles, setMusicFiles] = useState<MusicFile[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [currentSong, setCurrentSong] = useState<MusicFile | null>(null);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [isAudioReady, setIsAudioReady] = useState<boolean>(false);
 
   // Fetch music files on component mount
   useEffect(() => {
@@ -24,14 +37,14 @@ const Page = () => {
           throw new Error(`API request failed with status ${response.status}`);
         }
 
-        const data = await response.json();
+        const data = (await response.json()) as MusicFile[];
         console.log("Retrieved music files:", data);
 
         // Sort files by creation date extracted from filename
         const sortedFiles = [...data].sort((a, b) => {
           const dateA = extractDateFromFilename(a.filename);
           const dateB = extractDateFromFilename(b.filename);
-          return dateA - dateB;
+          return dateA.getTime() - dateB.getTime();
         });
 
         setMusicFiles(sortedFiles);
@@ -42,7 +55,7 @@ const Page = () => {
         }
       } catch (err) {
         console.error("Error fetching music files:", err);
-        setError(err.message);
+        setError(err instanceof Error ? err.message : "Unknown error occurred");
       } finally {
         setLoading(false);
       }
@@ -52,18 +65,17 @@ const Page = () => {
   }, []);
 
   // Handle audio being ready
-  const handleAudioReady = () => {
+  const handleAudioReady = (): void => {
     setIsAudioReady(true);
   };
 
-  // Helper function to extract date from filename
-  const extractDateFromFilename = (filename) => {
+  const extractDateFromFilename = (filename: string): Date => {
     const parts = filename.split("_");
     if (parts.length >= 3) {
       const month = parts[1].toLowerCase();
       const year = parseInt(parts[2], 10);
 
-      const months = {
+      const months: Record<string, number> = {
         january: 0,
         february: 1,
         march: 2,
@@ -85,7 +97,7 @@ const Page = () => {
   };
 
   // Parse filename to extract information
-  const parseFilename = (filename) => {
+  const parseFilename = (filename: string): ParsedFileInfo => {
     const parts = filename.split("_");
     if (parts.length >= 4) {
       const title = parts[0].replaceAll("-", " ");
@@ -102,14 +114,14 @@ const Page = () => {
   };
 
   // Toggle play/pause
-  const togglePlayPause = () => {
+  const togglePlayPause = (): void => {
     if (isAudioReady) {
       setIsPlaying(!isPlaying);
     }
   };
 
   // Handle selecting a song
-  const handleSongSelect = (index) => {
+  const handleSongSelect = (index: number): void => {
     if (currentIndex === index) {
       // If clicking the same song, just toggle play/pause
       togglePlayPause();
@@ -123,13 +135,13 @@ const Page = () => {
   };
 
   // Handle slider change
-  const handleSliderChange = (e) => {
+  const handleSliderChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const index = parseInt(e.target.value, 10);
     handleSongSelect(index);
   };
 
   // Get current song URL
-  const getCurrentSongUrl = () => {
+  const getCurrentSongUrl = (): string => {
     if (!currentSong) return "";
     return `/music/${currentSong.filename}`;
   };
@@ -260,13 +272,24 @@ const Page = () => {
 
           {/* View Details Button */}
           {currentSong && (
-            <div className="text-center py-8">
-              <a
-                href={`articles${parseFilename(currentSong.filename).detailsUrl}`}
-                className="inline-block bg-white text-black font-medium py-3 px-8 rounded-lg transition-colors hover:bg-gray-200"
-              >
-                View More Details
-              </a>
+            <div className="w-fit flex gap-8">
+              <div className="text-center py-8">
+                <a
+                  href={`news${parseFilename(currentSong.filename).detailsUrl}`}
+                  className="inline-block bg-white text-black font-medium py-3 px-8 rounded-lg transition-colors hover:bg-gray-200"
+                >
+                  View News
+                </a>
+              </div>
+
+              <div className="text-center py-8">
+                <a
+                  href={`lyrics${parseFilename(currentSong.filename).detailsUrl}`}
+                  className="inline-block bg-white text-black font-medium py-3 px-8 rounded-lg transition-colors hover:bg-gray-200"
+                >
+                  View Lyrics
+                </a>
+              </div>
             </div>
           )}
 
