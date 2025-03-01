@@ -6,6 +6,14 @@ BlockBeats transforms blockchain data into music, visualizations, and narrative 
 
 BlockBeats is an innovative platform that captures blockchain transaction data and transforms it into musical compositions, visual experiences, and narrative content. By analyzing transaction patterns and volumes from the Kusama blockchain, we generate music whose style, tempo, and mood reflect the blockchain's activity - creating "Propaganda as a Service."
 
+- [🌐 Live Demo](https://blockbeats.netlify.app)
+- [📹 Demonstration Video](https://vimeo.com/1061611857)
+- [🏆 Hackathon Submission](https://dorahacks.io/buidl/23423/)
+
+## 📸 Screenshot
+
+![Screenshot](https://i.ibb.co/xttTn9PQ/Screenshot-from-2025-03-01-21-30-26.png)
+
 ## ✨ Core Components
 
 BlockBeats consists of several interconnected components:
