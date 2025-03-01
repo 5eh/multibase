@@ -4,23 +4,32 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 interface VisualProps {
-  audioUrl: string;
-  isPlaying: boolean;
-  onAudioReady: () => void;
+  analyser: AnalyserNode;
 }
 
-const Visual: React.FC<VisualProps> = ({
-  audioUrl,
-  isPlaying,
-  onAudioReady,
-}) => {
+const Visual: React.FC<VisualProps> = ({ analyser }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const particlesRef = useRef<THREE.Points | null>(null);
+  const colorTransitionRef = useRef({
+    currentColor: new THREE.Color(0x3498db),
+    targetColor: new THREE.Color(0x3498db),
+    transitionProgress: 0,
+  });
+
+  // Smooth color interpolation function
+  const interpolateColor = (
+    color1: THREE.Color,
+    color2: THREE.Color,
+    factor: number,
+  ) => {
+    const r = color1.r + factor * (color2.r - color1.r);
+    const g = color1.g + factor * (color2.g - color1.g);
+    const b = color1.b + factor * (color2.b - color1.b);
+    return new THREE.Color(r, g, b);
+  };
 
   // Set up Three.js scene
   useEffect(() => {
@@ -37,28 +46,36 @@ const Visual: React.FC<VisualProps> = ({
       0.1,
       1000,
     );
-    camera.position.z = 20;
+    camera.position.z = 30;
     cameraRef.current = camera;
 
     // Create renderer
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-    renderer.setSize(
-      containerRef.current.clientWidth,
-      containerRef.current.clientHeight,
-    );
+    const renderer = new THREE.WebGLRenderer({
+      alpha: true,
+      antialias: true,
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
     containerRef.current.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
+    // Make renderer's canvas not interfere with other interactions
+    renderer.domElement.style.position = "fixed";
+    renderer.domElement.style.top = "0";
+    renderer.domElement.style.left = "0";
+    renderer.domElement.style.zIndex = "-1";
+    renderer.domElement.style.pointerEvents = "none";
+
     // Create particles
     const particleGeometry = new THREE.BufferGeometry();
-    const particleCount = 2000;
+    const particleCount = 10000; // Increased for fuller effect
 
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
 
     for (let i = 0; i < particleCount * 3; i += 3) {
       // Position particles in a sphere
-      const radius = 10;
+      const radius = 20; // Slightly larger radius
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.random() * Math.PI;
 
@@ -66,7 +83,7 @@ const Visual: React.FC<VisualProps> = ({
       positions[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
       positions[i + 2] = radius * Math.cos(phi);
 
-      // Random colors
+      // Initial random colors
       colors[i] = Math.random();
       colors[i + 1] = Math.random();
       colors[i + 2] = Math.random();
@@ -82,10 +99,10 @@ const Visual: React.FC<VisualProps> = ({
     );
 
     const particleMaterial = new THREE.PointsMaterial({
-      size: 0.1,
+      size: 0.1, // Slightly smaller for fuller effect
       vertexColors: true,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.7,
     });
 
     const particles = new THREE.Points(particleGeometry, particleMaterial);
@@ -94,16 +111,11 @@ const Visual: React.FC<VisualProps> = ({
 
     // Handle window resize
     const handleResize = () => {
-      if (!containerRef.current || !cameraRef.current || !rendererRef.current)
-        return;
+      if (!cameraRef.current || !rendererRef.current) return;
 
-      cameraRef.current.aspect =
-        containerRef.current.clientWidth / containerRef.current.clientHeight;
+      cameraRef.current.aspect = window.innerWidth / window.innerHeight;
       cameraRef.current.updateProjectionMatrix();
-      rendererRef.current.setSize(
-        containerRef.current.clientWidth,
-        containerRef.current.clientHeight,
-      );
+      rendererRef.current.setSize(window.innerWidth, window.innerHeight);
     };
 
     window.addEventListener("resize", handleResize);
@@ -112,14 +124,53 @@ const Visual: React.FC<VisualProps> = ({
     const animate = () => {
       requestAnimationFrame(animate);
 
-      if (particlesRef.current && analyserRef.current) {
-        const dataArray = new Uint8Array(analyserRef.current.frequencyBinCount);
-        analyserRef.current.getByteFrequencyData(dataArray);
+      if (particlesRef.current && analyser) {
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+        analyser.getByteFrequencyData(dataArray);
+
+        // Focus on bass frequencies (first few bins)
+        const bassFrequencies = dataArray.slice(0, 4);
+        const bassIntensity =
+          bassFrequencies.reduce((a, b) => a + b, 0) / (4 * 255);
 
         const positions = particlesRef.current.geometry.attributes.position
           .array as Float32Array;
         const colors = particlesRef.current.geometry.attributes.color
           .array as Float32Array;
+
+        // Smooth color transition based on bass
+        const colorTransition = colorTransitionRef.current;
+
+        // Define color palette for smooth transition
+        const baseColor = new THREE.Color(0x2c3e50); // Dark blue-gray
+        const peakColor = new THREE.Color(0xe74c3c); // Red
+        const midColor = new THREE.Color(0xf39c12); // Orange
+
+        // Determine target color based on bass intensity
+        if (bassIntensity > 0.7) {
+          colorTransition.targetColor = peakColor;
+        } else if (bassIntensity > 0.3) {
+          colorTransition.targetColor = midColor;
+        } else {
+          colorTransition.targetColor = baseColor;
+        }
+
+        // Smooth transition
+        colorTransition.transitionProgress = Math.min(
+          1,
+          colorTransition.transitionProgress + 0.03,
+        );
+        const currentColor = interpolateColor(
+          colorTransition.currentColor,
+          colorTransition.targetColor,
+          colorTransition.transitionProgress,
+        );
+
+        // Reset transition progress if colors match
+        if (currentColor.equals(colorTransition.targetColor)) {
+          colorTransition.transitionProgress = 0;
+          colorTransition.currentColor.copy(colorTransition.targetColor);
+        }
 
         // Update particles based on audio data
         let audioIndex = 0;
@@ -142,14 +193,14 @@ const Visual: React.FC<VisualProps> = ({
 
           // Apply audio data to move particles
           const scale = 1 + audioValue * 2;
-          positions[i] = (originalX / length) * scale * 10;
-          positions[i + 1] = (originalY / length) * scale * 10;
-          positions[i + 2] = (originalZ / length) * scale * 10;
+          positions[i] = (originalX / length) * scale * 20;
+          positions[i + 1] = (originalY / length) * scale * 20;
+          positions[i + 2] = (originalZ / length) * scale * 20;
 
-          // Update color based on audio
-          colors[i] = 0.5 + audioValue * 0.5;
-          colors[i + 1] = 0.2 + audioValue * 0.8;
-          colors[i + 2] = 0.5 + audioValue * 0.5;
+          // Update color based on audio and smooth transition
+          colors[i] = currentColor.r * (0.5 + audioValue * 0.5);
+          colors[i + 1] = currentColor.g * (0.5 + audioValue * 0.5);
+          colors[i + 2] = currentColor.b * (0.5 + audioValue * 0.5);
         }
 
         particlesRef.current.geometry.attributes.position.needsUpdate = true;
@@ -196,70 +247,13 @@ const Visual: React.FC<VisualProps> = ({
         rendererRef.current.dispose();
       }
     };
-  }, []);
-
-  // Handle audio element
-  useEffect(() => {
-    // Create audio element
-    const audio = new Audio();
-    audio.crossOrigin = "anonymous";
-    audio.src = audioUrl;
-    audioRef.current = audio;
-
-    // Set up audio context and analyzer
-    // TypeScript definition for WebKit prefixed AudioContext
-    interface WebKitWindow extends Window {
-      webkitAudioContext: typeof AudioContext;
-    }
-
-    // Use standard AudioContext or WebKit prefixed version without 'any'
-    const AudioContextClass =
-      window.AudioContext ||
-      (window as unknown as WebKitWindow).webkitAudioContext;
-
-    const audioContext = new AudioContextClass();
-    const analyser = audioContext.createAnalyser();
-    analyser.fftSize = 256;
-    analyserRef.current = analyser;
-
-    // Connect audio to analyzer
-    const source = audioContext.createMediaElementSource(audio);
-    source.connect(analyser);
-    analyser.connect(audioContext.destination);
-
-    // Audio events
-    audio.addEventListener("canplaythrough", () => {
-      onAudioReady();
-    });
-
-    // Cleanup audio
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.src = "";
-      }
-      audioContext.close();
-    };
-  }, [audioUrl, onAudioReady]);
-
-  // Handle play/pause
-  useEffect(() => {
-    if (!audioRef.current) return;
-
-    if (isPlaying) {
-      audioRef.current.play().catch((error) => {
-        console.error("Error playing audio:", error);
-      });
-    } else {
-      audioRef.current.pause();
-    }
-  }, [isPlaying]);
+  }, [analyser]);
 
   return (
     <div
       ref={containerRef}
-      className="w-full h-72 rounded-lg overflow-hidden"
-    />
+      className="fixed top-0 left-0 w-full h-full z-[-1]"
+    ></div>
   );
 };
 

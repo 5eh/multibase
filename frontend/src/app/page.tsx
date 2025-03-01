@@ -1,15 +1,13 @@
 "use client";
 
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, useRef, ChangeEvent } from "react";
 import Visual from "./components/visual";
+import Navigation from "./components/navigation";
 
-// Define types for music file objects
 interface MusicFile {
   filename: string;
-  // Add other potential properties returned from API
 }
 
-// Define parsed information from filename
 interface ParsedFileInfo {
   title: string;
   date: string;
@@ -17,14 +15,18 @@ interface ParsedFileInfo {
 }
 
 const Page = () => {
-  // Music player state with proper typing
+  // Music files state
   const [musicFiles, setMusicFiles] = useState<MusicFile[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [currentSong, setCurrentSong] = useState<MusicFile | null>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [isAudioReady, setIsAudioReady] = useState<boolean>(false);
+
+  // Audio state and refs
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isAudioReady, setIsAudioReady] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
 
   // Fetch music files on component mount
   useEffect(() => {
@@ -40,7 +42,6 @@ const Page = () => {
         const data = (await response.json()) as MusicFile[];
         console.log("Retrieved music files:", data);
 
-        // Sort files by creation date extracted from filename
         const sortedFiles = [...data].sort((a, b) => {
           const dateA = extractDateFromFilename(a.filename);
           const dateB = extractDateFromFilename(b.filename);
@@ -49,7 +50,6 @@ const Page = () => {
 
         setMusicFiles(sortedFiles);
 
-        // If we have files, set the current song to the first one
         if (sortedFiles.length > 0) {
           setCurrentSong(sortedFiles[0]);
         }
@@ -64,11 +64,70 @@ const Page = () => {
     fetchMusicFiles();
   }, []);
 
-  // Handle audio being ready
-  const handleAudioReady = (): void => {
-    setIsAudioReady(true);
-  };
+  // Set up audio element and analyzer when current song changes
+  useEffect(() => {
+    if (!currentSong) return;
 
+    // Create audio element
+    const audio = new Audio();
+    audio.crossOrigin = "anonymous";
+    audio.src = getCurrentSongUrl();
+    audioRef.current = audio;
+    setIsAudioReady(false);
+
+    // Set up audio context and analyzer
+    // TypeScript definition for WebKit prefixed AudioContext
+    interface WebKitWindow extends Window {
+      webkitAudioContext: typeof AudioContext;
+    }
+
+    // Use standard AudioContext or WebKit prefixed version
+    const AudioContextClass =
+      window.AudioContext ||
+      (window as unknown as WebKitWindow).webkitAudioContext;
+
+    const audioContext = new AudioContextClass();
+    const analyser = audioContext.createAnalyser();
+    analyser.fftSize = 256;
+    analyserRef.current = analyser;
+
+    // Connect audio to analyzer
+    const source = audioContext.createMediaElementSource(audio);
+    source.connect(analyser);
+    analyser.connect(audioContext.destination);
+
+    // Audio events
+    audio.addEventListener("canplaythrough", () => {
+      setIsAudioReady(true);
+    });
+
+    // Stop any playing audio
+    setIsPlaying(false);
+
+    // Cleanup audio
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = "";
+      }
+      audioContext.close();
+    };
+  }, [currentSong]);
+
+  // Handle play/pause
+  useEffect(() => {
+    if (!audioRef.current) return;
+
+    if (isPlaying) {
+      audioRef.current.play().catch((error) => {
+        console.error("Error playing audio:", error);
+      });
+    } else {
+      audioRef.current.pause();
+    }
+  }, [isPlaying]);
+
+  // Utility functions
   const extractDateFromFilename = (filename: string): Date => {
     const parts = filename.split("_");
     if (parts.length >= 3) {
@@ -93,10 +152,9 @@ const Page = () => {
       const monthIndex = months[month] || 0;
       return new Date(year, monthIndex, 1);
     }
-    return new Date(0); // Default date if format doesn't match
+    return new Date(0);
   };
 
-  // Parse filename to extract information
   const parseFilename = (filename: string): ParsedFileInfo => {
     const parts = filename.split("_");
     if (parts.length >= 4) {
@@ -113,42 +171,47 @@ const Page = () => {
     return { title: filename, date: "Unknown", detailsUrl: "/" };
   };
 
-  // Toggle play/pause
-  const togglePlayPause = (): void => {
-    if (isAudioReady) {
-      setIsPlaying(!isPlaying);
-    }
-  };
-
-  // Handle selecting a song
   const handleSongSelect = (index: number): void => {
-    if (currentIndex === index) {
-      // If clicking the same song, just toggle play/pause
-      togglePlayPause();
-      return;
-    }
-
-    setIsPlaying(false);
-    setIsAudioReady(false);
     setCurrentIndex(index);
     setCurrentSong(musicFiles[index]);
   };
 
-  // Handle slider change
   const handleSliderChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const index = parseInt(e.target.value, 10);
     handleSongSelect(index);
   };
 
-  // Get current song URL
   const getCurrentSongUrl = (): string => {
     if (!currentSong) return "";
     return `/music/${currentSong.filename}`;
   };
 
+  const togglePlayPause = () => {
+    if (isAudioReady) {
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const getCurrentMusicInfo = (): ParsedFileInfo | null => {
+    if (!currentSong) return null;
+    return parseFilename(currentSong.filename);
+  };
+
+  // Get current song URLs for navigation
+  const getCurrentSongUrls = () => {
+    if (!currentSong) return null;
+
+    const info = parseFilename(currentSong.filename);
+    return {
+      newsUrl: `news${info.detailsUrl}`,
+      lyricsUrl: `lyrics${info.detailsUrl}`,
+    };
+  };
+
   return (
     <div className="w-full min-h-screen pt-24 px-6 text-white">
-      <h1 className="text-2xl font-bold mb-6 text-center">Music Timeline</h1>
+      {/* Add navigation at the top with dynamic song URLs */}
+      <Navigation currentSongUrl={getCurrentSongUrls()} />
 
       {loading ? (
         <div className="text-center text-2xl py-12">Loading music files...</div>
@@ -160,81 +223,61 @@ const Page = () => {
         <>
           {/* Three.js Visualization Component */}
           <div className="mb-8">
-            {currentSong && (
-              <Visual
-                audioUrl={getCurrentSongUrl()}
-                isPlaying={isPlaying}
-                onAudioReady={handleAudioReady}
-              />
+            {currentSong && analyserRef.current && (
+              <Visual analyser={analyserRef.current} />
             )}
           </div>
 
-          {/* Current Player */}
-          {currentSong && (
-            <div className="p-6 mb-8 border border-gray-700 rounded-lg bg-black bg-opacity-30">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-semibold">
-                  {parseFilename(currentSong.filename).title}
-                </h2>
-                <span className="text-gray-300">
-                  {parseFilename(currentSong.filename).date}
-                </span>
-              </div>
-
-              {/* Custom Player Controls */}
-              <div className="flex items-center justify-center mb-6">
-                <button
-                  onClick={togglePlayPause}
-                  disabled={!isAudioReady}
-                  className={`${
-                    isAudioReady
-                      ? "bg-white text-black hover:bg-gray-200"
-                      : "bg-gray-600 text-gray-400"
-                  } p-4 rounded-full transition-colors`}
+          {/* Audio controls */}
+          <div className="mt-12 h-screen z-10 flex justify-center items-center max-w-md mx-auto w-full">
+            <button
+              onClick={togglePlayPause}
+              disabled={!isAudioReady}
+              className={`${
+                isAudioReady
+                  ? "bg-white/20 text-white hover:bg-white/30"
+                  : "bg-gray-600/20 text-gray-400"
+              } p-4 rounded-full backdrop-blur-md transition-colors`}
+            >
+              {isPlaying ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  {isPlaying ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <rect x="6" y="4" width="4" height="16"></rect>
-                      <rect x="14" y="4" width="4" height="16"></rect>
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                    </svg>
-                  )}
-                </button>
-              </div>
-
-              {!isAudioReady && (
-                <div className="text-center text-gray-400 mb-4">
-                  Loading audio...
-                </div>
+                  <rect x="6" y="4" width="4" height="16"></rect>
+                  <rect x="14" y="4" width="4" height="16"></rect>
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
               )}
-            </div>
+            </button>
+          </div>
+
+          {!isAudioReady && currentSong && (
+            <div className="mt-4 text-white text-center">Loading audio...</div>
           )}
 
           {/* Timeline Slider */}
-          <div className="mb-8">
+          <div className="mt-12 mb-8">
             <div className="mb-4 flex justify-between text-sm text-gray-300">
               <span>Earliest</span>
               <span>Latest</span>
@@ -270,9 +313,9 @@ const Page = () => {
             </div>
           </div>
 
-          {/* View Details Button */}
+          {/* Mobile view buttons (only visible on smaller screens) */}
           {currentSong && (
-            <div className="w-fit flex gap-8">
+            <div className="w-fit flex gap-8 md:hidden">
               <div className="text-center py-8">
                 <a
                   href={`news${parseFilename(currentSong.filename).detailsUrl}`}
