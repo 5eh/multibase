@@ -13,6 +13,7 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ currentSongUrl }) => {
   const [scrolled, setScrolled] = useState(false);
+  console.log(scrolled);
 
   useEffect(() => {
     const handleScroll = () => {

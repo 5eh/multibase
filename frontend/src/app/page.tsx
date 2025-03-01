@@ -192,12 +192,6 @@ const Page = () => {
     }
   };
 
-  const getCurrentMusicInfo = (): ParsedFileInfo | null => {
-    if (!currentSong) return null;
-    return parseFilename(currentSong.filename);
-  };
-
-  // Get current song URLs for navigation
   const getCurrentSongUrls = () => {
     if (!currentSong) return null;
 

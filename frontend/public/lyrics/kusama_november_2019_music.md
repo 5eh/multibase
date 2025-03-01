@@ -1,43 +1,39 @@
-**(Verse 1)**  
-In the haze of November, twenty-nineteen,  
-A canary took flight in a digital dream,  
-Through the wires of the world, a whispering net,  
-Kusama's bold journey just starting to set.  
-Validators gathered, a hundred strong,  
-Weaving a tapestry where they belong.  
-Decentralized voices, a chorus of code,  
-Building a future where dreams can unfold.  
+**Verse 1**  
+In the wild playground, Kusama's thriving,  
+Innovators pushing, dreams are rising.  
+Forkless upgrades, agile paths we find,  
+In November, swift decisions unwind.  
 
-**(Chorus)**  
-Oh, November 2019, when Kusama soared,  
-An experimental realm where ideas poured.  
-In the heart of the blockchain, a revolution woke,  
-Kusama, your spirit, in every heartbeat spoke.  
+Governance nimble, choices so bold,  
+A new story of blockchain unfolds.  
+Parachains compete, a dance in the sky,  
+Dreams collide as they bid high.  
 
-**(Verse 2)**  
-Governance awoke, from slumber arose,  
-Referenda and proposals, the path we chose.  
-Changes in the air, like autumn leaves,  
-Adjusting rewards, with belief, it breathes.  
-Parachains began their first design,  
-Connecting worlds in a network so fine.  
-Staking the future on the wings of KSM,  
-Every transaction a note in this anthem.  
+**Chorus**  
+November 2019, where it all began,  
+Kusama's rise, a vision so grand.  
+In a world of chains, it stands apart,  
+A living lab for every heart.  
 
-**(Chorus)**  
-Oh, November 2019, when Kusama soared,  
-An experimental realm where ideas poured.  
-In the heart of the blockchain, a revolution woke,  
-Kusama, your spirit, in every heartbeat spoke.  
+**Verse 2**  
+In a sea of tokens, KSM holds strong,  
+A staggering climb, a journey so long.  
+Developers gather, the ecosystem's alive,  
+Ideas flourish, innovation thrives.  
 
-**(Bridge)**  
-As Gavin Wood said, we move toward the dawn,  
-Where Polkadot waits with the curtains drawn.  
-A vital testing ground, where the brave explore,  
-In this digital symphony, we are forevermore.  
+Robots and devices, all join the race,  
+A new future in this blockchain space.  
+Bold ambitions, the roadmap's clear,  
+Kusama's moment, the future's near.  
 
-**(Outro)**  
-In the echoes of November, memories remain,  
-A network of dreams with nothing to restrain.  
-The rhythm of progress, steady and true,  
-Kusama, we'll follow the journey with you.  
+**Chorus**  
+November 2019, where it all began,  
+Kusama's rise, a vision so grand.  
+In a world of chains, it stands apart,  
+A living lab for every heart.  
+
+**Outro**  
+Oh, Kusama, wild and free,  
+Crafting futures for you and me.  
+November left its mark divine,  
+Kusama's essence, a wondrous sign.

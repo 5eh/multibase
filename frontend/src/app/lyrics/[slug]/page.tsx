@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 
-// Define interfaces for type safety
 interface MatchingFile {
   filename: string;
 }
@@ -20,12 +19,11 @@ export default function ArticlePage() {
   const [content, setContent] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
-  // Extract the name parameter from the URL
   useEffect(() => {
     console.log("Component mounted with params:", params);
 
-    // More robust name extraction that handles all edge cases
     const extractSlug = (): string | null => {
       if (!params || !("slug" in params)) return null;
       const slugParam = params.slug;
@@ -49,7 +47,37 @@ export default function ArticlePage() {
     setSlug(extractedSlug);
   }, [params]);
 
-  // Fetch article content when slug changes
+  useEffect(() => {
+    if (!slug) return;
+
+    async function findMatchingPdf() {
+      if (!slug) {
+        console.log("Cannot search for PDF: slug is null");
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          `/api/retrieve-lyrics-pdf?slug=${encodeURIComponent(slug)}`,
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.pdfUrl) {
+            setPdfUrl(data.pdfUrl);
+            console.log("Found matching PDF:", data.pdfUrl);
+          } else {
+            console.log("No matching PDF found for:", slug);
+          }
+        }
+      } catch (error) {
+        console.error("Error finding matching PDF:", error);
+      }
+    }
+
+    findMatchingPdf();
+  }, [slug]);
+
   useEffect(() => {
     console.log("Slug state updated:", slug);
 
@@ -197,9 +225,60 @@ export default function ArticlePage() {
 
   return (
     <div className="p-8 max-w-3xl mx-auto mt-12">
+      <h1 className="text-3xl font-bold mb-6 text-center">Lyrics</h1>
+
       <h1 className="text-3xl font-bold mb-6 text-center">
         {formatTitle(slug)}
       </h1>
+
+      <div className="mb-6 text-center">
+        {pdfUrl ? (
+          <a
+            href={pdfUrl}
+            download
+            className="inline-block bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-colors hover:bg-blue-600 mr-4 flex items-center justify-center mx-auto w-48"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+            Download PDF Version
+          </a>
+        ) : (
+          <button
+            className="inline-block bg-gray-600 text-gray-300 font-medium py-2 px-6 rounded-lg cursor-not-allowed opacity-70 flex items-center justify-center mx-auto w-48"
+            disabled
+            title="No PDF version available"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+              />
+            </svg>
+            No PDF Available
+          </button>
+        )}
+      </div>
+
       <div className="prose prose-invert max-w-none">
         {/* For a production app, you would use a markdown renderer here */}
         <pre className="whitespace-pre-wrap bg-gray-800 p-4 rounded-lg text-sm">
