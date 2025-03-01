@@ -490,6 +490,58 @@ async function processMonth(selectedMonth, analysisData, args, logs = []) {
     // Step 4: Create thumbnail for the music
     console.log(colors.dim("\nStep 4/4: Creating thumbnail image..."));
 
+    // Prepare input directory for thumbnail generator
+    console.log(colors.dim("• Preparing input for thumbnail generation..."));
+
+    // Make sure the input directory exists
+    const thumbnailInputDir = join(baseDir, "04_createThumbnail", "input");
+    await Deno.mkdir(thumbnailInputDir, { recursive: true });
+
+    try {
+      // Copy the current lyrics file to thumbnail input directory
+      const lyricsFilename =
+        `kusama_${selectedMonth.month.toLowerCase()}_${selectedMonth.year}_lyrics.md`;
+      const lyricsSourcePath = join(baseDir, "output", lyricsFilename);
+      const lyricsTargetPath = join(thumbnailInputDir, lyricsFilename);
+
+      // Check if lyrics file exists
+      if (await exists(lyricsSourcePath)) {
+        await Deno.copyFile(lyricsSourcePath, lyricsTargetPath);
+        console.log(
+          colors.dim(`• Copied lyrics file to thumbnail input directory`),
+        );
+      } else {
+        console.log(
+          colors.yellow(
+            `• Warning: Lyrics file not found at ${lyricsSourcePath}`,
+          ),
+        );
+      }
+
+      // Copy analysis.json to thumbnail input directory
+      const analysisSourcePath = join(baseDir, "output", "analysis.json");
+      const analysisTargetPath = join(thumbnailInputDir, "analysis.json");
+
+      if (await exists(analysisSourcePath)) {
+        await Deno.copyFile(analysisSourcePath, analysisTargetPath);
+        console.log(
+          colors.dim(`• Copied analysis data to thumbnail input directory`),
+        );
+      } else {
+        console.log(
+          colors.yellow(
+            `• Warning: Analysis file not found at ${analysisSourcePath}`,
+          ),
+        );
+      }
+    } catch (prepError) {
+      console.log(
+        colors.yellow(
+          `• Warning: Error preparing thumbnail input: ${prepError.message}`,
+        ),
+      );
+    }
+
     // Create thumbnail with appropriate parameters
     const thumbnailArgs = [
       "deno",

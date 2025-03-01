@@ -1,12 +1,12 @@
 {
-  "totalTransactions": 7613505,
+  "totalTransactions": 7613525,
   "highestMonth": {
     "period": "November 2024",
     "count": 4347886
   },
   "lowestMonth": {
-    "period": "November 2019",
-    "count": 918
+    "period": "March 2025",
+    "count": 11
   },
   "monthlyData": [
     {
@@ -516,10 +516,18 @@
     {
       "month": "February",
       "year": 2025,
-      "count": 28851,
+      "count": 28860,
       "musicStyle": "House",
       "musicDescription": "Electronic house music",
       "bpm": 125
+    },
+    {
+      "month": "March",
+      "year": 2025,
+      "count": 11,
+      "musicStyle": "Ambient",
+      "musicDescription": "Slow, atmospheric ambient music",
+      "bpm": 60
     }
   ]
 }

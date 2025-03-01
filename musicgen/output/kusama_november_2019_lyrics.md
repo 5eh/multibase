@@ -1,39 +1,39 @@
 **Verse 1**  
-In November 2019, the chaos canary sings,  
-Kusama's daring leap, testing future winds.  
-A sandbox for the brave, where the boundaries fade,  
-With tricameral insights, new governance is made.  
+In the wild playground, Kusama's thriving,  
+Innovators pushing, dreams are rising.  
+Forkless upgrades, agile paths we find,  
+In November, swift decisions unwind.  
 
-Referendums echo through chambers of change,  
-Balancing fast decisions, with checks in range.  
-Projects rise like sun, parachains ignite,  
-Acala, Robonomics, Moonbeam take flight.  
+Governance nimble, choices so bold,  
+A new story of blockchain unfolds.  
+Parachains compete, a dance in the sky,  
+Dreams collide as they bid high.  
 
 **Chorus**  
-Oh, Kusama's song, in blockchain's new dawn,  
-Where innovation and chaos dance on.  
-A thriving network, a beacon's light,  
-Forging the future, in November's bright night.  
+November 2019, where it all began,  
+Kusama's rise, a vision so grand.  
+In a world of chains, it stands apart,  
+A living lab for every heart.  
 
 **Verse 2**  
-Parachain auctions hum a tune of growth,  
-Crowdloans pulling dreams from whispered oaths.  
-KSM's swift rise, a crypto tidal wave,  
-From $1.50 to $3, the market's rave.  
+In a sea of tokens, KSM holds strong,  
+A staggering climb, a journey so long.  
+Developers gather, the ecosystem's alive,  
+Ideas flourish, innovation thrives.  
 
-Nominated Proof sees its grip unfold,  
-Runtime that evolves, no forks take hold.  
-The community speaks, their voices loud,  
-In Kusama's heart, the future is vowed.  
+Robots and devices, all join the race,  
+A new future in this blockchain space.  
+Bold ambitions, the roadmap's clear,  
+Kusama's moment, the future's near.  
 
 **Chorus**  
-Oh, Kusama's song, in blockchain's new dawn,  
-Where innovation and chaos dance on.  
-A thriving network, a beacon's light,  
-Forging the future, in November's bright night.  
+November 2019, where it all began,  
+Kusama's rise, a vision so grand.  
+In a world of chains, it stands apart,  
+A living lab for every heart.  
 
 **Outro**  
-Dr. Gavin's dream, more than a net,  
-Crafting tomorrow, where chaos is met.  
-In the echo of November 2019's call,  
-Kusama's creation, a new era for all.  
+Oh, Kusama, wild and free,  
+Crafting futures for you and me.  
+November left its mark divine,  
+Kusama's essence, a wondrous sign.
