@@ -1,47 +1,96 @@
-# Multibase
+# 🎵 BlockBeats - Propaganda as a Service
 
-Multibase is an innovative project that transforms blockchain activity into music, allowing you to "listen" to the blockchain in a fun and unique way.
+BlockBeats transforms blockchain data into music, visualizations, and narrative content, providing a unique sensory experience of blockchain activity.
 
+## 🚀 Overview
 
-## How It Works
+BlockBeats is an innovative platform that captures blockchain transaction data and transforms it into musical compositions, visual experiences, and narrative content. By analyzing transaction patterns and volumes from the Kusama blockchain, we generate music whose style, tempo, and mood reflect the blockchain's activity - creating "Propaganda as a Service."
 
-1. **Blockchain Data Collection**: Multibase retrieves the history of the blockchain and counts transactions in each block.
+## ✨ Core Components
 
-2. **Block Aggregation**: Blocks are grouped into sets (e.g., 1000 blocks), and transaction counts are aggregated.
+BlockBeats consists of several interconnected components:
 
-3. **Music Generation**: The aggregated transaction data influences musical parameters:
-   - Higher transaction counts create higher BPM (beats per minute) songs
-   - Lower transaction counts create lower BPM songs
-   - Each song's characteristics reflect the blockchain activity
+1. **Indexer**: Captures and indexes Kusama blockchain transactions
+2. **Transaction Analysis**: Determines music styles based on transaction patterns
+3. **News Fetcher**: Retrieves historical blockchain news for context
+4. **Lyrics Generator**: Creates narrative content from blockchain data
+5. **Music Creator**: Composes music reflecting transaction patterns
+6. **Thumbnail Generator**: Creates visual album artwork
+7. **Frontend Lab (FLAB)**: Interactive web interface for exploring the music
 
-## Features
+## 🎧 How It Works
 
-- Real-time translation of blockchain activity into musical elements
-- Dynamic song generation based on transaction volumes
-- Audio visualization of blockchain data
+1. **Data Collection**: We index the Kusama blockchain and analyze transaction patterns
+2. **Music Mapping**: Transaction volumes determine musical attributes:
+   - Higher volumes create faster, more energetic music (up to 350 BPM Speedcore)
+   - Lower volumes create slower, ambient pieces (as low as 30 BPM Drone Ambient)
+   - Five distinct musical genres across the volume spectrum
+3. **Content Generation**: We generate news summaries, lyrics, and music that tell the blockchain's story
+4. **Interactive Experience**: Users can explore the blockchain's musical history through our visualization interface
 
-## How to run
+## 🛠️ Technology Stack
 
-1. cd multibase && cd indexer
-2. npx squid-graphql-server
-3. CTRL SHFT ` && cd frontend
-4. pnpm install && pnpm dev
-5. open localhost:4350
-6. open localhost:3000
-7. enjoy the music
+- **Indexer**: Subsquid, Node.js, PostgreSQL, GraphQL
+- **Analysis & Generation**: Deno, OpenAI API, Perplexity AI, APIBox.ai
+- **Visualization**: Three.js, WebGL, HTML5 Audio API
+- **Frontend**: Vanilla JavaScript, CSS animations
+- **Deployment**: Netlify, Subsquid Cloud
 
-^^ Revised:
-1. docker compose up -d
-2. npm run build
-3. npx squid-typeorm-migration apply
-4. node -r dotenv/config lib/main.js
-5. npx squid-graphql-server
+## 🚀 Getting Started
 
+### Running the Complete System
 
-## Getting Started
+```bash
+# 1. Start the indexer
+cd indexer
+npm i
+sqd up
+sqd build
+sqd run .
 
-*Coming soon: Installation instructions and usage examples*
+# 2. Generate music (requires API keys)
+cd ../musicgen
+deno run -A main.js --month="January" --year="2021"
 
-## License
+# 3. Run the frontend
+cd ../flab
+deno run -A jsr:@std/http/file-server .
+```
 
-See the [LICENSE](LICENSE) file for details.
+Visit `http://localhost:4507` to experience the BlockBeats interface.
+
+### API Keys Required
+
+To generate content, you'll need:
+- Perplexity AI API key (news retrieval)
+- OpenAI API key (lyrics generation)
+- APIBox.ai API key (music creation)
+- Blackforest Lab API key (thumbnail generation)
+
+## 📊 Data to Music Mapping
+
+BlockBeats uses a quintile-based classification system to map transaction volumes to music styles:
+
+| Quintile | Transaction Range | Music Style     | BPM Range | Characteristics                           |
+|----------|-------------------|-----------------|-----------|-------------------------------------------|
+| Highest  | > 50,000          | Speedcore       | 300-400   | Ultra-fast, chaotic electronic music      |
+| 2nd      | 35,000-50,000     | Rock            | 100-140   | Energetic, driving rhythms                |
+| 3rd      | 12,000-35,000     | Hip-Hop         | 80-120    | Mid-tempo with strong beats               |
+| 4th      | 5,000-12,000      | Reggae          | 60-90     | Relaxed groove with offbeat rhythms       |
+| Lowest   | < 5,000           | Drone Ambient   | 20-40     | Slow, atmospheric, minimal rhythm         |
+
+## 🔍 Project Structure
+
+- `/indexer/` - Blockchain data indexing and GraphQL API
+- `/musicgen/` - Music generation pipeline
+  - `/00_analysis/` - Transaction data analysis
+  - `/01_getNews/` - News retrieval
+  - `/02_makeLyrics/` - Lyrics generation
+  - `/03_createMusic/` - Music composition
+  - `/04_createThumbnail/` - Album art creation
+- `/flab/` - Frontend visualization interface
+- `/frontend/` - Next.js-based application (in development)
+
+## 📄 License
+
+This project is licensed under the terms specified in the LICENSE file.
