@@ -31,5 +31,5 @@ In Kusama, the future thrives.
 Oh Kusama, where the future lies,  
 Pushing limits, reaching for the skies.  
 Innovation flows, you pave the way,  
-In November, let your colors sway.  
+In November, let your colors sway.
 ```

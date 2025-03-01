@@ -60,18 +60,18 @@ This will:
 
 ### Command Line Options
 
-| Option                   | Description                                       |
-| ------------------------ | ------------------------------------------------- |
-| `-m, --month`            | Month to analyze (e.g., "January")                |
-| `-y, --year`             | Year to analyze (e.g., "2021")                    |
-| `-p, --process-year`     | Process all months for a specific year            |
-| `-l, --loop-all-months`  | Process all months in chronological order         |
-| `-t, --title`            | Music title (default: "Kusama <Month> <Year>")    |
-| `-d, --model`            | Music model: V3_5 or V4 (default: V3_5)           |
-| `-i, --instrumental`     | Generate instrumental music without lyrics        |
-| `-v, --verbose`          | Show detailed output                              |
-| `-s, --skip-analysis`    | Skip analysis step (use existing analysis.json)   |
-| `-h, --help`             | Show help message                                 |
+| Option                  | Description                                     |
+| ----------------------- | ----------------------------------------------- |
+| `-m, --month`           | Month to analyze (e.g., "January")              |
+| `-y, --year`            | Year to analyze (e.g., "2021")                  |
+| `-p, --process-year`    | Process all months for a specific year          |
+| `-l, --loop-all-months` | Process all months in chronological order       |
+| `-t, --title`           | Music title (default: "Kusama <Month> <Year>")  |
+| `-d, --model`           | Music model: V3_5 or V4 (default: V3_5)         |
+| `-i, --instrumental`    | Generate instrumental music without lyrics      |
+| `-v, --verbose`         | Show detailed output                            |
+| `-s, --skip-analysis`   | Skip analysis step (use existing analysis.json) |
+| `-h, --help`            | Show help message                               |
 
 ### Examples
 
@@ -142,7 +142,8 @@ The complete pipeline generates the following files in the `output` directory:
   (variation)
 - `kusama_[month]_[year]_cover.png` - The album cover thumbnail
 - `analysis.json` - Blockchain transaction analysis data
-- `logs.txt` - Detailed processing logs (created when using --loop-all-months or --process-year)
+- `logs.txt` - Detailed processing logs (created when using --loop-all-months or
+  --process-year)
 
 ## 🔄 Integration
 
@@ -205,7 +206,8 @@ Based on 15,243 transactions
 
 - If any step fails, check that your API keys are correctly set
 - For detailed error information, run with the `--verbose` flag
-- When using batch processing (--loop-all-months or --process-year), check the logs.txt file for detailed information
+- When using batch processing (--loop-all-months or --process-year), check the
+  logs.txt file for detailed information
 - If music generation times out, you can resume using the task ID from
   `last_task_id.txt`
 

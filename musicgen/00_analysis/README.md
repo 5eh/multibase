@@ -3,14 +3,16 @@
 A Deno module that analyzes Kusama blockchain transfer data using GraphQL
 queries. This serves as the initial analytics component in the MusicGen
 pipeline, providing insights into transaction patterns over time and determining
-appropriate music styles based on transaction volume using a quintile-based classification system.
+appropriate music styles based on transaction volume using a quintile-based
+classification system.
 
 ## ✨ Features
 
 - Queries blockchain transfer data via GraphQL API
 - Processes transaction timestamps to generate monthly statistics
 - Identifies trends and patterns in transaction volume
-- Determines music style and BPM based on transaction volume using quintile distribution
+- Determines music style and BPM based on transaction volume using quintile
+  distribution
 - Classifies transactions into 5 distinct music genres based on volume
 - Generates both Markdown and JSON output formats
 - Creates beautiful PDF reports using Typst
@@ -90,24 +92,25 @@ This analysis module fits into the MusicGen pipeline as follows:
 
 ## 🎵 Transaction-to-Music Mapping
 
-The module maps transaction volumes to music styles using a quintile-based approach
-that divides the transaction data into five equal groups. This ensures a balanced
-distribution of styles across the entire dataset and creates a more intuitive mapping
-between blockchain activity and musical representation.
+The module maps transaction volumes to music styles using a quintile-based
+approach that divides the transaction data into five equal groups. This ensures
+a balanced distribution of styles across the entire dataset and creates a more
+intuitive mapping between blockchain activity and musical representation.
 
 ### Quintile-Based Music Genre Classification
 
-| Quintile | Transaction Count Range | Music Style     | BPM Range  | Musical Characteristics                                  |
-| -------- | ----------------------- | -------------- | ---------- | ------------------------------------------------------- |
-| 1st (Highest) | > 50,000          | Speedcore      | 300-400    | Ultra-fast and chaotic electronic music                  |
-| 2nd      | 35,000 - 50,000        | Rock           | 100-140    | Generally faster than Pop, especially in Punk and Metal  |
-| 3rd      | 12,000 - 35,000        | Hip-Hop        | 80-120     | Can be slow and groovy or mid-tempo, rarely very fast    |
-| 4th      | 5,000 - 12,000         | Reggae         | 60-90      | Relaxed groove with emphasis on offbeat rhythms          |
-| 5th (Lowest) | < 5,000            | Drone Ambient  | 20-40      | Extremely slow, focusing on atmosphere over rhythm        |
+| Quintile      | Transaction Count Range | Music Style   | BPM Range | Musical Characteristics                                 |
+| ------------- | ----------------------- | ------------- | --------- | ------------------------------------------------------- |
+| 1st (Highest) | > 50,000                | Speedcore     | 300-400   | Ultra-fast and chaotic electronic music                 |
+| 2nd           | 35,000 - 50,000         | Rock          | 100-140   | Generally faster than Pop, especially in Punk and Metal |
+| 3rd           | 12,000 - 35,000         | Hip-Hop       | 80-120    | Can be slow and groovy or mid-tempo, rarely very fast   |
+| 4th           | 5,000 - 12,000          | Reggae        | 60-90     | Relaxed groove with emphasis on offbeat rhythms         |
+| 5th (Lowest)  | < 5,000                 | Drone Ambient | 20-40     | Extremely slow, focusing on atmosphere over rhythm      |
 
 ### BPM Mapping Logic
 
-Transaction counts are mapped to specific BPM values based on their position within quintiles:
+Transaction counts are mapped to specific BPM values based on their position
+within quintiles:
 
 1. **Extreme outliers** (> 300,000 transactions): 350 BPM (Speedcore)
 2. **First quintile** (> 50,000 transactions): 330 BPM (Speedcore)
@@ -117,8 +120,9 @@ Transaction counts are mapped to specific BPM values based on their position wit
 6. **Fifth quintile** (> 1,000 transactions): 50 BPM (Ambient)
 7. **Lowest values** (≤ 1,000 transactions): 30 BPM (Drone Ambient)
 
-This quintile-based classification ensures that each music style represents approximately 
-20% of the dataset, creating a balanced musical representation of blockchain activity patterns.
+This quintile-based classification ensures that each music style represents
+approximately 20% of the dataset, creating a balanced musical representation of
+blockchain activity patterns.
 
 ## 📝 Example Output
 
@@ -132,47 +136,38 @@ Total transactions analyzed: **7,613,737**
 ## Monthly Breakdown by Music Genre
 
 ### Speedcore (300+ BPM) - Ultra-fast and chaotic electronic music
-November 2024: 4,347,886
-September 2021: 207,735
-November 2021: 177,266
-May 2021: 164,074
-June 2021: 161,762
+
+November 2024: 4,347,886 September 2021: 207,735 November 2021: 177,266 May
+2021: 164,074 June 2021: 161,762
 
 ### Rock (100-140 BPM) - Generally faster than Pop, especially in Punk and Metal variations
-March 2022: 64,376
-January 2022: 63,683
-December 2022: 60,880
-July 2021: 60,710
+
+March 2022: 64,376 January 2022: 63,683 December 2022: 60,880 July 2021: 60,710
 November 2022: 54,954
 
 ### Hip-Hop (80-120 BPM) - Can be slow and groovy or mid-tempo, but rarely very fast
-April 2022: 48,740
-February 2022: 48,429
-November 2023: 47,402
-April 2021: 45,419
-April 2023: 45,039
+
+April 2022: 48,740 February 2022: 48,429 November 2023: 47,402 April 2021:
+45,419 April 2023: 45,039
 
 ### Reggae (60-90 BPM) - Relaxed groove with emphasis on offbeat rhythms
-October 2023: 36,222
-August 2023: 35,899
-October 2024: 35,258
-August 2024: 33,678
-July 2024: 32,665
+
+October 2023: 36,222 August 2023: 35,899 October 2024: 35,258 August 2024:
+33,678 July 2024: 32,665
 
 ### Drone Ambient (20-40 BPM) - Extremely slow, focusing on atmosphere over rhythm
-November 2020: 14,772
-May 2020: 12,777
-August 2020: 12,717
-October 2020: 12,452
+
+November 2020: 14,772 May 2020: 12,777 August 2020: 12,717 October 2020: 12,452
 July 2020: 9,826
 
 ## Key Findings
 
 - Highest transaction volume: **November 2024** with **4,347,886** transactions
   (Speedcore style, 350 BPM)
-- Lowest transaction volume: **March 2025** with **223** transactions
-  (Drone Ambient style, 30 BPM)
-- Transaction volumes show clear patterns with each quintile representing a distinct music genre
+- Lowest transaction volume: **March 2025** with **223** transactions (Drone
+  Ambient style, 30 BPM)
+- Transaction volumes show clear patterns with each quintile representing a
+  distinct music genre
 
 This analysis provides insights into the distribution of blockchain transactions
 over time using a quintile-based approach to assign appropriate music styles.

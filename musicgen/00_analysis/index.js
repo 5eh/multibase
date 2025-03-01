@@ -32,7 +32,8 @@ const MUSIC_STYLES = [
   },
   {
     name: "Rock",
-    description: "Generally faster than Pop, especially in Punk and Metal variations",
+    description:
+      "Generally faster than Pop, especially in Punk and Metal variations",
     minBpm: 100,
     maxBpm: 140,
   },
@@ -120,7 +121,7 @@ async function runAnalysis() {
       for (let i = 0; i < 15000; i++) {
         const timestamp = new Date(
           startDate.getTime() +
-          Math.random() * (endDate.getTime() - startDate.getTime()),
+            Math.random() * (endDate.getTime() - startDate.getTime()),
         );
         mockData.data.transfers.push({
           timestamp: timestamp.toISOString(),
@@ -134,7 +135,7 @@ async function runAnalysis() {
       for (let i = 0; i < 5000; i++) {
         const timestamp = new Date(
           jan2021.getTime() +
-          Math.random() * (jan2021End.getTime() - jan2021.getTime()),
+            Math.random() * (jan2021End.getTime() - jan2021.getTime()),
         );
         mockData.data.transfers.push({
           timestamp: timestamp.toISOString(),
@@ -148,7 +149,7 @@ async function runAnalysis() {
       for (let i = 0; i < 8000; i++) {
         const timestamp = new Date(
           nov2024.getTime() +
-          Math.random() * (nov2024End.getTime() - nov2024.getTime()),
+            Math.random() * (nov2024End.getTime() - nov2024.getTime()),
         );
         mockData.data.transfers.push({
           timestamp: timestamp.toISOString(),
@@ -326,19 +327,22 @@ Total transactions analyzed: **${totalTransactions}**
 ${tableRows}
 
 ## Key Findings
-- Highest transaction volume: **${highestMonth[0]}** with **${highestMonth[1]
-      }** transactions
-- Lowest transaction volume: **${lowestMonth[0]}** with **${lowestMonth[1]
-      }** transactions
+- Highest transaction volume: **${highestMonth[0]}** with **${
+      highestMonth[1]
+    }** transactions
+- Lowest transaction volume: **${lowestMonth[0]}** with **${
+      lowestMonth[1]
+    }** transactions
 - Music styles range from Ambient (low transaction volume) to Speedcore (high volume)
 
 This analysis provides insights into the distribution of Kusama blockchain transactions over time.
 
 *Generated on: ${new Date().toLocaleString()}*
-${usedRealData
+${
+      usedRealData
         ? "*Using real blockchain data from GraphQL endpoint*"
         : "*Using synthetic demo data (no GraphQL endpoint available)*"
-      }
+    }
 `;
 
     // Create JSON data
@@ -391,10 +395,12 @@ ${usedRealData
 
     // Generate Typst content
     let typstContent = `#let totalTransactions = ${totalTransactions}\n`;
-    typstContent += `#let highestMonth = (\n  period: "${highestMonth[0]
-      }",\n  count: ${highestMonth[1]}\n)\n\n`;
-    typstContent += `#let lowestMonth = (\n  period: "${lowestMonth[0]
-      }",\n  count: ${lowestMonth[1]}\n)\n\n`;
+    typstContent += `#let highestMonth = (\n  period: "${
+      highestMonth[0]
+    }",\n  count: ${highestMonth[1]}\n)\n\n`;
+    typstContent += `#let lowestMonth = (\n  period: "${
+      lowestMonth[0]
+    }",\n  count: ${lowestMonth[1]}\n)\n\n`;
     typstContent += `#let usedRealData = ${usedRealData}\n\n`;
 
     // Save analysis.json to the typst directory for use by report.typ

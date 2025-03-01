@@ -38,15 +38,16 @@ const openai = new OpenAI({
 });
 
 // Prepare prompt for song lyrics generation
-const prompt = `Create meaningful but concise song lyrics based on the following content:
+const prompt =
+  `Create meaningful but concise song lyrics based on the following content:
 
 ${context}
 
 ${
-  month && year
-    ? `These lyrics should specifically reference ${month} ${year} as the time period.`
-    : ""
-}
+    month && year
+      ? `These lyrics should specifically reference ${month} ${year} as the time period.`
+      : ""
+  }
 
 IMPORTANT: The lyrics MUST be under 2500 characters total length including formatting.
 
@@ -55,10 +56,10 @@ The lyrics should:
 - Include a chorus and 2 verses (no more than 2 verses)
 - Be creative, original, and emotionally resonant
 - ${
-  month && year
-    ? `Explicitly mention "${month} ${year}" at least once in the lyrics`
-    : ""
-}
+    month && year
+      ? `Explicitly mention "${month} ${year}" at least once in the lyrics`
+      : ""
+  }
 - Include blockchain terminology and Kusama-specific references
 - Use concise wording and shorter lines to stay within the 2500 character limit
 - Be suitable for a musical composition`;
