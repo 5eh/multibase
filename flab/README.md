@@ -1,10 +1,10 @@
-# <� BlockBeats Frontend Lab (FLAB)
+# 🎧 BlockBeats Frontend Lab (FLAB)
 
 A lightweight, experimental frontend for visualizing and exploring the
 BlockBeats music generation platform. FLAB provides an interactive timeline
 interface to browse and play blockchain-generated music.
 
-## ( Features
+## ✨ Features
 
 - Interactive timeline of blockchain-generated music tracks
 - Stunning 3D visualizations using Three.js and WebGL shaders
@@ -14,7 +14,7 @@ interface to browse and play blockchain-generated music.
 - Simplified deployment via Netlify
 - Zero-configuration local development
 
-## =' Tech Stack
+## 🛠️ Tech Stack
 
 - Vanilla JavaScript (ES Modules)
 - Three.js for 3D visualizations
@@ -23,7 +23,7 @@ interface to browse and play blockchain-generated music.
 - CSS animations
 - Deno for local development server
 
-## =� Quick Start
+## 🚀 Quick Start
 
 For local development:
 
@@ -34,22 +34,20 @@ deno run -A jsr:@std/http/file-server .
 
 Then visit `http://localhost:4507` in your browser.
 
-## =� Deployment
+## 📦 Deployment
 
 FLAB is configured for continuous deployment through Netlify. Simply push
 changes to the repository, and Netlify will automatically build and deploy the
 latest version.
 
-## =
-
-Project Structure
+## 🔍 Project Structure
 
 - `index.html` - Main entry point with HTML structure
 - `scripts.js` - JavaScript logic for timeline and visualization
 - `Beats.mp3` - Sample audio for testing functionality
 - `output/` - Directory for generated output files
 
-## = Integration with BlockBeats
+## 📋 Integration with BlockBeats
 
 FLAB serves as the user-facing component of the BlockBeats ecosystem, providing
 a simple but effective way to experience the blockchain-generated music. It
@@ -62,7 +60,7 @@ consumes the outputs from:
 5. **Music Creator** - AI-composed music tracks
 6. **Thumbnail Generator** - Album cover art
 
-## =� Future Enhancements
+## 🚀 Future Enhancements
 
 - Add mobile-responsive design
 - Implement playlist functionality
@@ -70,6 +68,6 @@ consumes the outputs from:
 - Add social sharing capabilities
 - Implement user accounts and favorites
 
-## =� License
+## 📄 License
 
 This project is licensed under the terms specified in the LICENSE file.
