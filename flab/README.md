@@ -1,6 +1,8 @@
-# <µ BlockBeats Frontend Lab (FLAB)
+# <ï¿½ BlockBeats Frontend Lab (FLAB)
 
-A lightweight, experimental frontend for visualizing and exploring the BlockBeats music generation platform. FLAB provides an interactive timeline interface to browse and play blockchain-generated music.
+A lightweight, experimental frontend for visualizing and exploring the
+BlockBeats music generation platform. FLAB provides an interactive timeline
+interface to browse and play blockchain-generated music.
 
 ## ( Features
 
@@ -21,7 +23,7 @@ A lightweight, experimental frontend for visualizing and exploring the BlockBeat
 - CSS animations
 - Deno for local development server
 
-## =€ Quick Start
+## =ï¿½ Quick Start
 
 For local development:
 
@@ -32,11 +34,15 @@ deno run -A jsr:@std/http/file-server .
 
 Then visit `http://localhost:4507` in your browser.
 
-## =æ Deployment
+## =ï¿½ Deployment
 
-FLAB is configured for continuous deployment through Netlify. Simply push changes to the repository, and Netlify will automatically build and deploy the latest version.
+FLAB is configured for continuous deployment through Netlify. Simply push
+changes to the repository, and Netlify will automatically build and deploy the
+latest version.
 
-## = Project Structure
+## =
+
+Project Structure
 
 - `index.html` - Main entry point with HTML structure
 - `scripts.js` - JavaScript logic for timeline and visualization
@@ -45,7 +51,9 @@ FLAB is configured for continuous deployment through Netlify. Simply push change
 
 ## = Integration with BlockBeats
 
-FLAB serves as the user-facing component of the BlockBeats ecosystem, providing a simple but effective way to experience the blockchain-generated music. It consumes the outputs from:
+FLAB serves as the user-facing component of the BlockBeats ecosystem, providing
+a simple but effective way to experience the blockchain-generated music. It
+consumes the outputs from:
 
 1. **Indexer** - Blockchain transaction data
 2. **Transaction Analysis** - Music style determination
@@ -54,7 +62,7 @@ FLAB serves as the user-facing component of the BlockBeats ecosystem, providing 
 5. **Music Creator** - AI-composed music tracks
 6. **Thumbnail Generator** - Album cover art
 
-## =Ý Future Enhancements
+## =ï¿½ Future Enhancements
 
 - Add mobile-responsive design
 - Implement playlist functionality
@@ -62,6 +70,6 @@ FLAB serves as the user-facing component of the BlockBeats ecosystem, providing 
 - Add social sharing capabilities
 - Implement user accounts and favorites
 
-## =Ä License
+## =ï¿½ License
 
 This project is licensed under the terms specified in the LICENSE file.
