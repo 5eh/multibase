@@ -498,6 +498,21 @@ async function processMonth(selectedMonth, analysisData, args, logs = []) {
     await Deno.mkdir(thumbnailInputDir, { recursive: true });
 
     try {
+      // Clear the thumbnail input directory to ensure we only have the current month's files
+      console.log(colors.dim("• Clearing thumbnail input directory..."));
+      for await (const entry of Deno.readDir(thumbnailInputDir)) {
+        try {
+          await Deno.remove(join(thumbnailInputDir, entry.name));
+        } catch (removeError) {
+          console.log(
+            colors.yellow(
+              `• Warning: Could not remove file ${entry.name}: ${removeError.message}`,
+            ),
+          );
+        }
+      }
+      console.log(colors.dim("• Thumbnail input directory cleared"));
+
       // Copy the current lyrics file to thumbnail input directory
       const lyricsFilename =
         `kusama_${selectedMonth.month.toLowerCase()}_${selectedMonth.year}_lyrics.md`;
@@ -508,7 +523,9 @@ async function processMonth(selectedMonth, analysisData, args, logs = []) {
       if (await exists(lyricsSourcePath)) {
         await Deno.copyFile(lyricsSourcePath, lyricsTargetPath);
         console.log(
-          colors.dim(`• Copied lyrics file to thumbnail input directory`),
+          colors.dim(
+            `• Copied lyrics file to thumbnail input directory: ${lyricsFilename}`,
+          ),
         );
       } else {
         console.log(
