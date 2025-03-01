@@ -1,43 +1,39 @@
 **Verse 1:**  
-In the heart of March '25,  
-Kusama's star began to rise,  
-Governance shifted, a bold new way,  
-HyperScale's power led the dance,  
-Transactions flew, a tenfold chance,  
-Dr. Wood's vision lights the day.  
+March 2025, in a canary's flight,  
+Through the blockchain skies, we see the light,  
+KIP-2025-03 stands tall,  
+Privacy and governance, answering the call.  
+
+Velocity races with a heartbeat's pace,  
+Fifteen thousand strong, in digital space,  
+A thriving network, weaving dreams,  
+In a chain of blocks, endless streams.  
 
 **Chorus:**  
-Building bridges, blockchain dreams,  
-Kusama's fire in the seams,  
-Innovate, elevate, future untold,  
-In a digital world, new stories unfold.  
+Oh Kusama, breaking chains and setting free,  
+In the heart of March 2025's melody,  
+Building bridges, where tech dreams glide,  
+Future-bound, our worlds collide.  
 
 **Verse 2:**  
-Parachains bid for a place to grow,  
-DecentAI leads, with bright eyes aglow,  
-KSM rides the market's sea,  
-Amidst the highs, amidst the lows,  
-ZeroTrace whispers secrets unknown,  
-Kusama weaves its destiny.  
+Quantum leaps in auctions' embrace,  
+With KSM tokens, taking the race,  
+Newcomers rise, NeoFinance, MetaKusama's realm,  
+In an ocean of codes, they take the helm.  
+
+Karura flows, with seamless ties,  
+Shiden’s rapid roads, under open skies,  
+Khala whispers secrets untold,  
+In confidential coding, futures unfold.  
 
 **Chorus:**  
-Building bridges, blockchain dreams,  
-Kusama's fire in the seams,  
-Innovate, elevate, future untold,  
-In a digital world, new stories unfold.  
-
-**Bridge:**  
-Cross-chain paths, Kusama's call,  
-A stablecoin dream to end it all,  
-Decentralized future, roadmaps to see,  
-Crafting a world where we're all free.  
-
-**Chorus:**  
-Building bridges, blockchain dreams,  
-Kusama's fire in the seams,  
-Innovate, elevate, future untold,  
-In a digital world, new stories unfold.  
+Oh Kusama, breaking chains and setting free,  
+In the heart of March 2025's melody,  
+Building bridges, where tech dreams glide,  
+Future-bound, our worlds collide.  
 
 **Outro:**  
-In the heart of March '25,  
-Kusama's journey comes alive.  
+Resilient KSM, amidst the stormy seas,  
+Trade winds blow with courage and ease,  
+With innovation’s dawn on every shore,  
+Kusama sails, forevermore.  
