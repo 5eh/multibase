@@ -168,7 +168,9 @@ export default function ArticlePage() {
           } catch (contentError) {
             console.error("Error fetching markdown content:", contentError);
             setError(
-              `Failed to load article content: ${(contentError as Error).message}`,
+              `Failed to load article content: ${
+                (contentError as Error).message
+              }`,
             );
           }
         } else {
@@ -232,51 +234,53 @@ export default function ArticlePage() {
       </h1>
 
       <div className="mb-6 text-center">
-        {pdfUrl ? (
-          <a
-            href={pdfUrl}
-            download
-            className="inline-block bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-colors hover:bg-blue-600 mr-4 flex items-center justify-center mx-auto w-48"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+        {pdfUrl
+          ? (
+            <a
+              href={pdfUrl}
+              download
+              className="inline-block bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-colors hover:bg-blue-600 mr-4 flex items-center justify-center mx-auto w-48"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              />
-            </svg>
-            Download PDF Version
-          </a>
-        ) : (
-          <button
-            className="inline-block bg-gray-600 text-gray-300 font-medium py-2 px-6 rounded-lg cursor-not-allowed opacity-70 flex items-center justify-center mx-auto w-48"
-            disabled
-            title="No PDF version available"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+              Download PDF Version
+            </a>
+          )
+          : (
+            <button
+              className="inline-block bg-gray-600 text-gray-300 font-medium py-2 px-6 rounded-lg cursor-not-allowed opacity-70 flex items-center justify-center mx-auto w-48"
+              disabled
+              title="No PDF version available"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
-              />
-            </svg>
-            No PDF Available
-          </button>
-        )}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+                />
+              </svg>
+              No PDF Available
+            </button>
+          )}
       </div>
 
       <div className="prose prose-invert max-w-none">

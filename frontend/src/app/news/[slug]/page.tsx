@@ -139,7 +139,9 @@ export default function NewsPage() {
           } catch (contentError) {
             console.error("Error fetching markdown content:", contentError);
             setError(
-              `Failed to load article content: ${(contentError as Error).message}`,
+              `Failed to load article content: ${
+                (contentError as Error).message
+              }`,
             );
           }
         } else {

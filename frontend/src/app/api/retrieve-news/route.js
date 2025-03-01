@@ -33,7 +33,7 @@ export async function GET(request) {
 
     // Filter to only include markdown files
     const markdownFiles = files.filter((file) =>
-      file.toLowerCase().endsWith(".md"),
+      file.toLowerCase().endsWith(".md")
     );
     console.log("Markdown files found:", markdownFiles);
 
@@ -49,8 +49,8 @@ export async function GET(request) {
       // Then try partial match
       const partialMatch = !exactMatch
         ? markdownFiles.find((file) =>
-            file.toLowerCase().includes(slug.toLowerCase()),
-          )
+          file.toLowerCase().includes(slug.toLowerCase())
+        )
         : null;
 
       const matchedFile = exactMatch || partialMatch;

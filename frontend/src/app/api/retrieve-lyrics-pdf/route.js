@@ -25,7 +25,7 @@ export async function GET(request) {
 
       // Filter PDF files
       const pdfFiles = files.filter((file) =>
-        file.toLowerCase().endsWith(".pdf"),
+        file.toLowerCase().endsWith(".pdf")
       );
 
       // For this specific naming pattern: kusama_november_2019_music.pdf

@@ -133,7 +133,9 @@ const TransfersPage = () => {
 
   const truncateAddress = (address: { id: string }) => {
     if (!address || !address.id) return "";
-    return `${address.id.substring(0, 8)}...${address.id.substring(address.id.length - 8)}`;
+    return `${address.id.substring(0, 8)}...${
+      address.id.substring(address.id.length - 8)
+    }`;
   };
 
   const calculateTransferStatistics = (transfers: Transfer[]) => {
@@ -163,10 +165,9 @@ const TransfersPage = () => {
     });
     const frequencies = Object.values(recipientFrequency);
     frequencies.sort((a, b) => b - a);
-    const frequencyMetric =
-      frequencies.length > 0
-        ? frequencies[Math.floor(frequencies.length / 2)]
-        : 0;
+    const frequencyMetric = frequencies.length > 0
+      ? frequencies[Math.floor(frequencies.length / 2)]
+      : 0;
     const amountFrequency: { [key: string]: number } = {};
     let totalDOT = 0;
 
@@ -175,8 +176,8 @@ const TransfersPage = () => {
       totalDOT += amountInDOT;
 
       const roundedAmount = amountInDOT.toFixed(2);
-      amountFrequency[roundedAmount] =
-        (amountFrequency[roundedAmount] || 0) + 1;
+      amountFrequency[roundedAmount] = (amountFrequency[roundedAmount] || 0) +
+        1;
     });
 
     const amountEntries = Object.entries(amountFrequency);
@@ -222,8 +223,8 @@ const TransfersPage = () => {
       const maxAmount = topAmounts[0].amount;
 
       topAmounts.forEach((item, index) => {
-        const timestamp =
-          (index + 1) * (songDuration / (topAmounts.length + 1));
+        const timestamp = (index + 1) *
+          (songDuration / (topAmounts.length + 1));
 
         const relativeValue = item.amount / maxAmount;
         const countWeight = Math.min(1, item.count / 10);
@@ -265,9 +266,12 @@ const TransfersPage = () => {
     try {
       const firstTransfer = transfers[0];
       const transferDate = new Date(firstTransfer.timestamp);
-      const formattedDate = `${transferDate.getDate()} ${transferDate.toLocaleString("default", { month: "long" })} ${transferDate.getFullYear()}`;
+      const formattedDate = `${transferDate.getDate()} ${
+        transferDate.toLocaleString("default", { month: "long" })
+      } ${transferDate.getFullYear()}`;
 
-      const query = `Create 4 very short verses about Polkadot blockchain events from ${formattedDate}. Each verse must be extremely concise. Total response must be under 200 characters.
+      const query =
+        `Create 4 very short verses about Polkadot blockchain events from ${formattedDate}. Each verse must be extremely concise. Total response must be under 200 characters.
 
       Format exactly as:
 
@@ -277,7 +281,15 @@ const TransfersPage = () => {
       V4: [5-word verse]
 
       META:
-      GENRE: ${musicParams.bpm >= 160 ? "EDM" : musicParams.bpm >= 120 ? "HIP-HOP" : musicParams.bpm >= 90 ? "POP" : "CHILL"}
+      GENRE: ${
+          musicParams.bpm >= 160
+            ? "EDM"
+            : musicParams.bpm >= 120
+            ? "HIP-HOP"
+            : musicParams.bpm >= 90
+            ? "POP"
+            : "CHILL"
+        }
       BPM: ${musicParams.bpm}
       SCALE: ${musicParams.scale.toUpperCase()}`;
 
@@ -452,7 +464,8 @@ const TransfersPage = () => {
                       <div
                         className="bg-blue-600 h-4 rounded-full"
                         style={{ width: `${musicParams.drumIntensity * 100}%` }}
-                      ></div>
+                      >
+                      </div>
                     </div>
                     <p className="text-xs text-gray-500 mt-1">
                       Based on total DOT transferred
@@ -496,10 +509,13 @@ const TransfersPage = () => {
                           className="absolute bottom-0 w-3 rounded-t-md bg-yellow-500"
                           style={{
                             height: `${moment.intensity * 100}%`,
-                            left: `calc(${(moment.timestamp / 60) * 100}% - 6px)`,
+                            left: `calc(${
+                              (moment.timestamp / 60) * 100
+                            }% - 6px)`,
                           }}
                           title={`${moment.timestamp}s: ${moment.amount} DOT (${moment.count}x)`}
-                        ></div>
+                        >
+                        </div>
                       ))}
                     </div>
                     <p className="text-xs text-gray-500 mt-1">

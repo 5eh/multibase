@@ -130,8 +130,8 @@ const Visual: React.FC<VisualProps> = ({ analyser }) => {
 
         // Focus on bass frequencies (first few bins)
         const bassFrequencies = dataArray.slice(0, 4);
-        const bassIntensity =
-          bassFrequencies.reduce((a, b) => a + b, 0) / (4 * 255);
+        const bassIntensity = bassFrequencies.reduce((a, b) => a + b, 0) /
+          (4 * 255);
 
         const positions = particlesRef.current.geometry.attributes.position
           .array as Float32Array;
@@ -253,7 +253,8 @@ const Visual: React.FC<VisualProps> = ({ analyser }) => {
     <div
       ref={containerRef}
       className="fixed top-0 left-0 w-full h-full z-[-1]"
-    ></div>
+    >
+    </div>
   );
 };
 
