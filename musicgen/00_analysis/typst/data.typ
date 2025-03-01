@@ -1,12 +1,12 @@
-#let totalTransactions = 7613505
+#let totalTransactions = 7614141
 #let highestMonth = (
   period: "November 2024",
   count: 4347886
 )
 
 #let lowestMonth = (
-  period: "November 2019",
-  count: 918
+  period: "March 2025",
+  count: 627
 )
 
 #let usedRealData = true
@@ -16,8 +16,8 @@
     month: "November",
     year: 2019,
     count: 918,
-    musicStyle: "Ambient",
-    bpm: 60
+    musicStyle: "Drone Ambient",
+    bpm: 30
   ),
   (
     month: "December",
@@ -88,8 +88,8 @@
     month: "January",
     year: 2021,
     count: 27734,
-    musicStyle: "House",
-    bpm: 125
+    musicStyle: "Hip-Hop",
+    bpm: 100
   ),
   (
     month: "February",
@@ -321,7 +321,7 @@
     year: 2024,
     count: 4347886,
     musicStyle: "Speedcore",
-    bpm: 220
+    bpm: 350
   ),
   (
     month: "December",
@@ -336,7 +336,12 @@
   (
     month: "February",
     year: 2025,
-    count: 28851
+    count: 28860
+  ),
+  (
+    month: "March",
+    year: 2025,
+    count: 627
   ),
 )
 
@@ -347,5 +352,5 @@
   (year: 2022, count: 789417),
   (year: 2023, count: 521318),
   (year: 2024, count: 4836770),
-  (year: 2025, count: 66903),
+  (year: 2025, count: 67539),
 )

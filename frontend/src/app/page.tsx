@@ -227,11 +227,10 @@ const Page = () => {
             <button
               onClick={togglePlayPause}
               disabled={!isAudioReady}
-              className={`${
-                isAudioReady
+              className={`${isAudioReady
                   ? "bg-white/20 text-white hover:bg-white/30"
                   : "bg-gray-600/20 text-gray-400"
-              } p-4 rounded-full backdrop-blur-md transition-colors`}
+                } p-4 rounded-full backdrop-blur-md transition-colors`}
             >
               {isPlaying ? (
                 <svg
@@ -301,7 +300,7 @@ const Page = () => {
               <span className="text-sm text-gray-300">
                 {musicFiles.length > 0
                   ? parseFilename(musicFiles[musicFiles.length - 1].filename)
-                      .date
+                    .date
                   : ""}
               </span>
             </div>
@@ -338,11 +337,10 @@ const Page = () => {
                 {musicFiles.map((file, index) => (
                   <li
                     key={index}
-                    className={`p-3 cursor-pointer border-b border-gray-700 hover:bg-gray-800 transition-colors ${
-                      currentIndex === index
+                    className={`p-3 cursor-pointer border-b border-gray-700 hover:bg-gray-800 transition-colors ${currentIndex === index
                         ? "bg-gray-800 border-l-4 border-l-white pl-2"
                         : ""
-                    }`}
+                      }`}
                     onClick={() => handleSongSelect(index)}
                   >
                     {parseFilename(file.filename).title} -{" "}

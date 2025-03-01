@@ -7,90 +7,40 @@ import { compileTypst, setupPaths } from "../common/output.js";
 // Music style mapping based on transaction volume
 const MUSIC_STYLES = [
   {
+    name: "Drone Ambient",
+    description: "Extremely slow, focusing on atmosphere over rhythm",
+    minBpm: 20,
+    maxBpm: 40,
+  },
+  {
     name: "Ambient",
     description: "Slow, atmospheric ambient music",
+    minBpm: 40,
+    maxBpm: 60,
+  },
+  {
+    name: "Reggae",
+    description: "Relaxed groove with emphasis on offbeat rhythms",
     minBpm: 60,
-    maxBpm: 80,
-  },
-  {
-    name: "Chillout",
-    description: "Relaxed electronic music",
-    minBpm: 80,
-    maxBpm: 100,
-  },
-  {
-    name: "Downtempo",
-    description: "Mellow electronic beats",
-    minBpm: 90,
-    maxBpm: 110,
-  },
-  {
-    name: "Trip Hop",
-    description: "Moody, atmospheric beats",
-    minBpm: 90,
-    maxBpm: 110,
-  },
-  {
-    name: "Lo-Fi",
-    description: "Relaxed beats with vinyl crackle",
-    minBpm: 70,
     maxBpm: 90,
   },
   {
-    name: "Jazz",
-    description: "Smooth jazz with piano",
+    name: "Hip-Hop",
+    description: "Can be slow and groovy or mid-tempo, but rarely very fast",
     minBpm: 80,
     maxBpm: 120,
   },
-  { name: "Folk", description: "Acoustic folk music", minBpm: 90, maxBpm: 120 },
-  { name: "Pop", description: "Catchy pop music", minBpm: 100, maxBpm: 130 },
-  {
-    name: "Indie Rock",
-    description: "Alternative rock with indie vibes",
-    minBpm: 110,
-    maxBpm: 140,
-  },
   {
     name: "Rock",
-    description: "Energetic rock music",
-    minBpm: 120,
-    maxBpm: 150,
-  },
-  {
-    name: "Dance",
-    description: "Upbeat dance music",
-    minBpm: 120,
+    description: "Generally faster than Pop, especially in Punk and Metal variations",
+    minBpm: 100,
     maxBpm: 140,
-  },
-  {
-    name: "House",
-    description: "Electronic house music",
-    minBpm: 120,
-    maxBpm: 130,
-  },
-  {
-    name: "Techno",
-    description: "Driving electronic beats",
-    minBpm: 120,
-    maxBpm: 150,
-  },
-  {
-    name: "Drum and Bass",
-    description: "Fast-paced electronic music",
-    minBpm: 160,
-    maxBpm: 180,
-  },
-  {
-    name: "Hardstyle",
-    description: "Hard-hitting electronic music",
-    minBpm: 150,
-    maxBpm: 160,
   },
   {
     name: "Speedcore",
-    description: "Extremely fast electronic music",
-    minBpm: 180,
-    maxBpm: 300,
+    description: "Ultra-fast and chaotic electronic music",
+    minBpm: 300,
+    maxBpm: 400,
   },
 ];
 
@@ -164,13 +114,13 @@ async function runAnalysis() {
 
       // Generate random transactions over a 5-year period
       const startDate = new Date(2019, 10, 1); // November 2019
-      const endDate = new Date(2024, 11, 31); // December 2024
+      const endDate = new Date(2025, 1, 28); // February 2025
 
       // Generate 15,000 random transactions
       for (let i = 0; i < 15000; i++) {
         const timestamp = new Date(
           startDate.getTime() +
-            Math.random() * (endDate.getTime() - startDate.getTime()),
+          Math.random() * (endDate.getTime() - startDate.getTime()),
         );
         mockData.data.transfers.push({
           timestamp: timestamp.toISOString(),
@@ -184,7 +134,7 @@ async function runAnalysis() {
       for (let i = 0; i < 5000; i++) {
         const timestamp = new Date(
           jan2021.getTime() +
-            Math.random() * (jan2021End.getTime() - jan2021.getTime()),
+          Math.random() * (jan2021End.getTime() - jan2021.getTime()),
         );
         mockData.data.transfers.push({
           timestamp: timestamp.toISOString(),
@@ -198,7 +148,7 @@ async function runAnalysis() {
       for (let i = 0; i < 8000; i++) {
         const timestamp = new Date(
           nov2024.getTime() +
-            Math.random() * (nov2024End.getTime() - nov2024.getTime()),
+          Math.random() * (nov2024End.getTime() - nov2024.getTime()),
         );
         mockData.data.transfers.push({
           timestamp: timestamp.toISOString(),
@@ -252,61 +202,40 @@ async function runAnalysis() {
     const minCount = lowestMonth[1];
 
     /**
-     * Maps transaction count to a BPM value using a logarithmic scale
-     * Based on analysis of actual transaction data distribution
+     * Maps transaction count to a music style based on our new classification system
+     * Uses quintiles (5 equal parts) of the transaction data
      */
     function mapTransactionCountToBpm(count) {
-      // Handle special case for extreme outliers
-      if (count > 310000) {
-        return 220; // Speedcore
+      // Extreme outlier - Speedcore
+      if (count > 300000) {
+        return 350; // Speedcore
       }
 
-      // Map count to BPM using thresholds
-      switch (true) {
-        case count <= 918:
-          return 60;
-        case count <= 1200: // Ambient
-          return 65;
-        case count <= 1600: // Ambient
-          return 70;
-        case count <= 2100: // Ambient
-          return 75;
-        case count <= 2700: // Ambient
-          return 80;
-        case count <= 3600: // Chillout
-          return 85;
-        case count <= 4700: // Chillout
-          return 90;
-        case count <= 6100: // Chillout
-          return 95;
-        case count <= 8000: // Chillout
-          return 100;
-        case count <= 10500: // Downtempo
-          return 105;
-        case count <= 13800: // Downtempo
-          return 110;
-        case count <= 18100: // Jazz
-          return 115;
-        case count <= 23700: // Jazz
-          return 120;
-        case count <= 31100: // Pop
-          return 125;
-        case count <= 40800: // Pop
-          return 130;
-        case count <= 53500: // Indie Rock
-          return 135;
-        case count <= 70200: // Indie Rock
-          return 140;
-        case count <= 92100: // Rock
-          return 145;
-        case count <= 120800: // Rock
-          return 150;
-        case count <= 158400: // Hardstyle
-          return 155;
-        case count <= 207800: // Hardstyle
-          return 160;
-        default:
-          return 160;
+      // First quintile (highest counts) - Speedcore
+      if (count > 50000) {
+        return 330; // Speedcore
+      }
+
+      // Second quintile - Rock
+      if (count > 35000) {
+        return 130; // Rock
+      }
+
+      // Third quintile - Hip-Hop
+      if (count > 12000) {
+        return 100; // Hip-Hop
+      }
+
+      // Fourth quintile - Reggae
+      if (count > 5000) {
+        return 75; // Reggae
+      }
+
+      // Fifth quintile (lowest counts) - Drone Ambient/Ambient
+      if (count > 1000) {
+        return 50; // Ambient
+      } else {
+        return 30; // Drone Ambient
       }
     }
 
@@ -397,22 +326,19 @@ Total transactions analyzed: **${totalTransactions}**
 ${tableRows}
 
 ## Key Findings
-- Highest transaction volume: **${highestMonth[0]}** with **${
-      highestMonth[1]
-    }** transactions
-- Lowest transaction volume: **${lowestMonth[0]}** with **${
-      lowestMonth[1]
-    }** transactions
+- Highest transaction volume: **${highestMonth[0]}** with **${highestMonth[1]
+      }** transactions
+- Lowest transaction volume: **${lowestMonth[0]}** with **${lowestMonth[1]
+      }** transactions
 - Music styles range from Ambient (low transaction volume) to Speedcore (high volume)
 
 This analysis provides insights into the distribution of Kusama blockchain transactions over time.
 
 *Generated on: ${new Date().toLocaleString()}*
-${
-      usedRealData
+${usedRealData
         ? "*Using real blockchain data from GraphQL endpoint*"
         : "*Using synthetic demo data (no GraphQL endpoint available)*"
-    }
+      }
 `;
 
     // Create JSON data
@@ -465,12 +391,10 @@ ${
 
     // Generate Typst content
     let typstContent = `#let totalTransactions = ${totalTransactions}\n`;
-    typstContent += `#let highestMonth = (\n  period: "${
-      highestMonth[0]
-    }",\n  count: ${highestMonth[1]}\n)\n\n`;
-    typstContent += `#let lowestMonth = (\n  period: "${
-      lowestMonth[0]
-    }",\n  count: ${lowestMonth[1]}\n)\n\n`;
+    typstContent += `#let highestMonth = (\n  period: "${highestMonth[0]
+      }",\n  count: ${highestMonth[1]}\n)\n\n`;
+    typstContent += `#let lowestMonth = (\n  period: "${lowestMonth[0]
+      }",\n  count: ${lowestMonth[1]}\n)\n\n`;
     typstContent += `#let usedRealData = ${usedRealData}\n\n`;
 
     // Save analysis.json to the typst directory for use by report.typ

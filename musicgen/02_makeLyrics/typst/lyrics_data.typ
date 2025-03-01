@@ -1,6 +1,6 @@
-#let title = "Kusama Rising"
+#let title = "'25 Kusama's"
 #let subtitle = ""
-#let date = "November 2019"
+#let date = "March 2025"
 #let artist = "Multibase Musical Project"
 
 #let verses = (
@@ -8,61 +8,73 @@
     type: "verse",
     number: 1,
     content: [
-            In November 2019, the chaos canary sings, #linebreak()
-            Kusama's daring leap, testing future winds. #linebreak()
-            A sandbox for the brave, where the boundaries fade, #linebreak()
-            With tricameral insights, new governance is made. #linebreak()
-            Referendums echo through chambers of change, #linebreak()
-            Balancing fast decisions, with checks in range. #linebreak()
-            Projects rise like sun, parachains ignite, #linebreak()
-            Acala, Robonomics, Moonbeam take flight.
+            In the heart of March '25, #linebreak()
+            Kusama's star began to rise, #linebreak()
+            Governance shifted, a bold new way, #linebreak()
+            HyperScale's power led the dance, #linebreak()
+            Transactions flew, a tenfold chance, #linebreak()
+            Dr. Wood's vision lights the day.
     ]
   ),
   (
     type: "chorus",
     content: [
-            Oh, Kusama's song, in blockchain's new dawn, #linebreak()
-            Where innovation and chaos dance on. #linebreak()
-            A thriving network, a beacon's light, #linebreak()
-            Forging the future, in November's bright night.
+            Building bridges, blockchain dreams, #linebreak()
+            Kusama's fire in the seams, #linebreak()
+            Innovate, elevate, future untold, #linebreak()
+            In a digital world, new stories unfold.
     ]
   ),
   (
     type: "verse",
     number: 2,
     content: [
-            Parachain auctions hum a tune of growth, #linebreak()
-            Crowdloans pulling dreams from whispered oaths. #linebreak()
-            KSM's swift rise, a crypto tidal wave, #linebreak()
-            From $1.50 to $3, the market's rave. #linebreak()
-            Nominated Proof sees its grip unfold, #linebreak()
-            Runtime that evolves, no forks take hold. #linebreak()
-            The community speaks, their voices loud, #linebreak()
-            In Kusama's heart, the future is vowed.
+            Parachains bid for a place to grow, #linebreak()
+            DecentAI leads, with bright eyes aglow, #linebreak()
+            KSM rides the market's sea, #linebreak()
+            Amidst the highs, amidst the lows, #linebreak()
+            ZeroTrace whispers secrets unknown, #linebreak()
+            Kusama weaves its destiny.
     ]
   ),
   (
     type: "chorus",
     content: [
-            Oh, Kusama's song, in blockchain's new dawn, #linebreak()
-            Where innovation and chaos dance on. #linebreak()
-            A thriving network, a beacon's light, #linebreak()
-            Forging the future, in November's bright night.
+            Building bridges, blockchain dreams, #linebreak()
+            Kusama's fire in the seams, #linebreak()
+            Innovate, elevate, future untold, #linebreak()
+            In a digital world, new stories unfold.
+    ]
+  ),
+  (
+    type: "bridge",
+    content: [
+            Cross-chain paths, Kusama's call, #linebreak()
+            A stablecoin dream to end it all, #linebreak()
+            Decentralized future, roadmaps to see, #linebreak()
+            Crafting a world where we're all free.
+    ]
+  ),
+  (
+    type: "chorus",
+    content: [
+            Building bridges, blockchain dreams, #linebreak()
+            Kusama's fire in the seams, #linebreak()
+            Innovate, elevate, future untold, #linebreak()
+            In a digital world, new stories unfold.
     ]
   ),
   (
     type: "outro",
     content: [
-            Dr. Gavin's dream, more than a net, #linebreak()
-            Crafting tomorrow, where chaos is met. #linebreak()
-            In the echo of November 2019's call, #linebreak()
-            Kusama's creation, a new era for all.
+            In the heart of March '25, #linebreak()
+            Kusama's journey comes alive.
     ]
   ),
 )
 
 #let footnotes = (
-  [Lyrics generated from blockchain news and inspired by Kusama's innovations during November 2019.],
+  [Lyrics generated from blockchain news and inspired by Kusama's innovations during March 2025.],
   [Kusama is Polkadot's canary network, designed to embrace chaos and innovation.],
   [KSM refers to Kusama's native token.],
   [Music and lyrics by the Multibase Musical Project, 2025.]
