@@ -50,8 +50,72 @@ function createTimeline() {
   }
 }
 
-// Select a month in the timeline
+// Preload resources for nearby months to improve performance when scrolling
+function preloadNearbyMonths(currentIndex) {
+  const timeline = document.getElementById('timeline');
+  const markers = timeline.querySelectorAll('.timeline-marker');
+  const maxPreload = 2; // How many months before/after to preload
+  
+  // Preload resources for months before and after the current one
+  for (let offset = -maxPreload; offset <= maxPreload; offset++) {
+    if (offset === 0) continue; // Skip current month (already loaded)
+    
+    const nearbyIndex = currentIndex + offset;
+    if (nearbyIndex >= 0 && nearbyIndex < markers.length) {
+      const nearbyMarker = markers[nearbyIndex];
+      const nearbyDateString = nearbyMarker.dataset.date;
+      const nearbyDate = new Date(nearbyDateString);
+      const nearbyMonth = nearbyDate.toLocaleDateString('en-US', { month: 'long' }).toLowerCase();
+      const nearbyYear = nearbyDate.getFullYear();
+      
+      // Construct paths for resources we want to preload
+      const basePath = `./output/kusama_${nearbyMonth}_${nearbyYear}`;
+      const coverUrl = `${basePath}_cover.png`;
+      const musicUrl = `${basePath}_music.mp3`;
+      
+      // Preload cover image in background
+      if (!imageCache.has(coverUrl)) {
+        preloadImage(coverUrl).catch(() => {}); // Catch but ignore errors
+      }
+      
+      // Preload audio file in background (only if not already cached)
+      if (!audioBufferCache.has(musicUrl)) {
+        // Load with low priority - don't block if this fails
+        const audioLoader = new THREE.AudioLoader();
+        audioLoader.load(
+          musicUrl,
+          function(buffer) {
+            audioBufferCache.set(musicUrl, buffer);
+          },
+          undefined, // progress
+          function() {} // Swallow errors silently
+        );
+      }
+    }
+  }
+}
+
+// Show loading indicator
+function showLoading() {
+  const loadingIndicator = document.getElementById('loading-indicator');
+  if (loadingIndicator) {
+    loadingIndicator.style.display = 'block';
+  }
+}
+
+// Hide loading indicator
+function hideLoading() {
+  const loadingIndicator = document.getElementById('loading-indicator');
+  if (loadingIndicator) {
+    loadingIndicator.style.display = 'none';
+  }
+}
+
+// Select a month in the timeline with loading indicator
 function selectMonth(monthIndex, marker) {
+  // Show loading indicator
+  showLoading();
+  
   if (timelineConfig.activePoint) {
     timelineConfig.activePoint.classList.remove('active');
   }
@@ -68,8 +132,36 @@ function selectMonth(monthIndex, marker) {
   // Update download links
   updateDownloadLinks(dateString);
   
-  // Play the appropriate audio
-  playAudio();
+  // Use Promise to track when audio is ready
+  const audioPromise = new Promise(resolve => {
+    // Create a one-time event listener to detect when audio starts playing
+    if (sound) {
+      const originalPlay = sound.play;
+      sound.play = function() {
+        originalPlay.apply(this, arguments);
+        sound.play = originalPlay; // Restore original function
+        resolve();
+      };
+    } else {
+      // If sound not available, resolve immediately
+      resolve();
+    }
+    
+    // Call playAudio which will trigger our modified play function
+    playAudio();
+    
+    // Fallback in case audio fails to play
+    setTimeout(resolve, 1000);
+  });
+  
+  // When all resources are loaded, hide loading indicator
+  audioPromise.then(() => {
+    // Hide loading indicator after a short delay to ensure UI update
+    setTimeout(hideLoading, 200);
+    
+    // Preload resources for nearby months - do this after the current month is loaded
+    setTimeout(() => preloadNearbyMonths(monthIndex), 500);
+  });
 }
 
 // Update the month display at the top
@@ -85,6 +177,9 @@ function updateMonthDisplay(dateString) {
   
   monthDisplay.textContent = formattedDate;
 }
+
+// Cache for audio buffers to avoid repeated fetches
+const audioBufferCache = new Map();
 
 // Play audio based on current month
 function playAudio() {
@@ -105,12 +200,21 @@ function playAudio() {
     return;
   }
   
-  // Check if the month-specific file exists by trying to load it
+  // Check if we already have this audio in cache
+  if (audioBufferCache.has(musicFilePath)) {
+    playFromCache(musicFilePath);
+    return;
+  }
+  
+  // Not in cache, load it
   const audioLoader = new THREE.AudioLoader();
   
   audioLoader.load(
     musicFilePath,
     function(buffer) {
+      // Cache the buffer for future use
+      audioBufferCache.set(musicFilePath, buffer);
+      
       // Success - stop any current sound and play the new one
       if (sound.isPlaying) {
         sound.stop();
@@ -128,17 +232,25 @@ function playAudio() {
       
       // Only reload Beats.mp3 if it's not already the active buffer
       if (!currentMusicIsDefault) {
-        audioLoader.load(
-          './Beats.mp3',
-          function(buffer) {
-            if (sound.isPlaying) {
-              sound.stop();
+        // Check if default is in cache
+        if (audioBufferCache.has('./Beats.mp3')) {
+          playFromCache('./Beats.mp3');
+        } else {
+          audioLoader.load(
+            './Beats.mp3',
+            function(buffer) {
+              // Cache the default buffer
+              audioBufferCache.set('./Beats.mp3', buffer);
+              
+              if (sound.isPlaying) {
+                sound.stop();
+              }
+              sound.setBuffer(buffer);
+              sound.play();
+              currentMusicIsDefault = true;
             }
-            sound.setBuffer(buffer);
-            sound.play();
-            currentMusicIsDefault = true;
-          }
-        );
+          );
+        }
       } else if (sound && sound.buffer) {
         // We already have Beats.mp3 loaded, just play it
         if (sound.isPlaying) {
@@ -150,7 +262,43 @@ function playAudio() {
   );
 }
 
-// Update download links based on current month
+// Play audio from the cache
+function playFromCache(cacheKey) {
+  const buffer = audioBufferCache.get(cacheKey);
+  if (buffer) {
+    if (sound.isPlaying) {
+      sound.stop();
+    }
+    sound.setBuffer(buffer);
+    sound.play();
+    currentMusicIsDefault = (cacheKey === './Beats.mp3');
+  }
+}
+
+// Store preloaded image URLs
+const imageCache = new Map();
+
+// Preload an image
+function preloadImage(url) {
+  return new Promise((resolve, reject) => {
+    if (imageCache.has(url)) {
+      resolve(imageCache.get(url));
+      return;
+    }
+    
+    const img = new Image();
+    img.onload = function() {
+      imageCache.set(url, url);
+      resolve(url);
+    };
+    img.onerror = function() {
+      reject(new Error(`Failed to load image: ${url}`));
+    };
+    img.src = url;
+  });
+}
+
+// Update download links based on current month - with optimized image loading
 function updateDownloadLinks(dateString) {
   const date = new Date(dateString);
   const month = date.toLocaleDateString('en-US', { month: 'long' }).toLowerCase();
@@ -176,9 +324,27 @@ function updateDownloadLinks(dateString) {
   thumbnailLink.href = `${basePath}_cover.png`; // Download the cover image
   thumbnailLink.setAttribute('download', ''); // Ensure it downloads
   
-  // Set the cover image
+  // Set the cover image - use cached version if available
+  const coverUrl = `${basePath}_cover.png`;
   const thumbnailImg = document.getElementById('thumbnail-img');
-  thumbnailImg.src = `${basePath}_cover.png`;
+  
+  if (imageCache.has(coverUrl)) {
+    thumbnailImg.src = imageCache.get(coverUrl);
+  } else {
+    // Set to loading state while we fetch
+    thumbnailImg.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 4V2C6.48 2 2 6.48 2 12h2c0-4.41 3.59-8 8-8zm0 14c-3.31 0-6-2.69-6-6H4c0 4.41 3.59 8 8 8v-2zm0-12V4c-3.31 0-6 2.69-6 6h2c0-2.21 1.79-4 4-4zm0 12c2.21 0 4-1.79 4-4h-2c0 1.1-.9 2-2 2v2z"/></svg>';
+    
+    // Try to preload
+    preloadImage(coverUrl)
+      .then(url => {
+        thumbnailImg.src = url;
+      })
+      .catch(error => {
+        console.error(error);
+        // Set fallback icon if the image failed to load
+        thumbnailImg.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>';
+      });
+  }
 }
 
 // Delay WebGL initialization until after the page has loaded
@@ -504,8 +670,36 @@ document.addEventListener('mousemove', function (e) {
   mouseY = (e.clientY - windowHalfY) / 100;
 });
 
-// Handle scroll to change timeline
+// Add debounce function to limit how often a function can be called
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
+// Track scroll direction and amount
+let scrollAccumulator = 0;
+const SCROLL_THRESHOLD = 50; // Adjust this value to control sensitivity
+
+// Handle scroll to change timeline - with debounce and accumulation
 document.addEventListener('wheel', function(e) {
+  // Add to accumulator
+  scrollAccumulator += e.deltaY;
+  
+  // Only process scroll after threshold is reached
+  if (Math.abs(scrollAccumulator) < SCROLL_THRESHOLD) return;
+  
+  const direction = scrollAccumulator > 0 ? 1 : -1;
+  scrollAccumulator = 0; // Reset accumulator
+  
+  // Call the debounced handler
+  debouncedChangeMonth(direction);
+}, { passive: true });
+
+// Debounced function to change months
+const debouncedChangeMonth = debounce(function(direction) {
   const timeline = document.getElementById('timeline');
   const markers = timeline.querySelectorAll('.timeline-marker');
   
@@ -515,13 +709,13 @@ document.addEventListener('wheel', function(e) {
     timelineConfig.currentMonth : 0;
     
   // Scroll down = next month, scroll up = previous month
-  if (e.deltaY > 0 && currentIndex < markers.length - 1) {
+  if (direction > 0 && currentIndex < markers.length - 1) {
     currentIndex++;
-  } else if (e.deltaY < 0 && currentIndex > 0) {
+  } else if (direction < 0 && currentIndex > 0) {
     currentIndex--;
   }
   
   selectMonth(currentIndex, markers[currentIndex]);
-}, { passive: true });
+}, 250); // 250ms delay between scroll events
 
 // This animation code was moved to the initScene function
