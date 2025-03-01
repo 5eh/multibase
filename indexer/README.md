@@ -1,6 +1,9 @@
 # 📊 BlockBeats Indexer
 
-A specialized [Squid](https://subsquid.io) project that serves as the foundation for the BlockBeats platform. It indexes [Kusama](https://kusama.network) blockchain transactions and serves them via GraphQL API, providing the critical data infrastructure for our music generation pipeline.
+A specialized [Squid](https://subsquid.io) project that serves as the foundation
+for the BlockBeats platform. It indexes [Kusama](https://kusama.network)
+blockchain transactions and serves them via GraphQL API, providing the critical
+data infrastructure for our music generation pipeline.
 
 ## ✨ Features
 
@@ -34,20 +37,24 @@ sqd build
 sqd run .
 ```
 
-The GraphQL playground will be available at [localhost:4350/graphql](http://localhost:4350/graphql).
+The GraphQL playground will be available at
+[localhost:4350/graphql](http://localhost:4350/graphql).
 
 ## 📋 Integration with BlockBeats
 
 This indexer is the first component in the BlockBeats pipeline:
 
 1. **Indexer** (this component) - Captures and indexes blockchain transactions
-2. **Transaction Analysis** - Analyzes transaction patterns and determines music styles
+2. **Transaction Analysis** - Analyzes transaction patterns and determines music
+   styles
 3. **News Fetcher** - Retrieves historical news about the blockchain
 4. **Lyrics Generator** - Transforms insights into creative lyrics
 5. **Music Creator** - Generates music based on the analysis and lyrics
 6. **Thumbnail Generator** - Creates album cover art for the music
 
-The indexer provides the raw blockchain data that drives our AI-powered music generation system, enabling BlockBeats to translate transaction patterns into unique musical compositions.
+The indexer provides the raw blockchain data that drives our AI-powered music
+generation system, enabling BlockBeats to translate transaction patterns into
+unique musical compositions.
 
 ## 🔍 Available Data
 
@@ -60,13 +67,15 @@ The indexer provides access to:
 - Account balances
 - Historical time-series data
 
-This data serves as the foundation for identifying patterns, trends, and rhythms in blockchain activity that are later transformed into musical elements.
+This data serves as the foundation for identifying patterns, trends, and rhythms
+in blockchain activity that are later transformed into musical elements.
 
 ## 🔄 Development Flow
 
 ### 1. Define Database Schema
 
-The database schema is defined in `schema.graphql`, using GraphQL type declarations with custom directives.
+The database schema is defined in `schema.graphql`, using GraphQL type
+declarations with custom directives.
 
 ### 2. Generate TypeORM Classes
 

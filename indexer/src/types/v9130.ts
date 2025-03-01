@@ -1,3 +1,3 @@
-import {sts, Result, Option, Bytes, BitSequence} from './support'
+import { BitSequence, Bytes, Option, Result, sts } from "./support";
 
-export const AccountId32 = sts.bytes()
+export const AccountId32 = sts.bytes();

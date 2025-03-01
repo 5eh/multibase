@@ -2,10 +2,10 @@ manifestVersion: subsquid.io/v0.1
 name: indexer
 version: 1
 description: Substrate squid template
-build: 
+build:
 deploy:
   addons:
-    postgres: 
+    postgres:
     rpc:
       - kusama.http
   processor:
